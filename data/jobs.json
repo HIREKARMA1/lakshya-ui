@@ -1,0 +1,10 @@
+[
+  { "id": "j1", "roleKey": "delivery", "company": "Surya Mart", "verified": true, "urgent": true, "city": "Bhubaneswar", "salaryMin": 14000, "salaryMax": 22000, "type": "fullTime", "expKey": "fresher", "postedDays": 1, "applied": 7, "openings": 5 },
+  { "id": "j2", "roleKey": "driver", "company": "Mahalaxmi Cabs", "verified": true, "urgent": false, "city": "Cuttack", "salaryMin": 18000, "salaryMax": 28000, "type": "fullTime", "expKey": "exp12", "postedDays": 2, "applied": 12, "openings": 3 },
+  { "id": "j3", "roleKey": "electrician", "company": "Konark Builders", "verified": true, "urgent": true, "city": "Puri", "salaryMin": 16000, "salaryMax": 24000, "type": "fullTime", "expKey": "exp35", "postedDays": 1, "applied": 4, "openings": 2 },
+  { "id": "j4", "roleKey": "cook", "company": "Annapurna Foods", "verified": false, "urgent": false, "city": "Rourkela", "salaryMin": 12000, "salaryMax": 18000, "type": "partTime", "expKey": "fresher", "postedDays": 3, "applied": 2, "openings": 1 },
+  { "id": "j5", "roleKey": "security", "company": "Indus Cleaners", "verified": true, "urgent": false, "city": "Bhubaneswar", "salaryMin": 13000, "salaryMax": 16000, "type": "fullTime", "expKey": "exp12", "postedDays": 4, "applied": 9, "openings": 4 },
+  { "id": "j6", "roleKey": "cleaner", "company": "Utkal Retail", "verified": true, "urgent": true, "city": "Sambalpur", "salaryMin": 10000, "salaryMax": 14000, "type": "partTime", "expKey": "fresher", "postedDays": 1, "applied": 0, "openings": 2 },
+  { "id": "j7", "roleKey": "dataEntry", "company": "Bharat Logistics", "verified": true, "urgent": false, "city": "Bhubaneswar", "salaryMin": 15000, "salaryMax": 20000, "type": "fullTime", "expKey": "exp12", "postedDays": 6, "applied": 18, "openings": 2 },
+  { "id": "j8", "roleKey": "welder", "company": "Konark Builders", "verified": false, "urgent": true, "city": "Berhampur", "salaryMin": 18000, "salaryMax": 26000, "type": "fullTime", "expKey": "exp35", "postedDays": 2, "applied": 3, "openings": 6 }
+]

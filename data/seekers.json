@@ -1,0 +1,17 @@
+[
+  { "id": "s1", "name": "Ashwini", "roleKey": "security", "city": "Sonipat", "lastSalary": 20000, "expYears": 8, "educationKey": "12th", "activeDays": 1 },
+  { "id": "s2", "name": "Arvind Singh", "roleKey": "driver", "city": "Budaun", "lastSalary": 18000, "expYears": 4, "educationKey": "12th", "activeDays": 5 },
+  { "id": "s3", "name": "Sanju Kumar", "roleKey": "any", "city": "Siyana", "lastSalary": 0, "expYears": 0, "educationKey": "10th", "activeDays": 4 },
+  { "id": "s4", "name": "Jayprakash", "roleKey": "delivery", "city": "Bhubaneswar", "lastSalary": 16000, "expYears": 2, "educationKey": "12th", "activeDays": 2 },
+  { "id": "s5", "name": "Rakesh Behera", "roleKey": "electrician", "city": "Cuttack", "lastSalary": 19000, "expYears": 6, "educationKey": "iti", "activeDays": 1 },
+  { "id": "s6", "name": "Lalita Devi", "roleKey": "cook", "city": "Puri", "lastSalary": 12000, "expYears": 3, "educationKey": "10th", "activeDays": 7 },
+  { "id": "s7", "name": "Manoj Patra", "roleKey": "welder", "city": "Rourkela", "lastSalary": 22000, "expYears": 9, "educationKey": "iti", "activeDays": 3 },
+  { "id": "s8", "name": "Sunita Sahoo", "roleKey": "cleaner", "city": "Berhampur", "lastSalary": 9000, "expYears": 1, "educationKey": "10th", "activeDays": 6 },
+  { "id": "s9", "name": "Ramesh Yadav", "roleKey": "driver", "city": "Patna", "lastSalary": 17000, "expYears": 5, "educationKey": "12th", "activeDays": 2 },
+  { "id": "s10", "name": "Pooja Sharma", "roleKey": "cook", "city": "Lucknow", "lastSalary": 14000, "expYears": 4, "educationKey": "10th", "activeDays": 1 },
+  { "id": "s11", "name": "Ujjwal Singh", "roleKey": "electrician", "city": "Gwalior", "lastSalary": 21000, "expYears": 3, "educationKey": "iti", "activeDays": 4 },
+  { "id": "s12", "name": "Kiran Kumari", "roleKey": "cleaner", "city": "Ranchi", "lastSalary": 10000, "expYears": 2, "educationKey": "10th", "activeDays": 3 },
+  { "id": "s13", "name": "Suresh Verma", "roleKey": "security", "city": "Jaipur", "lastSalary": 19500, "expYears": 7, "educationKey": "12th", "activeDays": 5 },
+  { "id": "s14", "name": "Anita Devi", "roleKey": "delivery", "city": "Kanpur", "lastSalary": 15000, "expYears": 1, "educationKey": "10th", "activeDays": 2 },
+  { "id": "s15", "name": "Vikas Gupta", "roleKey": "welder", "city": "Indore", "lastSalary": 23000, "expYears": 8, "educationKey": "iti", "activeDays": 6 }
+]

@@ -1,0 +1,560 @@
+{
+  "pages": {
+    "jobs": {
+      "kicker": "{{count}} jobs available nearby",
+      "title": "Blue Collar Jobs in Bharat",
+      "subtitle": "Verified jobs near you — driver, electrician, cook, delivery, security and more. Apply free, no registration fee.",
+      "facts": [
+        { "k": "Location", "v": "Pan Bharat" },
+        { "k": "Role", "v": "Verified jobs" },
+        { "k": "Response", "v": "Under 30 mins" }
+      ],
+      "filters": {
+        "title": "Filters",
+        "clear": "Clear all",
+        "role": "Job Role",
+        "anyRole": "All Roles",
+        "salary": "Salary Range",
+        "anySalary": "Any Salary",
+        "salary0_15": "₹0 – ₹15,000",
+        "salary15_25": "₹15,000 – ₹25,000",
+        "salary25plus": "₹25,000+",
+        "type": "Job Type",
+        "anyType": "Any Type",
+        "fullTime": "Full Time",
+        "partTime": "Part Time",
+        "location": "Location",
+        "locationPh": "Enter city (e.g. Bhubaneswar)",
+        "apply": "Apply Filters"
+      },
+      "help": {
+        "title": "Need Help?",
+        "body": "Our team is here for you. Call or WhatsApp and we will guide you to the right job.",
+        "cta": "Call Now"
+      },
+      "card": {
+        "urgent": "Urgent Hiring",
+        "verified": "Verified",
+        "location": "Location",
+        "salary": "Salary Range",
+        "type": "Job Type",
+        "exp": "Experience",
+        "perMonth": "/month",
+        "posted": "Posted {{n}}d ago",
+        "applied": "{{n}} applied",
+        "openings": "{{n}} openings",
+        "view": "View Details",
+        "apply": "Apply Now"
+      },
+      "type": { "fullTime": "Full Time", "partTime": "Part Time" },
+      "exp": { "fresher": "Fresher (0 years)", "exp12": "1-2 years", "exp35": "3-5 years" },
+      "empty": "No jobs match your filters.",
+      "strip": [
+        { "k": "Salary Range", "v": "₹10,000 – ₹40,000 /month" },
+        { "k": "Top Skills", "v": "Role skills · Communication" },
+        { "k": "Documents", "v": "Aadhaar card" }
+      ],
+      "search": { "placeholder": "Search by role, company or city…", "cta": "Search" },
+      "results": {
+        "count": "Showing {{n}} jobs",
+        "sort": "Sort",
+        "sortNewest": "Newest first",
+        "sortSalary": "Salary: High to low",
+        "sortRelevant": "Most relevant"
+      },
+      "bookmark": "Save job",
+      "extras": {
+        "featured": "Featured",
+        "ctaTitle": "Get a job instantly with just a Call or WhatsApp",
+        "ctaBody": "Skip long forms. Reach our hiring desk through a quick call or WhatsApp and we will match you to a verified opening near you.",
+        "callCta": "Call our hiring desk",
+        "waCta": "Chat on WhatsApp",
+        "instant": "Instant reply",
+        "contactCall": "Call now",
+        "contactWa": "WhatsApp us",
+        "faqKicker": "Frequently asked",
+        "faqTitle": "Questions seekers ask before applying",
+        "faqBody": "Everything you should know about applying, fees and verification on LAKSHYA.",
+        "faqs": [
+          { "q": "Is there any fee to apply for jobs on LAKSHYA?", "a": "No. Applying for any job on LAKSHYA is completely free for seekers. We never ask for money to share contact details or schedule interviews." },
+          { "q": "What documents do I need to apply?", "a": "An Aadhaar card is enough to get started. A few roles may additionally ask for a driving licence or a basic skill certificate." },
+          { "q": "Can I get a job without prior experience?", "a": "Yes. Many roles such as delivery, helper and cleaner welcome freshers. The job card clearly mentions the required experience." },
+          { "q": "How quickly will I hear back after applying?", "a": "Most verified employers respond within 30 minutes during working hours. You will get a call or WhatsApp message directly." }
+        ],
+        "browseKicker": "Explore",
+        "browseTitle": "Browse other job categories",
+        "viewAll": "View all",
+        "categories": [
+          { "id": "delivery", "name": "Delivery Partner" },
+          { "id": "driver", "name": "Driver" },
+          { "id": "electrician", "name": "Electrician" },
+          { "id": "cook", "name": "Cook" },
+          { "id": "security", "name": "Security Guard" },
+          { "id": "cleaner", "name": "Cleaner" },
+          { "id": "welder", "name": "Welder" },
+          { "id": "dataEntry", "name": "Data Entry" },
+          { "id": "helper", "name": "Helper" },
+          { "id": "promoter", "name": "In-store Promoter" },
+          { "id": "supervisor", "name": "Supervisor" },
+          { "id": "machine", "name": "Machine Operator" }
+        ],
+        "popularKicker": "Popular searches",
+        "popularTitle": "Trending job searches",
+        "popular": [
+          "Data Collection Jobs",
+          "In-store Promoter Jobs",
+          "Hospitality Manager Jobs",
+          "Data Entry Jobs",
+          "Store Helper Jobs",
+          "Work From Home Jobs"
+        ],
+        "citiesKicker": "Browse by city",
+        "citiesTitle": "Jobs in top cities",
+        "cities": [
+          "Jobs in Bhubaneswar",
+          "Jobs in Cuttack",
+          "Jobs in Puri",
+          "Jobs in Rourkela",
+          "Jobs in Sambalpur",
+          "Jobs in Berhampur"
+        ]
+      }
+    },
+    "seekers": {
+      "kicker": "{{count}} candidates available",
+      "title": "Hire Workers Instantly Across Bharat",
+      "subtitle": "LAKSHYA helps employers find verified, hyperlocal candidates — from delivery and helpers to technicians and cooks. Post and hire in under 30 minutes.",
+      "facts": [
+        { "k": "Location", "v": "Pan Bharat" },
+        { "k": "Action", "v": "Post Job / Find Candidates" },
+        { "k": "Hiring Speed", "v": "Under 30 mins" }
+      ],
+      "highlights": [
+        { "k": "Candidate Access", "v": "Nearby & Verified Profiles" },
+        { "k": "Top Roles", "v": "Delivery · Helpers · Technicians · Cook" },
+        { "k": "Posting Effort", "v": "2-Min Quick Job Post" }
+      ],
+      "filters": {
+        "title": "Filter",
+        "clear": "Clear all",
+        "role": "Job Role",
+        "anyRole": "All Roles",
+        "city": "City",
+        "cityPh": "e.g. Bhubaneswar, Cuttack",
+        "exp": "Work Experience",
+        "anyExp": "Select experience",
+        "expFresher": "Fresher (0 years)",
+        "exp12": "1-2 years",
+        "exp35": "3-5 years",
+        "exp6": "6+ years",
+        "apply": "Apply Filters"
+      },
+      "card": {
+        "location": "Location",
+        "lastSalary": "Last Salary",
+        "notSpec": "Not Spec.",
+        "exp": "Experience",
+        "expFresher": "Fresher",
+        "expYears": "{{n}} years exp",
+        "edu": "Education",
+        "active": "Active {{n}}d ago",
+        "view": "View Candidate"
+      },
+      "edu": { "10th": "10th Pass", "12th": "12th Pass", "iti": "ITI" },
+      "empty": "No candidates match your filters."
+    },
+    "login": {
+      "seeker": {
+        "kicker": "For Job Seekers",
+        "title": "Find Your Dream Job",
+        "subtitle": "Find jobs that match your skills, experience and goals — all in one place.",
+        "tagline": "Get Hired in Minutes."
+      },
+      "provider": {
+        "kicker": "For Employers",
+        "title": "Hire Your Dream Team",
+        "subtitle": "A gateway to skilled opportunities and a brighter future for Bharat.",
+        "tagline": "Post Jobs. Hire Fast."
+      },
+      "left": {
+        "title": "Find Your Dream Job",
+        "subtitle": "Find jobs that match your skills, experience and goals — all in one place."
+      },
+      "card": {
+        "tagline": "Get Hired in Minutes.",
+        "phoneLabel": "Phone Number",
+        "phonePh": "Enter 10-digit phone number",
+        "emailLabel": "Email Address",
+        "emailPh": "you@company.com",
+        "continue": "Continue",
+        "otpLabel": "Enter OTP",
+        "otpPh": "6-digit code sent on WhatsApp",
+        "verify": "Verify & Continue",
+        "resend": "Resend OTP",
+        "back": "← Back",
+        "useDifferent": "← Use a different method",
+        "continueWith": "Continue with",
+        "continueMobile": "Continue with mobile number",
+        "continueEmail": "Continue with email",
+        "continueGoogle": "Continue with Google",
+        "or": "or",
+        "terms": "By continuing you agree to our Terms and Privacy.",
+        "areEmployer": "Are you an employer?",
+        "loginProvider": "Login as Provider",
+        "lookingJob": "Looking for a job?",
+        "loginSeeker": "Login as Seeker"
+      }
+    },
+    "jobDetail": {
+      "notFound": "Job not found",
+      "backToJobs": "Back to Jobs",
+      "share": "Share",
+      "save": "Save",
+      "urgent": "Urgent Hiring",
+      "posted": "Posted {{date}}",
+      "descriptionTitle": "Job Description",
+      "descriptionLead": "{{role}} at {{company}}, based in {{city}}. We are hiring motivated candidates to join our growing team. {{openings}} — apply quickly to secure your spot.",
+      "openings_one": "{{n}} opening available",
+      "openings_other": "{{n}} openings available",
+      "keyResponsibilities": "Key Responsibilities:",
+      "requirements": "Requirements:",
+      "benefits": "Benefits:",
+      "benefitsList": [
+        "Competitive monthly salary based on experience",
+        "On-time payments, every month",
+        "Skill development & growth opportunities",
+        "Supportive team and verified employer"
+      ],
+      "overviewTitle": "Job Overview",
+      "locationDetails": "Location Details",
+      "jobDetails": "Job Details",
+      "address": "Address",
+      "addressValue": "{{company}} Premises, {{city}}, India",
+      "city": "City",
+      "pincode": "Pincode",
+      "state": "State",
+      "defaultState": "Odisha",
+      "defaultPincode": "751001",
+      "salaryRange": "Salary Range",
+      "salaryValue": "₹{{min}} – ₹{{max}} /monthly",
+      "jobTitle": "Job Title",
+      "industryType": "Industry Type",
+      "workingHours": "Working Hours",
+      "education": "Education Qualification",
+      "availableShifts": "Available Shifts",
+      "hiringProcess": "Hiring Process",
+      "hiringProcessValue": "Phone screening",
+      "keySkills": "Key Skills",
+      "applyNow": "Apply Now",
+      "saveJob": "Save Job",
+      "deadline": "Application Deadline",
+      "deadlineValue": "{{date}}, {{days}} days left",
+      "jobType": "Job Type",
+      "applicationActivity": "Application Activity",
+      "applicationActivityValue": "{{n}} applied",
+      "opening": "Opening",
+      "reviewsTitle": "Reviews & Ratings",
+      "lakshyaRating": "LAKSHYA Rating",
+      "notAvailable": "Not Available",
+      "reviewsCount": "0 reviews",
+      "viewReviews": "View Reviews →",
+      "verifiedEmployer": "Verified employer on LAKSHYA",
+      "emptyJobs": "No jobs available right now. Please check back soon."
+    }
+  },
+  "roles": {
+    "delivery": "Delivery Partner",
+    "driver": "Driver",
+    "electrician": "Electrician",
+    "cook": "Cook",
+    "security": "Security Guard",
+    "cleaner": "Cleaner",
+    "dataEntry": "Data Entry",
+    "welder": "Welder",
+    "any": "Any Role"
+  },
+  "brand": { "name": "LAKSHYA", "tagline": "Verified Hyperlocal Jobs" },
+  "nav": {
+    "jobs": "Find Jobs",
+    "employers": "For Employers",
+    "categories": "Categories",
+    "about": "About",
+    "contact": "Contact",
+    "hireCta": "Hire Your Team",
+    "jobCta": "Find Your Job"
+  },
+  "topbar": {
+    "whatsapp": "WhatsApp",
+    "call": "Call Now",
+    "language": "Language"
+  },
+  "hero": {
+    "eyebrow": "Verified · Hyperlocal · Instant",
+    "title1": "From every village,",
+    "title2": "to every workplace —",
+    "title3": "for Bharat.",
+    "subtitle": "LAKSHYA connects verified local workers with trusted employers near them. Get hired in 30 minutes.",
+    "primaryCta": "Hire Your Team",
+    "secondaryCta": "Find Your Job",
+    "stats": [
+      { "k": "1,200+", "v": "Active Seekers" },
+      { "k": "80+", "v": "Verified Employers" },
+      { "k": "30 min", "v": "Avg. Time to Hire" }
+    ],
+    "card": {
+      "apply": "Apply",
+      "openings": "{{n}} opening",
+      "openings_plural": "{{n}} openings"
+    }
+  },
+  "categories": {
+    "eyebrow": "Popular Roles",
+    "title": "Find work in the field you know best",
+    "subtitle": "Browse roles hiring near you right now.",
+    "seeAll": "See all",
+    "items": [
+      { "id": "delivery", "name": "Delivery Partner", "openings": "320 openings" },
+      { "id": "driver", "name": "Driver", "openings": "210 openings" },
+      { "id": "data-entry", "name": "Data Entry", "openings": "145 openings" },
+      { "id": "promoter", "name": "In-store Promoter", "openings": "98 openings" },
+      { "id": "electrician", "name": "Electrician", "openings": "76 openings" },
+      { "id": "cook", "name": "Cook", "openings": "112 openings" },
+      { "id": "security", "name": "Security Guard", "openings": "140 openings" },
+      { "id": "cleaner", "name": "Cleaner", "openings": "88 openings" },
+      { "id": "welder", "name": "Welder", "openings": "54 openings" }
+    ]
+  },
+  "nearby": {
+    "eyebrow": "Nearby Jobs",
+    "kpi": "50+",
+    "kpiLabel": "jobs within 10 km of you",
+    "body": "LAKSHYA pinpoints openings on a live map so you spend less time commuting and more time earning.",
+    "cta": "View jobs near me"
+  },
+  "refer": {
+    "eyebrow": "Refer & Earn",
+    "title": "Refer a friend.",
+    "amount": "₹20",
+    "amountLabel": "Earn",
+    "afterAmount": "instantly to your UPI.",
+    "body": "Every friend who registers on LAKSHYA puts ₹20 in your wallet. No limits. Withdraw anytime.",
+    "cta": "Start referring",
+    "bullets": ["No limit on referrals", "Withdraw anytime", "UPI transfer", "Safe & secure"]
+  },
+  "vision": {
+    "eyebrow": "Why LAKSHYA",
+    "heading1": "We make finding jobs",
+    "heading2": "simple, swift and secure.",
+    "blocks": [
+      {
+        "label": "Our Vision",
+        "body": "Unlock 100 million jobs by empowering 10 million MSMEs and enterprises across Bharat."
+      },
+      {
+        "label": "Our Mission",
+        "body": "Build the most trusted, accessible employment platform — structured, scalable, inclusive."
+      },
+      {
+        "label": "Our Purpose",
+        "body": "Bridge the rural–urban, formal–informal, skilled–unskilled gaps with one verified network."
+      }
+    ]
+  },
+  "how": {
+    "eyebrow": "How It Works",
+    "title": "Three steps. Zero paperwork.",
+    "steps": [
+      { "n": "01", "t": "Create your profile", "d": "Sign up in your language. Add your skills, location and availability in under two minutes." },
+      { "n": "02", "t": "Get matched nearby", "d": "Our engine surfaces verified roles within your commute radius — updated in real time." },
+      { "n": "03", "t": "Start earning", "d": "Accept, interview, and join. Wages paid directly to your UPI after every shift." }
+    ]
+  },
+  "what": {
+    "eyebrow": "What we do",
+    "title": "A multilingual, multimodal employment network for Bharat.",
+    "body": "LAKSHYA lets anyone discover a job through voice, text, or a quick call — in their own language. We are building the quick-commerce layer for work.",
+    "ctaHire": "Find your next hire",
+    "ctaJob": "Find your next job"
+  },
+  "employers": {
+    "eyebrow": "Trusted by",
+    "title": "Local employers hiring on LAKSHYA",
+    "names": ["Bharat Logistics", "Annapurna Foods", "Surya Mart", "Konark Builders", "Utkal Retail", "Mahalaxmi Cabs", "Indus Cleaners", "Saheli Salon"]
+  },
+  "footer": {
+    "tagline": "From every corner. To every career. For Bharat.",
+    "linksTitle": "Platform",
+    "links": ["Find Jobs", "For Employers", "Categories", "Refer & Earn", "Live Jobs"],
+    "companyTitle": "Company",
+    "company": ["About", "Careers", "Press", "Contact"],
+    "legalTitle": "Legal",
+    "legal": ["Terms", "Privacy", "Refund Policy"],
+    "address": "Bhubaneswar, Odisha · Bharat",
+    "rights": "© 2026 LAKSHYA. All rights reserved."
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No",
+    "optional": "Optional",
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next",
+    "backToLogin": "Back to Login",
+    "stepOf": "Step {{step}} of {{total}}:",
+    "today": "Today",
+    "daysAgo": "{{n}}d ago",
+    "verified": "Verified",
+    "new": "New",
+    "monthly": "Monthly",
+    "openings": "{{n}} opening",
+    "openings_plural": "{{n}} openings",
+    "applied": "{{n}} applied",
+    "configureGoogle": "(configure GOOGLE_CLIENT_ID)",
+    "gender": { "male": "Male", "female": "Female", "other": "Other" }
+  },
+  "toast": {
+    "googleFailed": "Google sign-in failed",
+    "signedIn": "Signed in successfully",
+    "otpSent": "OTP sent to your email",
+    "otpFailed": "Failed to send OTP",
+    "verified": "Verified successfully",
+    "invalidOtp": "Invalid OTP",
+    "otpResent": "OTP resent",
+    "otpResendFailed": "Could not resend OTP",
+    "registerSuccess": "Registration complete",
+    "registerFailed": "Registration failed. Please login first."
+  },
+  "modal": {
+    "loginRequired": {
+      "title": "Login Required",
+      "body": "Please login to apply for this job.",
+      "cancel": "Cancel",
+      "login": "Login Now"
+    }
+  },
+  "register": {
+    "shared": {
+      "complete": "Complete Registration",
+      "emojis": "👷‍♂️👩‍🌾👨‍🍳👩‍⚕️🧑‍🔧"
+    },
+    "seeker": {
+      "sideTitle": "Find Your Dream Job",
+      "sideSubtitle": "Find jobs that match your skills, experience, and goals — all in one place",
+      "steps": ["Personal Information", "Skills & Experience", "Location", "Referral Details"],
+      "errors": { "nameRequired": "Name is required" },
+      "fields": {
+        "fullName": "Full Name",
+        "fullNamePh": "Enter your full name",
+        "dob": "Date of Birth",
+        "age": "Age",
+        "agePh": "Enter your age",
+        "gender": "Gender",
+        "photo": "Profile Photo",
+        "photoUpload": "Upload your profile photo",
+        "photoHint": "JPG or PNG • Max 5MB",
+        "primarySkill": "Primary Skill / Trade",
+        "primarySkillPh": "e.g. Cook, Driver, Electrician",
+        "experience": "Experience",
+        "preferredRole": "Preferred Role",
+        "preferredRolePh": "What role are you looking for?",
+        "pincode": "Pincode",
+        "city": "City",
+        "district": "District",
+        "state": "State"
+      },
+      "experience": {
+        "fresher": "Fresher (0 years)",
+        "exp12": "1-2 years",
+        "exp35": "3-5 years",
+        "exp5plus": "5+ years"
+      },
+      "referral": {
+        "question": "Do you have a referral code?",
+        "codeLabel": "Enter Your Referral Code Here",
+        "codePh": "ENTER CODE (E.G., ABCD1234)",
+        "hint": "Have a referral code? Enter all 8 characters to help your referrer earn rewards!"
+      },
+      "aadhaar": {
+        "question": "Do you want to verify your Aadhaar now?",
+        "badge": "Verify & Earn ₹20 Per Referral"
+      }
+    },
+    "provider": {
+      "sideTitle": "Hire Your Dream Team",
+      "sideSubtitle": "A gateway to skilled opportunities and a brighter future for Bharat",
+      "title": "Help us get to know you better !",
+      "steps": [
+        "Provider Type & Basic Information",
+        "Business Registration Details",
+        "Location & Address",
+        "Contact Details",
+        "Documents & Photos"
+      ],
+      "referral": {
+        "title": "Have a referral code?",
+        "label": "Referral Code",
+        "ph": "Enter referral code (optional)"
+      },
+      "providerType": "Provider Type",
+      "fullName": "Full Name",
+      "fullNamePh": "Enter your full name",
+      "legalName": "Legal Business Name",
+      "legalNamePh": "As per registration documents",
+      "incorporationLabel": "Incorporation Type",
+      "searchAddr": "Search Address",
+      "searchAddrPh": "Start typing your business address",
+      "pincode": "Pincode",
+      "area": "Area",
+      "locality": "Locality",
+      "city": "City",
+      "district": "District",
+      "state": "State",
+      "email": "Email",
+      "phone": "Phone",
+      "primaryContact": "Primary contact method",
+      "primaryPhone": "Phone",
+      "primaryEmail": "Email",
+      "logo": "Company Logo",
+      "logoUpload": "Upload company logo",
+      "logoHint": "JPG or PNG • Max 5MB",
+      "document": "Business Document",
+      "documentUpload": "Upload registration / GST document",
+      "documentHint": "PDF or image • Max 10MB",
+      "types": {
+        "enterprise": "Enterprise",
+        "msme": "MSME / Small Business",
+        "startup": "Startup",
+        "agency": "Agency / Consultancy",
+        "individual": "Individual Employer"
+      },
+      "incorporation": {
+        "pvt": "Private Limited (Pvt. Ltd.)",
+        "public": "Public Limited Company",
+        "llp": "Limited Liability Partnership (LLP)",
+        "partnership": "Partnership Firm",
+        "sole": "Sole Proprietorship",
+        "opc": "One Person Company (OPC)",
+        "ngo": "NGO / Trust / Society"
+      },
+      "addressDetails": "Address Details",
+      "addressSearchHint": "Start typing to search for your address",
+      "verified": "Verified",
+      "verify": "Verify",
+      "primaryModeLabel": "Primary Mode of Communication",
+      "logoCta": "Upload Company Logo",
+      "logoSub": "PNG, JPG up to 5MB",
+      "docCta": "Upload Registration Document",
+      "docSub": "PDF, PNG, JPG up to 10MB",
+      "referralHint": "Have a code? Enter all 8 characters so your referrer gets credit."
+    }
+  },
+  "decorative": {
+    "bubbles": [
+      { "label": "Chef", "emoji": "👨‍🍳" },
+      { "label": "Tailor", "emoji": "🧵" },
+      { "label": "Delivery", "emoji": "🛵" },
+      { "label": "Construction", "emoji": "👷" },
+      { "label": "Farmer", "emoji": "🌾" }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --radius: 10px;
+  --background: 0 0% 100%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --primary: 214 72% 38%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 40% 98%;
+  --secondary-foreground: 222 47% 11%;
+  --muted: 210 40% 98%;
+  --muted-foreground: 215 16% 47%;
+  --accent: 199 100% 45%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 358 65% 52%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 214 72% 38%;
+
+  --sky: #00a2e5;
+  --yellow: #fec40d;
+  --orange: #f58020;
+  --red: #d64246;
+  --green: #098855;
+  --ink: #0f1622;
+  --soft: #f6f8fb;
+  --line: #e6e8ec;
+
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-indic: "Noto Sans", "Noto Sans Devanagari", "Noto Sans Oriya", system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  html[lang="hi"] body,
+  html[lang="or"] body,
+  html[lang="hi"] h1,
+  html[lang="hi"] h2,
+  html[lang="hi"] h3,
+  html[lang="hi"] h4,
+  html[lang="or"] h1,
+  html[lang="or"] h2,
+  html[lang="or"] h3,
+  html[lang="or"] h4 {
+    font-family: var(--font-indic);
+    letter-spacing: -0.005em;
+  }
+}
+
+.lk-underline {
+  background-image: linear-gradient(transparent 65%, var(--yellow) 65%, var(--yellow) 95%, transparent 95%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 0 0.1em;
+}
+
+.lk-marquee {
+  animation: lk-marquee 35s linear infinite;
+}
+
+@keyframes lk-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.lk-grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(27, 82, 164, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(27, 82, 164, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}

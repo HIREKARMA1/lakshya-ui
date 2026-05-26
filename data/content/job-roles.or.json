@@ -1,0 +1,130 @@
+{
+  "delivery": {
+    "industry": "Logistics & Delivery",
+    "skills": ["Two-wheeler riding", "Navigation apps", "Customer handling"],
+    "education": "10th pass or equivalent",
+    "hours": "Flexible — morning & evening slots",
+    "shifts": ["Morning", "Evening"],
+    "responsibilities": [
+      { "title": "Pickup", "body": "Collect orders from store/warehouse on time." },
+      { "title": "Delivery", "body": "Deliver orders to customers safely and on schedule." },
+      { "title": "Customer service", "body": "Handle customer queries politely on doorstep." },
+      { "title": "Cash handling", "body": "Manage COD collections and daily settlement." }
+    ],
+    "requirements": [
+      "Own two-wheeler with valid license preferred.",
+      "Smartphone with internet.",
+      "Knowledge of local area."
+    ]
+  },
+  "driver": {
+    "industry": "Transportation",
+    "skills": ["Commercial driving", "Route knowledge", "Vehicle maintenance"],
+    "education": "Valid commercial driving license",
+    "hours": "As per the Order — all over India transport",
+    "shifts": ["Rotational"],
+    "responsibilities": [
+      { "title": "Driving", "body": "Safely operate the assigned vehicle across designated routes." },
+      { "title": "Loading", "body": "Oversee safe loading at pickup points following safety protocols." },
+      { "title": "Unloading", "body": "Manage delivery and discharge operations at destinations." },
+      { "title": "Reporting", "body": "Maintain accurate trip logs, delivery receipts, and checklists." },
+      { "title": "Compliance", "body": "Adhere strictly to traffic and transport regulations." }
+    ],
+    "requirements": [
+      "Valid heavy vehicle commercial driver's license (CDL).",
+      "Prior experience driving similar vehicles preferred.",
+      "Good knowledge of routes and basic vehicle maintenance.",
+      "Ability to manage long-distance trips."
+    ]
+  },
+  "electrician": {
+    "industry": "Construction & Maintenance",
+    "skills": ["Wiring", "Fault diagnosis", "Safety protocols"],
+    "education": "ITI Electrician certificate",
+    "hours": "9 AM – 6 PM, site-based",
+    "shifts": ["Day"],
+    "responsibilities": [
+      { "title": "Installation", "body": "Install wiring, fixtures, and electrical equipment." },
+      { "title": "Maintenance", "body": "Diagnose and repair faults in residential/commercial sites." },
+      { "title": "Safety", "body": "Follow electrical safety codes at all times." }
+    ],
+    "requirements": ["ITI Electrician certificate.", "1+ year hands-on experience.", "Knowledge of safety standards."]
+  },
+  "cook": {
+    "industry": "Food & Hospitality",
+    "skills": ["Indian cuisine", "Kitchen hygiene", "Quantity cooking"],
+    "education": "No formal requirement",
+    "hours": "Split shift — breakfast & dinner prep",
+    "shifts": ["Morning", "Evening"],
+    "responsibilities": [
+      { "title": "Cooking", "body": "Prepare meals as per the menu and quantity requirements." },
+      { "title": "Hygiene", "body": "Maintain kitchen cleanliness and food safety standards." },
+      { "title": "Inventory", "body": "Manage ingredients and report stock requirements." }
+    ],
+    "requirements": ["Prior cooking experience in similar setup.", "Knowledge of regional Indian cuisine."]
+  },
+  "security": {
+    "industry": "Facility Services",
+    "skills": ["Vigilance", "Reporting", "Basic communication"],
+    "education": "10th pass preferred",
+    "hours": "12-hour shifts, rotational",
+    "shifts": ["Day", "Night"],
+    "responsibilities": [
+      { "title": "Surveillance", "body": "Monitor premises and CCTV for unusual activity." },
+      { "title": "Access control", "body": "Verify and log visitor entry/exit." },
+      { "title": "Reporting", "body": "Document daily incidents and shift handover notes." }
+    ],
+    "requirements": ["Physically fit.", "Basic communication skills.", "Willing to do rotational shifts."]
+  },
+  "cleaner": {
+    "industry": "Facility Services",
+    "skills": ["Housekeeping", "Equipment handling", "Time management"],
+    "education": "No requirement",
+    "hours": "6 AM – 2 PM",
+    "shifts": ["Morning"],
+    "responsibilities": [
+      { "title": "Cleaning", "body": "Sweep, mop and sanitize assigned areas daily." },
+      { "title": "Waste handling", "body": "Segregate and dispose of waste responsibly." },
+      { "title": "Supplies", "body": "Track and restock cleaning supplies." }
+    ],
+    "requirements": ["No formal education required.", "Willingness to do physical work."]
+  },
+  "dataEntry": {
+    "industry": "BPO & Office Services",
+    "skills": ["Typing 30+ WPM", "MS Excel basics", "Attention to detail"],
+    "education": "12th pass",
+    "hours": "9 AM – 6 PM, Mon–Sat",
+    "shifts": ["Day"],
+    "responsibilities": [
+      { "title": "Entry", "body": "Enter records accurately into the system." },
+      { "title": "Verification", "body": "Cross-check data for errors and consistency." },
+      { "title": "Reporting", "body": "Generate daily/weekly entry reports." }
+    ],
+    "requirements": ["12th pass minimum.", "Typing speed 30+ WPM.", "Basic MS Excel knowledge."]
+  },
+  "welder": {
+    "industry": "Manufacturing & Fabrication",
+    "skills": ["Arc welding", "Blueprint reading", "Safety gear use"],
+    "education": "ITI Welder certificate",
+    "hours": "8-hour shifts",
+    "shifts": ["Rotational"],
+    "responsibilities": [
+      { "title": "Welding", "body": "Perform arc/MIG welding as per blueprints." },
+      { "title": "Inspection", "body": "Inspect joints for strength and finish." },
+      { "title": "Safety", "body": "Use PPE and follow workshop safety rules." }
+    ],
+    "requirements": ["ITI Welder certificate.", "Experience in arc/MIG welding.", "Ability to read blueprints."]
+  },
+  "default": {
+    "industry": "General Services",
+    "skills": ["Communication", "Punctuality", "Teamwork"],
+    "education": "As per role",
+    "hours": "Standard working hours",
+    "shifts": ["Day"],
+    "responsibilities": [
+      { "title": "Execution", "body": "Perform assigned daily tasks responsibly." },
+      { "title": "Reporting", "body": "Update supervisor on progress and issues." }
+    ],
+    "requirements": ["Willingness to learn.", "Punctual and reliable."]
+  }
+}
