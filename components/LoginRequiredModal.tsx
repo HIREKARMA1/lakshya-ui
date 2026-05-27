@@ -3,14 +3,17 @@
 import Link from "next/link";
 import { Users, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { loginSeekerHref } from "@/lib/auth-return-to";
 import "@/lib/i18n";
 
 interface LoginRequiredModalProps {
   open: boolean;
   onClose: () => void;
+  /** After login, send seeker here (e.g. /jobs/abc). */
+  returnTo?: string | null;
 }
 
-export function LoginRequiredModal({ open, onClose }: LoginRequiredModalProps) {
+export function LoginRequiredModal({ open, onClose, returnTo }: LoginRequiredModalProps) {
   const { t } = useTranslation();
   if (!open) return null;
   return (
@@ -45,7 +48,7 @@ export function LoginRequiredModal({ open, onClose }: LoginRequiredModalProps) {
               {t("modal.loginRequired.cancel")}
             </button>
             <Link
-              href="/login/seeker"
+              href={loginSeekerHref(returnTo)}
               className="grid place-items-center rounded-md bg-primary py-2.5 text-sm font-semibold text-white hover:bg-primary/90"
             >
               {t("modal.loginRequired.login")}

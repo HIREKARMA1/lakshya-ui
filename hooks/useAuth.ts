@@ -45,7 +45,7 @@ export function useAuth() {
   const logout = useCallback(async () => {
     await api.logout();
     setUser(null);
-    router.push("/");
+    router.push("/login/seeker");
   }, [router]);
 
   const requireRole = useCallback(

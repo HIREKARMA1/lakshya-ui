@@ -6,7 +6,13 @@ interface Block { label: string; body: string }
 export function Vision() {
   const { t } = useTranslation();
   const blocks = (t("vision.blocks", { returnObjects: true }) as Block[]) ?? [];
-  const accents = ["var(--primary)", "var(--orange)", "var(--green)"];
+  // Color dots for each block (Vision, Mission, Purpose)
+  const accents = [
+    "var(--orange)",
+    "hsl(var(--primary))",
+    "var(--green)",
+    "var(--sky)",
+  ];
 
   return (
     <section id="vision" className="border-t border-line bg-soft">
