@@ -1,11 +1,44 @@
 export type UserType = "seeker" | "provider" | "admin";
 
+export interface SeekerProfile {
+  full_name?: string;
+  photo_url?: string;
+  resume_url?: string;
+  city?: string;
+  district?: string;
+  state?: string;
+  primary_skill?: string;
+  experience?: string;
+  preferred_role?: string;
+  pincode?: string;
+  gender?: string;
+  dob?: string;
+  age?: string;
+  education_key?: string;
+}
+
+export interface SeekerProfileUpdatePayload {
+  full_name?: string;
+  dob?: string;
+  age?: string;
+  gender?: string;
+  education_key?: string;
+  primary_skill?: string;
+  experience?: string;
+  preferred_role?: string;
+  pincode?: string;
+  city?: string;
+  district?: string;
+  state?: string;
+}
+
 export interface AuthUser {
   id: string;
   email: string;
   user_type: UserType;
   name?: string;
   profile_complete: boolean;
+  seeker_profile?: SeekerProfile | null;
 }
 
 export interface TokenResponse {

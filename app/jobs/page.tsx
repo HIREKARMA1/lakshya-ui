@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { JobsPage } from "@/components/pages/jobs-page";
+import { SuspenseLoader } from "@/components/ui/SuspenseLoader";
 
 export const metadata = {
   title: "Find Jobs Near You — LAKSHYA",
@@ -8,7 +9,7 @@ export const metadata = {
 
 export default function JobsRoute() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-soft" />}>
+    <Suspense fallback={<SuspenseLoader />}>
       <JobsPage />
     </Suspense>
   );

@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import { api } from "@/lib/api";
+import { useAuth } from "@/hooks/useAuth";
 import type { Job } from "@/types/job";
 import { useJobRoleContent, type JobRoleResponsibility } from "@/lib/job-role-content";
 import {
@@ -32,6 +34,7 @@ import "@/lib/i18n";
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { LoginRequiredModal } from "@/components/LoginRequiredModal";
+import { SectionLoader } from "@/components/ui/Spinner";
 
 const ROLE_ICONS: Record<string, typeof Bike> = {
   delivery: Bike,
@@ -59,7 +62,7 @@ export function JobDetailPage({ jobId }: { jobId: string }) {
     return (
       <main className="min-h-screen bg-soft">
         <Navbar />
-        <div className="mx-auto max-w-7xl px-4 py-20 text-center text-muted-foreground">…</div>
+        <SectionLoader label={t("common.loading")} className="min-h-[50vh]" />
         <Footer />
       </main>
     );
@@ -83,23 +86,120 @@ export function JobDetailPage({ jobId }: { jobId: string }) {
     );
   }
 
-  return <JobDetailContent job={job} onLogin={() => setLoginOpen(true)} loginOpen={loginOpen} onCloseLogin={() => setLoginOpen(false)} router={router} />;
+  return (
+    <JobDetailContent
+      job={job}
+      loginOpen={loginOpen}
+      onCloseLogin={() => setLoginOpen(false)}
+      onRequireLogin={() => setLoginOpen(true)}
+      router={router}
+    />
+  );
 }
 
 function JobDetailContent({
   job,
-  onLogin,
+  onRequireLogin,
   loginOpen,
   onCloseLogin,
   router,
 }: {
   job: Job;
-  onLogin: () => void;
+  onRequireLogin: () => void;
   loginOpen: boolean;
   onCloseLogin: () => void;
   router: ReturnType<typeof useRouter>;
 }) {
   const { t } = useTranslation();
+  const { user, isLoading: authLoading } = useAuth();
+  const qc = useQueryClient();
+  const isSeeker = user?.user_type === "seeker";
+
+  const { data: status } = useQuery({
+    queryKey: ["job-application-status", job.id],
+    queryFn: () => api.getJobApplicationStatus(job.id),
+    enabled: !!user && isSeeker,
+    retry: false,
+  });
+
+  const [applied, setApplied] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
+  const [applyBusy, setApplyBusy] = useState(false);
+  const [saveBusy, setSaveBusy] = useState(false);
+
+  const hasApplied = applied || status?.applied === true;
+  const hasSaved = bookmarked || status?.bookmarked === true;
+
+  const handleApply = async () => {
+    if (!user) {
+      onRequireLogin();
+      return;
+    }
+    if (user.user_type !== "seeker") {
+      toast.error(t("pages.jobDetail.applyFailed"));
+      return;
+    }
+    if (hasApplied) return;
+    setApplyBusy(true);
+    try {
+      const res = await api.applyToJob(job.id);
+      setApplied(true);
+      toast.success(t("pages.jobDetail.applySuccess"));
+      if (res.applied) {
+        qc.invalidateQueries({ queryKey: ["job-application-status", job.id] });
+        qc.invalidateQueries({ queryKey: ["public-job", job.id] });
+      }
+    } catch (err: unknown) {
+      const msg =
+        err && typeof err === "object" && "response" in err
+          ? (err as { response?: { data?: { detail?: string } } }).response?.data?.detail
+          : null;
+      if (msg === "Already applied" || (typeof msg === "string" && msg.toLowerCase().includes("already"))) {
+        setApplied(true);
+      } else {
+        toast.error(typeof msg === "string" ? msg : t("pages.jobDetail.applyFailed"));
+      }
+    } finally {
+      setApplyBusy(false);
+    }
+  };
+
+  const handleSave = async () => {
+    if (!user) {
+      onRequireLogin();
+      return;
+    }
+    if (user.user_type !== "seeker") {
+      onRequireLogin();
+      return;
+    }
+    setSaveBusy(true);
+    try {
+      if (hasSaved) {
+        await api.unbookmarkJob(job.id);
+        setBookmarked(false);
+        toast.success(t("dashboard.saved.remove"));
+      } else {
+        await api.bookmarkJob(job.id);
+        setBookmarked(true);
+        toast.success(t("pages.jobs.bookmark"));
+      }
+      qc.invalidateQueries({ queryKey: ["job-application-status", job.id] });
+      qc.invalidateQueries({ queryKey: ["bookmarks"] });
+    } catch {
+      toast.error(t("toast.otpFailed"));
+    } finally {
+      setSaveBusy(false);
+    }
+  };
+
+  const handleSaveClick = () => {
+    if (!user || !isSeeker) {
+      onRequireLogin();
+      return;
+    }
+    void handleSave();
+  };
   const roleContent = useJobRoleContent(job.roleKey);
   const roleLabel = t(`roles.${job.roleKey}`);
   const RoleIcon = ROLE_ICONS[job.roleKey] ?? Briefcase;
@@ -155,11 +255,14 @@ function JobDetailContent({
             </button>
             <button
               type="button"
-              onClick={onLogin}
+              onClick={handleSaveClick}
+              disabled={saveBusy || authLoading}
               aria-label={t("pages.jobDetail.save")}
-              className="grid h-9 w-9 place-items-center rounded-full border border-line bg-white text-ink transition hover:border-primary hover:text-primary"
+              className={`grid h-9 w-9 place-items-center rounded-full border bg-white transition hover:border-primary hover:text-primary ${
+                hasSaved ? "border-primary text-primary" : "border-line text-ink"
+              }`}
             >
-              <Bookmark className="h-4 w-4" />
+              <Bookmark className={`h-4 w-4 ${hasSaved ? "fill-current" : ""}`} />
             </button>
           </div>
         </div>
@@ -324,17 +427,33 @@ function JobDetailContent({
             <div className="space-y-5 lg:sticky lg:top-6">
               <div className="rounded-xl border border-line bg-white p-5">
                 <button
-                  onClick={onLogin}
-                  className="w-full rounded-md bg-primary py-3 text-sm font-bold text-white hover:bg-primary/90"
+                  type="button"
+                  onClick={handleApply}
+                  disabled={applyBusy || hasApplied}
+                  className={`w-full rounded-md py-3 text-sm font-bold text-white transition ${
+                    hasApplied
+                      ? "cursor-default bg-green hover:bg-green"
+                      : "bg-primary hover:bg-primary/90 disabled:opacity-70"
+                  }`}
                 >
-                  {t("pages.jobDetail.applyNow")}
+                  {applyBusy
+                    ? t("pages.jobDetail.applying")
+                    : hasApplied
+                      ? t("pages.jobDetail.applied")
+                      : t("pages.jobDetail.applyNow")}
                 </button>
                 <button
-                  onClick={onLogin}
-                  className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-md border border-line bg-white py-3 text-sm font-semibold text-ink transition hover:border-primary hover:text-primary"
+                  type="button"
+                  onClick={handleSaveClick}
+                  disabled={saveBusy}
+                  className={`mt-3 inline-flex w-full items-center justify-center gap-2 rounded-md border py-3 text-sm font-semibold transition ${
+                    hasSaved
+                      ? "border-primary bg-primary/5 text-primary"
+                      : "border-line bg-white text-ink hover:border-primary hover:text-primary"
+                  }`}
                 >
-                  <Bookmark className="h-4 w-4" />
-                  {t("pages.jobDetail.saveJob")}
+                  <Bookmark className={`h-4 w-4 ${hasSaved ? "fill-current" : ""}`} />
+                  {hasSaved ? t("pages.jobDetail.saved") : t("pages.jobDetail.saveJob")}
                 </button>
                 <div className="mt-5 space-y-4 border-t border-line pt-5 text-sm">
                   <Row
@@ -386,7 +505,7 @@ function JobDetailContent({
         </div>
       </section>
 
-      <LoginRequiredModal open={loginOpen} onClose={onCloseLogin} />
+      <LoginRequiredModal open={loginOpen} onClose={onCloseLogin} returnTo={`/jobs/${job.id}`} />
       <Footer />
     </main>
   );

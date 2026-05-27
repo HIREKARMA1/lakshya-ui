@@ -160,7 +160,15 @@
         "active": "Active {{n}}d ago",
         "view": "View Candidate"
       },
-      "edu": { "10th": "10th Pass", "12th": "12th Pass", "iti": "ITI" },
+      "edu": {
+        "below10th": "Below 10th",
+        "10th": "10th Pass",
+        "12th": "12th Pass",
+        "iti": "ITI",
+        "diploma": "Diploma",
+        "graduate": "Graduate",
+        "postGraduate": "Post Graduate"
+      },
       "empty": "No candidates match your filters."
     },
     "login": {
@@ -188,7 +196,7 @@
         "emailPh": "you@company.com",
         "continue": "Continue",
         "otpLabel": "Enter OTP",
-        "otpPh": "6-digit code sent on WhatsApp",
+        "otpPh": "6-digit code sent",
         "verify": "Verify & Continue",
         "resend": "Resend OTP",
         "back": "← Back",
@@ -246,7 +254,12 @@
       "hiringProcessValue": "Phone screening",
       "keySkills": "Key Skills",
       "applyNow": "Apply Now",
+      "applied": "Applied",
+      "applying": "Applying…",
+      "applySuccess": "Application submitted successfully",
+      "applyFailed": "Could not submit application. Please try again.",
       "saveJob": "Save Job",
+      "saved": "Saved",
       "deadline": "Application Deadline",
       "deadlineValue": "{{date}}, {{days}} days left",
       "jobType": "Job Type",
@@ -357,6 +370,10 @@
       {
         "label": "Our Purpose",
         "body": "Bridge the rural–urban, formal–informal, skilled–unskilled gaps with one verified network."
+      },
+      {
+        "label": "Our Promise",
+        "body": "Fair pay, clear expectations, and verified opportunities for every worker — every time."
       }
     ]
   },
@@ -402,6 +419,9 @@
     "backToLogin": "Back to Login",
     "stepOf": "Step {{step}} of {{total}}:",
     "today": "Today",
+    "clear": "Clear",
+    "confirm": "Confirm",
+    "loading": "Loading…",
     "daysAgo": "{{n}}d ago",
     "verified": "Verified",
     "new": "New",
@@ -422,7 +442,9 @@
     "otpResent": "OTP resent",
     "otpResendFailed": "Could not resend OTP",
     "registerSuccess": "Registration complete",
-    "registerFailed": "Registration failed. Please login first."
+    "registerFailed": "Registration failed. Please login first.",
+    "profileSaved": "Profile updated successfully",
+    "profileSaveFailed": "Could not update profile. Please try again."
   },
   "modal": {
     "loginRequired": {
@@ -440,8 +462,29 @@
     "seeker": {
       "sideTitle": "Find Your Dream Job",
       "sideSubtitle": "Find jobs that match your skills, experience, and goals — all in one place",
-      "steps": ["Personal Information", "Skills & Experience", "Location", "Referral Details"],
-      "errors": { "nameRequired": "Name is required" },
+      "cardHeadline": "Complete Your Profile",
+      "steps": ["Personal Information", "Location & Education", "Professional Details", "Referral Details"],
+      "photo": {
+        "updateTitle": "Update photo",
+        "intro": "Use a clear photo of yourself so employers can recognize you.",
+        "useCamera": "Use camera",
+        "uploadPhoto": "Upload photo",
+        "takePhoto": "Take photo",
+        "centerFace": "Center your face in the circle",
+        "preview": "Preview your photo",
+        "retake": "Retake",
+        "usePhoto": "Use photo",
+        "selected": "Photo selected",
+        "remove": "Remove photo"
+      },
+      "errors": {
+        "nameRequired": "Name is required",
+        "pincodeRequired": "PIN code is required",
+        "cityRequired": "City / town is required",
+        "stateRequired": "State is required",
+        "educationRequired": "Please select your highest education",
+        "workRolesRequired": "Select at least one type of work"
+      },
       "fields": {
         "fullName": "Full Name",
         "fullNamePh": "Enter your full name",
@@ -451,16 +494,40 @@
         "gender": "Gender",
         "photo": "Profile Photo",
         "photoUpload": "Upload your profile photo",
+        "photoChange": "Tap to change your photo",
         "photoHint": "JPG or PNG • Max 5MB",
-        "primarySkill": "Primary Skill / Trade",
+        "primarySkill": "What kind of work do you want to do?",
         "primarySkillPh": "e.g. Cook, Driver, Electrician",
-        "experience": "Experience",
+        "experience": "Total Work Experience",
+        "education": "Highest Education",
         "preferredRole": "Preferred Role",
         "preferredRolePh": "What role are you looking for?",
         "pincode": "Pincode",
-        "city": "City",
+        "city": "City / Town / District / Village",
         "district": "District",
         "state": "State"
+      },
+      "dob": {
+        "selectDate": "SELECT DATE",
+        "placeholder": "mm/dd/yyyy",
+        "month": "Month",
+        "year": "Year"
+      },
+      "education": {
+        "selectPlaceholder": "Select education level",
+        "below10th": "Below 10th",
+        "10th": "10th Pass",
+        "12th": "12th Pass",
+        "iti": "ITI",
+        "diploma": "Diploma",
+        "graduate": "Graduate",
+        "postGraduate": "Post Graduate"
+      },
+      "workRoles": {
+        "placeholder": "Select roles",
+        "search": "Search…",
+        "hint": "You can select up to 5 roles",
+        "empty": "No roles match your search"
       },
       "experience": {
         "fresher": "Fresher (0 years)",
@@ -547,6 +614,168 @@
       "docSub": "PDF, PNG, JPG up to 10MB",
       "referralHint": "Have a code? Enter all 8 characters so your referrer gets credit."
     }
+  },
+  "dashboard": {
+    "nav": {
+      "overview": "Overview",
+      "findJobs": "Find Jobs",
+      "savedJobs": "Saved Jobs",
+      "applications": "Applications",
+      "profile": "My Profile",
+      "help": "Help Center",
+      "logout": "Logout"
+    },
+    "overview": {
+      "welcome": "Welcome Back, {{name}}! 👋",
+      "subtitle": "Discover verified jobs near you and track your activity.",
+      "browseJobs": "Browse Jobs",
+      "updateProfile": "Update Profile",
+      "citySearchTitle": "Find Jobs In Your City",
+      "cityPh": "Enter your city (e.g. Bhubaneswar)",
+      "findJobsBtn": "Find Jobs",
+      "searchTitle": "Job title or keywords",
+      "searchPh": "e.g. Driver, Cook, Delivery",
+      "locationPh": "City or area",
+      "searchBtn": "Search",
+      "stats": {
+        "applications": "Applications",
+        "applicationsHint": "+0 this week",
+        "profileViews": "Profile Views",
+        "profileViewsHint": "0 views today",
+        "savedJobs": "Saved Jobs",
+        "savedHint": "{{n}} saved",
+        "matches": "Job Matches",
+        "matchesHint": "Browse nearby roles"
+      }
+    },
+    "saved": {
+      "title": "Saved Jobs",
+      "subtitle": "Jobs you bookmarked for later.",
+      "empty": "No saved jobs yet. Browse jobs and tap save on roles you like.",
+      "browse": "Find Jobs",
+      "remove": "Remove"
+    },
+    "applications": {
+      "title": "My Applications",
+      "subtitle": "Jobs you have applied to.",
+      "empty": "You have not applied to any jobs yet.",
+      "browse": "Find Jobs",
+      "statusApplied": "Applied"
+    },
+    "profile": {
+      "title": "My Profile",
+      "subtitle": "Your account and work preferences.",
+      "incomplete": "Complete your profile to get better job matches.",
+      "completeCta": "Complete Profile",
+      "completeBadge": "Profile complete",
+      "resumePendingBadge": "Resume required",
+      "resumePendingTitle": "Upload your resume to complete your profile",
+      "resumePendingHint": "Employers often review your CV before shortlisting. Add a PDF or Word resume in the section below.",
+      "email": "Email",
+      "location": "Full address",
+      "notSet": "Not set",
+      "edit": "Edit Profile",
+      "editFlowHint": "Update any section below, then tap Save changes when you are done.",
+      "save": "Save changes",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "years": "years",
+      "sections": {
+        "personal": "Personal details",
+        "location": "Location & education",
+        "work": "Work preferences"
+      },
+      "resume": {
+        "title": "Resume",
+        "subtitle": "Upload your CV so employers can review your experience.",
+        "saveHint": "Select a file here; it uploads when you tap Save changes.",
+        "chooseFile": "Choose file",
+        "chooseDifferent": "Choose a different file",
+        "hasOnFileEdit": "You already have a resume on file. Choose a new file to replace it when you save.",
+        "currentOnFile": "Current file",
+        "pendingFile": "Selected",
+        "empty": "No resume uploaded yet.",
+        "upload": "Upload resume",
+        "replace": "Replace",
+        "remove": "Remove",
+        "view": "View",
+        "opening": "Opening…",
+        "viewFailed": "Could not open resume",
+        "onFile": "Ready for employers to view",
+        "formats": "PDF, DOC, or DOCX · Max 5 MB",
+        "uploading": "Uploading…",
+        "removing": "Removing…",
+        "uploaded": "Resume uploaded",
+        "uploadFailed": "Could not upload resume",
+        "removed": "Resume removed",
+        "removeFailed": "Could not remove resume",
+        "tooLarge": "Resume must be 5 MB or smaller"
+      }
+    },
+    "help": {
+      "title": "Help Center",
+      "subtitle": "We are here to help you find the right job.",
+      "faqTitle": "Common questions",
+      "faqs": [
+        {
+          "q": "Is there any fee to apply for jobs on LAKSHYA?",
+          "a": "No. Applying for any job on LAKSHYA is completely free for seekers. We never ask for money to share contact details or schedule interviews."
+        },
+        {
+          "q": "What documents do I need to apply?",
+          "a": "An Aadhaar card is enough to get started. A few roles may additionally ask for a driving licence or a basic skill certificate."
+        },
+        {
+          "q": "Can I get a job without prior experience?",
+          "a": "Yes. Many roles such as delivery, helper and cleaner welcome freshers. The job card clearly mentions the required experience."
+        },
+        {
+          "q": "How quickly will I hear back after applying?",
+          "a": "Most verified employers respond within 30 minutes during working hours. You will get a call or WhatsApp message directly."
+        },
+        {
+          "q": "How do I update my profile or resume?",
+          "a": "Open My Profile, tap Edit profile, change your details and save. Upload your resume in the Resume section — it helps employers shortlist you faster."
+        },
+        {
+          "q": "Someone asked me to pay for a guaranteed job. What should I do?",
+          "a": "Do not pay. Legitimate employers on LAKSHYA do not charge seekers for jobs. Contact us on WhatsApp with screenshots so we can review the employer."
+        }
+      ],
+      "guidesTitle": "How things work",
+      "guides": [
+        {
+          "title": "Build a strong profile",
+          "body": "Add your photo, correct location, education and skills. A complete profile gets more views from verified employers."
+        },
+        {
+          "title": "Apply in a few taps",
+          "body": "Browse Find Jobs, open a listing you like and apply once. Track every application from the Applications tab."
+        },
+        {
+          "title": "Save jobs for later",
+          "body": "Use the save icon on a job card to keep openings in Saved Jobs so you can compare before you apply."
+        }
+      ],
+      "safetyTitle": "Stay safe",
+      "safetyBody": "Your safety matters. LAKSHYA is built for transparent hiring — never pay for a job promise.",
+      "safetyItems": [
+        "Never pay cash or UPI to a stranger for a “guaranteed” placement.",
+        "Do not share OTPs, card PINs or net-banking passwords with anyone claiming to be an employer.",
+        "If a listing looks fake or abusive, report it to us with screenshots on WhatsApp."
+      ],
+      "hoursTitle": "Support hours",
+      "hoursBody": "Our team usually answers calls and WhatsApp between 9 am – 7 pm, Monday to Saturday (India time).",
+      "contactTitle": "Contact us",
+      "call": "Call support",
+      "whatsapp": "Chat on WhatsApp",
+      "emailCta": "Email support"
+    },
+    "jobs": {
+      "title": "Find Jobs",
+      "subtitle": "Verified blue-collar roles near you."
+    },
+    "loading": "Loading your dashboard…"
   },
   "decorative": {
     "bubbles": [
