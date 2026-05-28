@@ -4,6 +4,7 @@ import type {
   AdminLoginRequest,
   AuthUser,
   GoogleAuthRequest,
+  SeekerProfileUpdatePayload,
   SendEmailOtpRequest,
   TokenResponse,
   VerifyEmailOtpRequest,
@@ -21,6 +22,9 @@ class ApiClient {
     });
 
     this.client.interceptors.request.use((cfg) => {
+      if (cfg.data instanceof FormData) {
+        delete cfg.headers["Content-Type"];
+      }
       if (typeof window !== "undefined") {
         const token = localStorage.getItem("access_token");
         if (token) {
@@ -110,16 +114,46 @@ class ApiClient {
   }
 
   async registerSeeker(formData: FormData) {
-    const res = await this.client.post("/auth/register/seeker", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    const res = await this.client.post("/auth/register/seeker", formData);
+    return res.data;
+  }
+
+  async uploadSeekerProfilePhoto(file: File) {
+    const fd = new FormData();
+    fd.append("photo", file);
+    const res = await this.client.post<{ photo_url: string }>("/auth/me/seeker/photo", fd);
+    return res.data;
+  }
+
+  async uploadSeekerResume(file: File) {
+    const fd = new FormData();
+    fd.append("resume", file);
+    const res = await this.client.post<{ resume_url: string }>("/auth/me/seeker/resume", fd);
+    return res.data;
+  }
+
+  async deleteSeekerResume() {
+    const res = await this.client.delete<{ message: string }>("/auth/me/seeker/resume");
+    return res.data;
+  }
+
+  async getSeekerResumeViewUrl() {
+    const res = await this.client.get<{ view_url: string | null }>("/auth/me/seeker/resume/view");
+    return res.data;
+  }
+
+  async fetchSeekerResumeFile() {
+    const res = await this.client.get<Blob>("/auth/me/seeker/resume/file", { responseType: "blob" });
+    return res.data;
+  }
+
+  async updateSeekerProfile(payload: SeekerProfileUpdatePayload) {
+    const res = await this.client.patch<AuthUser>("/auth/me/seeker", payload);
     return res.data;
   }
 
   async registerProvider(formData: FormData) {
-    const res = await this.client.post("/auth/register/provider", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    const res = await this.client.post("/auth/register/provider", formData);
     return res.data;
   }
 
@@ -133,8 +167,15 @@ class ApiClient {
     return res.data;
   }
 
+  async getJobApplicationStatus(jobId: string) {
+    const res = await this.client.get<{ applied: boolean; bookmarked: boolean }>(
+      `/jobs/${jobId}/application-status`,
+    );
+    return res.data;
+  }
+
   async applyToJob(jobId: string) {
-    const res = await this.client.post(`/jobs/${jobId}/apply`);
+    const res = await this.client.post<{ message: string; applied?: boolean }>(`/jobs/${jobId}/apply`);
     return res.data;
   }
 
@@ -145,6 +186,23 @@ class ApiClient {
 
   async unbookmarkJob(jobId: string) {
     const res = await this.client.delete(`/jobs/${jobId}/bookmark`);
+    return res.data;
+  }
+
+  async listBookmarkedJobs() {
+    const res: AxiosResponse<JobSearchResponse> = await this.client.get("/jobs/bookmarks");
+    return res.data;
+  }
+
+  async listAppliedJobs() {
+    const res: AxiosResponse<JobSearchResponse> = await this.client.get("/jobs/applications");
+    return res.data;
+  }
+
+  async getSeekerJobsStatus() {
+    const res = await this.client.get<{ applied_job_ids: string[]; bookmarked_job_ids: string[] }>(
+      "/jobs/my-status",
+    );
     return res.data;
   }
 

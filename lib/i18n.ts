@@ -28,16 +28,21 @@ if (!i18n.isInitialized) {
         en: { translation: withJobRoles(en, jobRolesEn) },
         hi: { translation: withJobRoles(hi, jobRolesHi) },
         or: { translation: withJobRoles(or, jobRolesOr) },
+        // Some browsers/languages use `od` instead of `or` for Odia.
+        od: { translation: withJobRoles(or, jobRolesOr) },
       },
       fallbackLng: "en",
-      supportedLngs: ["en", "hi", "or"],
+      supportedLngs: ["en", "hi", "or", "od"],
       interpolation: { escapeValue: false },
       detection: {
         order: ["localStorage", "navigator"],
         caches: ["localStorage"],
         lookupLocalStorage: "lakshya-lang",
       },
+      /** e.g. en-US → en so keys match bundled resources */
+      load: "languageOnly",
       returnObjects: true,
+      react: { useSuspense: false },
     });
 }
 
