@@ -158,7 +158,9 @@
         "expYears": "{{n}} years exp",
         "edu": "Education",
         "active": "Active {{n}}d ago",
-        "view": "View Candidate"
+        "view": "View Candidate",
+        "save": "Save",
+        "saved": "Saved"
       },
       "edu": {
         "below10th": "Below 10th",
@@ -169,7 +171,10 @@
         "graduate": "Graduate",
         "postGraduate": "Post Graduate"
       },
-      "empty": "No candidates match your filters."
+      "empty": "No candidates match your filters.",
+      "results": {
+        "count": "Showing {{n}} candidates"
+      }
     },
     "login": {
       "seeker": {
@@ -776,6 +781,69 @@
       "subtitle": "Verified blue-collar roles near you."
     },
     "loading": "Loading your dashboard…"
+  },
+  "providerDashboard": {
+    "nav": {
+      "overview": "Overview",
+      "jobManagement": "Job Management",
+      "seekerFeed": "Seeker Feed",
+      "savedProfiles": "Saved Profiles",
+      "companyProfile": "Company Profile",
+      "help": "Help & Support",
+      "logout": "Logout"
+    },
+    "loading": "Loading your provider dashboard…",
+    "overview": {
+      "welcome": "Welcome back, {{name}}",
+      "title": "Provider Overview",
+      "subtitle": "Track hiring activity and manage team requirements from one place.",
+      "jobManagementTitle": "Manage your postings",
+      "jobManagementBody": "Track active, open and closed jobs, and monitor applicants in one place.",
+      "jobManagementCta": "Open Job Management",
+      "seekerFeedTitle": "Explore more seekers",
+      "seekerFeedBody": "Search, filter and shortlist candidates from Seeker Feed.",
+      "seekerFeedCta": "Open Seeker Feed",
+      "stats": {
+        "activeJobs": "0",
+        "activeJobsHint": "Active jobs",
+        "applications": "0",
+        "applicationsHint": "New applications",
+        "response": "N/A",
+        "responseHint": "Avg. response time"
+      }
+    },
+    "jobManagement": {
+      "title": "Your Job Postings",
+      "subtitle": "Manage and track your active job listings.",
+      "postNew": "Post New Job",
+      "emptyTitle": "No job listings yet",
+      "emptyBody": "Post your first job to get started with candidate matches.",
+      "stats": {
+        "total": "Total jobs posted",
+        "applicants": "Total applicants",
+        "onboarded": "Onboarded"
+      }
+    },
+    "seekerFeed": {
+      "title": "Seeker Feed",
+      "subtitle": "Browse and filter profiles to find your next hires.",
+      "filters": "Filters"
+    },
+    "savedProfiles": {
+      "title": "Saved Profiles",
+      "subtitle": "Profiles you saved from Seeker Feed.",
+      "empty": "No saved profiles yet. Save candidates from Seeker Feed to see them here."
+    },
+    "companyProfile": {
+      "title": "Company Profile",
+      "subtitle": "Your organization details and contact information."
+    },
+    "help": {
+      "title": "Help & Support",
+      "subtitle": "Need assistance with hiring? Reach support on call or WhatsApp.",
+      "call": "Call support",
+      "whatsapp": "Chat on WhatsApp"
+    }
   },
   "decorative": {
     "bubbles": [

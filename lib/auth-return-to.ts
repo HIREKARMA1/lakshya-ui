@@ -11,6 +11,12 @@ export function loginSeekerHref(returnTo?: string | null): string {
   return `/login/seeker?returnTo=${encodeURIComponent(safe)}`;
 }
 
+export function loginProviderHref(returnTo?: string | null): string {
+  const safe = sanitizeReturnTo(returnTo);
+  if (!safe) return "/login/provider";
+  return `/login/provider?returnTo=${encodeURIComponent(safe)}`;
+}
+
 export function registerSeekerHref(returnTo?: string | null): string {
   const safe = sanitizeReturnTo(returnTo);
   if (!safe) return "/register/seeker";

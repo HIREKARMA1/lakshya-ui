@@ -43,10 +43,15 @@ export function useAuth() {
   }, [loadUser]);
 
   const logout = useCallback(async () => {
+    const role = user?.user_type;
     await api.logout();
     setUser(null);
+    if (role === "provider") {
+      router.push("/login/provider");
+      return;
+    }
     router.push("/login/seeker");
-  }, [router]);
+  }, [router, user?.user_type]);
 
   const requireRole = useCallback(
     (role: UserType, loginPath: string) => {
