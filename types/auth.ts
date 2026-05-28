@@ -17,6 +17,26 @@ export interface SeekerProfile {
   education_key?: string;
 }
 
+export interface ProviderProfile {
+  provider_type?: string;
+  full_name?: string;
+  legal_name?: string;
+  incorporation?: string;
+  search_addr?: string;
+  pincode?: string;
+  area?: string;
+  locality?: string;
+  city?: string;
+  district?: string;
+  state?: string;
+  phone?: string;
+  email?: string;
+  primary_mode?: string;
+  logo_url?: string;
+  doc_url?: string;
+  verified?: boolean;
+}
+
 export interface SeekerProfileUpdatePayload {
   full_name?: string;
   dob?: string;
@@ -39,6 +59,7 @@ export interface AuthUser {
   name?: string;
   profile_complete: boolean;
   seeker_profile?: SeekerProfile | null;
+  provider_profile?: ProviderProfile | null;
 }
 
 export interface TokenResponse {

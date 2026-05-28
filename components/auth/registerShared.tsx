@@ -101,10 +101,10 @@ export function AuthRegisterCard({
 }) {
   const accentChip = accent === "seeker" ? "bg-sky" : "bg-[#f15a2b]";
   return (
-    <div className="relative mx-auto w-full max-w-md">
+    <div className="relative mx-auto w-full max-w-xl">
       <div className="absolute -left-3 -top-3 h-16 w-16 rounded-2xl bg-yellow" aria-hidden />
       <div className={`absolute -right-3 -bottom-3 h-20 w-20 rounded-2xl ${accentChip}`} aria-hidden />
-      <div className="relative flex max-h-[min(calc(100dvh-10rem),620px)] min-h-0 flex-col overflow-hidden rounded-2xl border border-line bg-white p-7 shadow-xl shadow-primary/5 sm:p-8">
+      <div className="relative flex h-[min(calc(100dvh-10rem),620px)] min-h-0 flex-col overflow-hidden rounded-2xl border border-line bg-white p-7 shadow-xl shadow-primary/5 sm:p-8">
         <div className="shrink-0 text-center">
           <Image src="/assets/lakshya-logo.png" alt="LAKSHYA" width={120} height={48} className="mx-auto h-12 w-auto" />
           <p className="mt-2 text-sm font-medium text-muted-foreground">{tagline}</p>

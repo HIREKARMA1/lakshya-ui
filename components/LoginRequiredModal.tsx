@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Users, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { loginSeekerHref } from "@/lib/auth-return-to";
+import { loginProviderHref, loginSeekerHref } from "@/lib/auth-return-to";
 import "@/lib/i18n";
 
 interface LoginRequiredModalProps {
@@ -11,11 +11,13 @@ interface LoginRequiredModalProps {
   onClose: () => void;
   /** After login, send seeker here (e.g. /jobs/abc). */
   returnTo?: string | null;
+  loginRole?: "seeker" | "provider";
 }
 
-export function LoginRequiredModal({ open, onClose, returnTo }: LoginRequiredModalProps) {
+export function LoginRequiredModal({ open, onClose, returnTo, loginRole = "seeker" }: LoginRequiredModalProps) {
   const { t } = useTranslation();
   if (!open) return null;
+  const loginHref = loginRole === "provider" ? loginProviderHref(returnTo) : loginSeekerHref(returnTo);
   return (
     <div
       className="fixed inset-0 z-[100] grid place-items-center bg-black/40 p-4 backdrop-blur-md"
@@ -48,7 +50,7 @@ export function LoginRequiredModal({ open, onClose, returnTo }: LoginRequiredMod
               {t("modal.loginRequired.cancel")}
             </button>
             <Link
-              href={loginSeekerHref(returnTo)}
+              href={loginHref}
               className="grid place-items-center rounded-md bg-primary py-2.5 text-sm font-semibold text-white hover:bg-primary/90"
             >
               {t("modal.loginRequired.login")}

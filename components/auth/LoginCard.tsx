@@ -59,7 +59,7 @@ export function LoginCard({ role }: Props) {
       return;
     }
     if (profileComplete) {
-      router.push("/");
+      router.push(returnTo ?? "/provider-dashboard");
     } else {
       router.push(registerPath);
     }

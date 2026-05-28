@@ -50,10 +50,21 @@ class ApiClient {
               return this.client(originalRequest);
             }
           } catch {
+            const cachedUser = localStorage.getItem("user");
             localStorage.removeItem("access_token");
             localStorage.removeItem("refresh_token");
+            localStorage.removeItem("user");
             if (typeof window !== "undefined") {
-              window.location.href = "/login/seeker";
+              let loginPath = "/login/seeker";
+              if (cachedUser) {
+                try {
+                  const parsed = JSON.parse(cachedUser) as { user_type?: string };
+                  if (parsed.user_type === "provider") loginPath = "/login/provider";
+                } catch {
+                  // fallback to seeker login
+                }
+              }
+              window.location.href = loginPath;
             }
           }
         }
