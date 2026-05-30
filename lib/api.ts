@@ -18,7 +18,6 @@ import type { GeoIntelligenceDashboard } from "@/types/geo-intelligence";
 import type {
   ConstituencyRow,
   MappingRow,
-  Paginated,
   PincodeResolveResult,
   PincodeRow,
 } from "@/types/geo-mapping-admin";
