@@ -25,7 +25,12 @@ export interface PublicCompanyProfile {
   activeJobs: Job[];
 }
 
+export interface PublicEmployerSummary {
+  id: string;
+  name: string;
+}
+
 export interface PublicEmployerNamesResponse {
-  names: string[];
+  employers: PublicEmployerSummary[];
   total: number;
 }

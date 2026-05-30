@@ -1,9 +1,11 @@
 "use client";
 
 import { useMemo } from "react";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
+import type { PublicEmployerSummary } from "@/types/company";
 import "@/lib/i18n";
 
 export function Employers() {
@@ -14,13 +16,13 @@ export function Employers() {
     retry: false,
   });
 
-  const names = data?.names ?? [];
+  const employers = data?.employers ?? [];
   const row = useMemo(() => {
-    if (!names.length) return [];
-    return names.length === 1 ? [...names, ...names] : [...names, ...names];
-  }, [names]);
+    if (!employers.length) return [];
+    return employers.length === 1 ? [...employers, ...employers] : [...employers, ...employers];
+  }, [employers]);
 
-  if (!names.length) return null;
+  if (!employers.length) return null;
 
   return (
     <section id="employers" className="border-t border-line bg-white">
@@ -35,17 +37,25 @@ export function Employers() {
 
       <div className="relative mt-10 overflow-hidden border-y border-line bg-soft py-6">
         <div className="lk-marquee flex w-max gap-12 whitespace-nowrap">
-          {row.map((n, i) => (
-            <span
-              key={`${n}-${i}`}
-              className="font-display text-xl font-extrabold tracking-tight text-ink/70"
-            >
-              {n}
-              <span className="ml-12 inline-block h-1 w-1 rounded-full bg-primary align-middle" />
-            </span>
+          {row.map((employer, i) => (
+            <EmployerMarqueeItem key={`${employer.id}-${i}`} employer={employer} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function EmployerMarqueeItem({ employer }: { employer: PublicEmployerSummary }) {
+  return (
+    <span className="inline-flex items-center font-display text-xl font-extrabold tracking-tight">
+      <Link
+        href={`/companies/${employer.id}`}
+        className="text-ink/70 transition hover:text-primary"
+      >
+        {employer.name}
+      </Link>
+      <span className="ml-12 inline-block h-1 w-1 rounded-full bg-primary align-middle" aria-hidden />
+    </span>
   );
 }
