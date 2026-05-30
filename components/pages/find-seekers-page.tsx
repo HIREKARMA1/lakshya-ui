@@ -22,38 +22,52 @@ export function FindSeekersPage() {
   const facts = t("pages.seekers.facts", { returnObjects: true }) as { k: string; v: string }[];
   const highlights = t("pages.seekers.highlights", { returnObjects: true }) as { k: string; v: string }[];
 
-  const [role, setRole] = useState("");
-  const [city, setCity] = useState("");
-  const [exp, setExp] = useState("");
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [draftRole, setDraftRole] = useState("");
+  const [draftCity, setDraftCity] = useState("");
+  const [draftExp, setDraftExp] = useState("");
+  const [appliedRole, setAppliedRole] = useState("");
+  const [appliedCity, setAppliedCity] = useState("");
+  const [appliedExp, setAppliedExp] = useState("");
   const [loginOpen, setLoginOpen] = useState(false);
   const requireLogin = () => setLoginOpen(true);
 
   const { data: seekersResponse } = useQuery({
-    queryKey: ["public-seekers", role, city, exp],
-    queryFn: () =>
-      api.searchPublicSeekers({
-        role_key: role || undefined,
-        city: city || undefined,
-        exp: exp || undefined,
-        limit: FREE_LIMIT,
-      }),
+    queryKey: ["public-seekers", "base"],
+    queryFn: () => api.searchPublicSeekers({ limit: FREE_LIMIT }),
     retry: false,
   });
 
   const SEEKERS = seekersResponse?.seekers ?? [];
-  const roleKeys = useMemo(() => Array.from(new Set(SEEKERS.map((s) => s.roleKey))), [SEEKERS]);
+  const roleKeys = useMemo(
+    () => Array.from(new Set(SEEKERS.map((s) => s.roleKey))).filter((key) => key !== "any"),
+    [SEEKERS],
+  );
 
   const filtered = useMemo(() => {
     return SEEKERS.filter((s) => {
-      if (role && s.roleKey !== role) return false;
-      if (city && !s.city.toLowerCase().includes(city.toLowerCase())) return false;
-      if (exp) {
-        const [lo, hi] = exp.split("-").map(Number);
+      if (appliedRole && s.roleKey !== appliedRole) return false;
+      if (appliedCity && !s.city.toLowerCase().includes(appliedCity.toLowerCase())) return false;
+      if (appliedExp) {
+        const [lo, hi] = appliedExp.split("-").map(Number);
         if (s.expYears < lo || s.expYears > hi) return false;
       }
       return true;
     });
-  }, [SEEKERS, role, city, exp]);
+  }, [SEEKERS, appliedRole, appliedCity, appliedExp]);
+
+  const clearDraftFilters = () => {
+    setDraftRole("");
+    setDraftCity("");
+    setDraftExp("");
+  };
+
+  const applyFilters = () => {
+    setAppliedRole(draftRole);
+    setAppliedCity(draftCity);
+    setAppliedExp(draftExp);
+    setSheetOpen(false);
+  };
 
   return (
     <main className="min-h-screen bg-white">
@@ -67,9 +81,14 @@ export function FindSeekersPage() {
               <FiltersBox
                 t={t}
                 roleKeys={roleKeys}
-                role={role} setRole={setRole}
-                city={city} setCity={setCity}
-                exp={exp} setExp={setExp}
+                role={draftRole}
+                setRole={setDraftRole}
+                city={draftCity}
+                setCity={setDraftCity}
+                exp={draftExp}
+                setExp={setDraftExp}
+                onClear={clearDraftFilters}
+                onApply={applyFilters}
               />
 
               <div className="mt-5 overflow-hidden rounded-lg border border-line bg-white">
@@ -98,33 +117,6 @@ export function FindSeekersPage() {
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                 {t("pages.seekers.kicker", { count: SEEKERS.length })}
               </p>
-              <Sheet>
-                <SheetTrigger asChild>
-                  <button
-                    type="button"
-                    className="inline-flex items-center gap-2 rounded-md border border-line bg-white px-3 py-2 text-xs font-semibold text-ink shadow-sm hover:border-primary hover:text-primary"
-                  >
-                    <SlidersHorizontal className="h-4 w-4" />
-                    {t("pages.seekers.filters.title")}
-                  </button>
-                </SheetTrigger>
-                <SheetContent side="bottom" className="max-h-[85vh] overflow-y-auto p-0">
-                  <SheetHeader className="border-b border-line px-5 py-4 text-left">
-                    <SheetTitle className="font-display text-base font-bold text-ink">
-                      {t("pages.seekers.filters.title")}
-                    </SheetTitle>
-                  </SheetHeader>
-                  <div className="p-4">
-                    <FiltersBox
-                      t={t}
-                      roleKeys={roleKeys}
-                      role={role} setRole={setRole}
-                      city={city} setCity={setCity}
-                      exp={exp} setExp={setExp}
-                    />
-                  </div>
-                </SheetContent>
-              </Sheet>
             </div>
 
             <SeekersHero
@@ -175,11 +167,44 @@ export function FindSeekersPage() {
         </div>
       </section>
 
-      <LoginRequiredModal open={loginOpen} onClose={() => setLoginOpen(false)} />
+      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+        <SheetTrigger asChild>
+          <button
+            type="button"
+            className="fixed right-4 top-16 z-30 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-ink shadow-lg ring-1 ring-line hover:text-primary lg:hidden"
+          >
+            <SlidersHorizontal className="h-4 w-4" />
+            {t("pages.seekers.filters.title")}
+          </button>
+        </SheetTrigger>
+        <SheetContent side="bottom" className="max-h-[85vh] overflow-y-auto p-0">
+          <SheetHeader className="border-b border-line px-5 py-4 text-left">
+            <SheetTitle className="font-display text-base font-bold text-ink">
+              {t("pages.seekers.filters.title")}
+            </SheetTitle>
+          </SheetHeader>
+          <div className="p-4">
+            <FiltersBox
+              t={t}
+              roleKeys={roleKeys}
+              role={draftRole}
+              setRole={setDraftRole}
+              city={draftCity}
+              setCity={setDraftCity}
+              exp={draftExp}
+              setExp={setDraftExp}
+              onClear={clearDraftFilters}
+              onApply={applyFilters}
+            />
+          </div>
+        </SheetContent>
+      </Sheet>
+
+      <LoginRequiredModal open={loginOpen} onClose={() => setLoginOpen(false)} loginRole="provider" returnTo="/find-seekers" />
 
 
       <Footer />
-      <style>{`.lk-input{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px;background:#fff;color:var(--ink);outline:none}.lk-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(27,82,164,.12)}.seekers-scroll::-webkit-scrollbar{width:6px}.seekers-scroll::-webkit-scrollbar-track{background:#f1f5f9;border-radius:999px}.seekers-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px}.seekers-scroll::-webkit-scrollbar-thumb:hover{background:#94a3b8}.seekers-scroll{scrollbar-width:thin;scrollbar-color:#cbd5e1 #f1f5f9}`}</style>
+      <style>{`.lk-input{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px;background:#fff;color:var(--ink);outline:none}.lk-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(27,82,164,.12)}.seekers-scroll::-webkit-scrollbar{width:6px}.seekers-scroll::-webkit-scrollbar-track{background:#f1f5f9;border-radius:999px}.seekers-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px}.seekers-scroll::-webkit-scrollbar-thumb:hover{background:#94a3b8}.seekers-scroll{scrollbar-width:thin;scrollbar-color:#cbd5e1 #f1f5f9}.dropdown-scroll::-webkit-scrollbar{width:3px}.dropdown-scroll::-webkit-scrollbar-track{background:transparent}.dropdown-scroll::-webkit-scrollbar-thumb{background:#d7dee8;border-radius:999px}.dropdown-scroll{scrollbar-width:thin;scrollbar-color:#d7dee8 transparent}`}</style>
     </main>
   );
 }
@@ -199,13 +224,34 @@ function FiltersBox({
   role, setRole,
   city, setCity,
   exp, setExp,
+  onClear,
+  onApply,
 }: {
   t: (k: string, o?: Record<string, unknown>) => string;
   roleKeys: string[];
   role: string; setRole: (v: string) => void;
   city: string; setCity: (v: string) => void;
   exp: string; setExp: (v: string) => void;
+  onClear: () => void;
+  onApply: () => void;
 }) {
+  const [roleMenuOpen, setRoleMenuOpen] = useState(false);
+  const [expMenuOpen, setExpMenuOpen] = useState(false);
+  const closeMenus = () => {
+    setRoleMenuOpen(false);
+    setExpMenuOpen(false);
+  };
+  const selectedRoleLabel = role ? t(`roles.${role}`, { defaultValue: role }) : t("pages.seekers.filters.anyRole");
+  const selectedExpLabel = exp
+    ? exp === "0-0"
+      ? t("pages.seekers.filters.expFresher")
+      : exp === "1-2"
+      ? t("pages.seekers.filters.exp12")
+      : exp === "3-5"
+      ? t("pages.seekers.filters.exp35")
+      : t("pages.seekers.filters.exp6")
+    : t("pages.seekers.filters.anyExp");
+
   return (
     <div className="rounded-lg border border-line bg-white">
       <div className="flex items-center justify-between border-b border-line px-5 py-4">
@@ -214,7 +260,7 @@ function FiltersBox({
         </h2>
         <button
           type="button"
-          onClick={() => { setRole(""); setCity(""); setExp(""); }}
+          onClick={onClear}
           className="text-xs font-semibold text-primary hover:underline"
         >
           {t("pages.seekers.filters.clear")}
@@ -222,26 +268,89 @@ function FiltersBox({
       </div>
       <div className="space-y-5 px-5 py-5">
         <FilterField label={t("pages.seekers.filters.role")}>
-          <select value={role} onChange={(e) => setRole(e.target.value)} className="lk-input">
-            <option value="">{t("pages.seekers.filters.anyRole")}</option>
-            {roleKeys.map((r) => (
-              <option key={r} value={r}>{t(`roles.${r}`)}</option>
-            ))}
-          </select>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => {
+                setRoleMenuOpen((v) => !v);
+                setExpMenuOpen(false);
+              }}
+              className="lk-input flex items-center justify-between text-left"
+            >
+              <span>{selectedRoleLabel}</span>
+              <span className="text-[11px] font-light text-slate-400">{roleMenuOpen ? "▴" : "▾"}</span>
+            </button>
+            {roleMenuOpen ? (
+              <div
+                className="dropdown-scroll absolute left-0 right-0 z-40 mt-1 max-h-56 overflow-auto rounded-md border border-line bg-white shadow-lg"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {roleKeys.map((r) => (
+                  <button
+                    key={r}
+                    type="button"
+                    onClick={() => {
+                      setRole(r);
+                      closeMenus();
+                    }}
+                    className={`block w-full px-3 py-2 text-left text-sm hover:bg-soft ${role === r ? "bg-primary/10 font-semibold text-primary" : "text-ink"}`}
+                  >
+                    {t(`roles.${r}`, { defaultValue: r })}
+                  </button>
+                ))}
+              </div>
+            ) : null}
+          </div>
         </FilterField>
         <FilterField label={t("pages.seekers.filters.city")}>
           <input value={city} onChange={(e) => setCity(e.target.value)} placeholder={t("pages.seekers.filters.cityPh")} className="lk-input" />
         </FilterField>
         <FilterField label={t("pages.seekers.filters.exp")}>
-          <select value={exp} onChange={(e) => setExp(e.target.value)} className="lk-input">
-            <option value="">{t("pages.seekers.filters.anyExp")}</option>
-            <option value="0-0">{t("pages.seekers.filters.expFresher")}</option>
-            <option value="1-2">{t("pages.seekers.filters.exp12")}</option>
-            <option value="3-5">{t("pages.seekers.filters.exp35")}</option>
-            <option value="6-50">{t("pages.seekers.filters.exp6")}</option>
-          </select>
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => {
+                setExpMenuOpen((v) => !v);
+                setRoleMenuOpen(false);
+              }}
+              className="lk-input flex items-center justify-between text-left"
+            >
+              <span>{selectedExpLabel}</span>
+              <span className="text-[11px] font-light text-slate-400">{expMenuOpen ? "▴" : "▾"}</span>
+            </button>
+            {expMenuOpen ? (
+              <div
+                className="dropdown-scroll absolute left-0 right-0 z-40 mt-1 max-h-56 overflow-auto rounded-md border border-line bg-white shadow-lg"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {[
+                  { value: "", label: t("pages.seekers.filters.anyExp") },
+                  { value: "0-0", label: t("pages.seekers.filters.expFresher") },
+                  { value: "1-2", label: t("pages.seekers.filters.exp12") },
+                  { value: "3-5", label: t("pages.seekers.filters.exp35") },
+                  { value: "6-50", label: t("pages.seekers.filters.exp6") },
+                ].map((opt) => (
+                  <button
+                    key={opt.value || "any"}
+                    type="button"
+                    onClick={() => {
+                      setExp(opt.value);
+                      closeMenus();
+                    }}
+                    className={`block w-full px-3 py-2 text-left text-sm hover:bg-soft ${exp === opt.value ? "bg-primary/10 font-semibold text-primary" : "text-ink"}`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            ) : null}
+          </div>
         </FilterField>
-        <button className="w-full rounded-md bg-primary py-3 text-sm font-semibold text-white hover:bg-primary/90">
+        <button
+          type="button"
+          onClick={onApply}
+          className="w-full rounded-md bg-primary py-3 text-sm font-semibold text-white hover:bg-primary/90"
+        >
           {t("pages.seekers.filters.apply")}
         </button>
       </div>

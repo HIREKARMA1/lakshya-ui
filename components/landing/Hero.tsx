@@ -1,23 +1,23 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { api } from "@/lib/api";
 import type { Job } from "@/types/job";
+import { Spinner } from "@/components/ui/Spinner";
+import { sortJobsByNewest } from "@/lib/sort-jobs";
 import "@/lib/i18n";
 
 interface Stat { k: string; v: string }
 
-export function Hero() {
+type HeroProps = {
+  jobs: Job[];
+  isLoading?: boolean;
+};
+
+export function Hero({ jobs, isLoading = false }: HeroProps) {
   const { t } = useTranslation();
   const stats = (t("hero.stats", { returnObjects: true }) as Stat[]) ?? [];
-  const { data } = useQuery({
-    queryKey: ["public-jobs", "hero"],
-    queryFn: () => api.searchPublicJobs({ limit: 8 }),
-    retry: false,
-  });
-  const jobs: Job[] = data?.jobs ?? [];
+  const heroJobs = useMemo(() => sortJobsByNewest(jobs).slice(0, 8), [jobs]);
 
   return (
     <section className="relative overflow-hidden bg-white">
@@ -82,7 +82,13 @@ export function Hero() {
         </div>
 
         <div className="lg:col-span-5">
-          {jobs.length > 0 ? <HeroVisual jobs={jobs} /> : null}
+          {heroJobs.length > 0 ? (
+            <HeroVisual jobs={heroJobs} />
+          ) : isLoading ? (
+            <div className="relative mx-auto flex aspect-square w-full max-w-md items-center justify-center">
+              <Spinner size={28} />
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

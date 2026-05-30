@@ -7,7 +7,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useAuth } from "@/hooks/useAuth";
-import { resolveProfilePhotoUrl } from "@/lib/profile-photo-url";
+import { resolveProfilePhotoUrl, resolveUploadUrl } from "@/lib/profile-photo-url";
 
 function displayName(name?: string, email?: string) {
   if (name?.trim()) return name.trim();
@@ -26,30 +26,31 @@ export function Navbar() {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const pathname = usePathname() ?? "/";
-  const isDashboard = pathname.startsWith("/dashboard");
+  const isDashboard = pathname.startsWith("/dashboard") || pathname.startsWith("/provider-dashboard");
   if (isDashboard) return null;
 
   const isSeekerLoggedIn = user?.user_type === "seeker";
+  const isProviderLoggedIn = user?.user_type === "provider";
+  const dashboardHref = isProviderLoggedIn ? "/provider-dashboard" : "/dashboard";
   const isJobs = pathname.startsWith("/jobs");
   const isSeekers = pathname.startsWith("/find-seekers");
-  const showSingleLogin = (isJobs || isSeekers) && !isSeekerLoggedIn;
+  const isAnyLoggedIn = isSeekerLoggedIn || isProviderLoggedIn;
+  const showSingleLogin = (isJobs || isSeekers) && !isAnyLoggedIn;
   const loginTo = isSeekers ? "/login/provider" : "/login/seeker";
 
-  const allLinks = [
-    { k: "jobs", href: "/jobs" },
-    { k: "employers", href: "/find-seekers" },
-    { k: "categories", href: "/#categories" },
-    { k: "about", href: "/#vision" },
-    { k: "contact", href: "/#footer" },
+  const links = [
+    { k: "about", href: "/about" },
+    { k: "contact", href: "/contact" },
   ];
-  const links = isSeekerLoggedIn ? allLinks.filter((l) => l.k !== "employers") : allLinks;
 
   const label = displayName(user?.name, user?.email);
-  const photoSrc = resolveProfilePhotoUrl(user?.seeker_profile?.photo_url);
+  const photoSrc = isSeekerLoggedIn
+    ? resolveProfilePhotoUrl(user?.seeker_profile?.photo_url)
+    : resolveUploadUrl(user?.provider_profile?.logo_url);
 
   const UserChip = (
     <Link
-      href="/dashboard"
+      href={dashboardHref}
       className="flex items-center gap-2 rounded-full border border-line bg-soft/50 py-1 pl-1 pr-3 transition hover:border-primary"
     >
       {photoSrc ? (
@@ -78,7 +79,7 @@ export function Navbar() {
   );
 
   const RightActions = () => {
-    if (isSeekerLoggedIn) return UserChip;
+    if (isAnyLoggedIn) return UserChip;
     if (showSingleLogin) return LoginBtn;
     return (
       <>
@@ -156,8 +157,8 @@ export function Navbar() {
               <div className="flex justify-start">
                 <LanguageSwitcher />
               </div>
-              {isSeekerLoggedIn ? (
-                <Link href="/dashboard" onClick={() => setOpen(false)} className="flex justify-center py-2">
+              {isSeekerLoggedIn || isProviderLoggedIn ? (
+                <Link href={dashboardHref} onClick={() => setOpen(false)} className="flex justify-center py-2">
                   {UserChip}
                 </Link>
               ) : showSingleLogin ? (
