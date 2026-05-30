@@ -90,6 +90,12 @@ export function OverviewContent() {
               {t("dashboard.overview.browseJobs")}
             </Link>
             <Link
+              href="/dashboard/nearby"
+              className="inline-flex items-center justify-center rounded-lg bg-white/15 px-5 py-2.5 text-sm font-bold text-white ring-1 ring-white/40 hover:bg-white/20"
+            >
+              {t("dashboard.nav.nearbyJobs")}
+            </Link>
+            <Link
               href="/dashboard/profile"
               className="inline-flex items-center justify-center rounded-lg border-2 border-white/80 px-5 py-2.5 text-sm font-bold text-white hover:bg-white/10"
             >

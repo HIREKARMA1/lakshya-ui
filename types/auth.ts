@@ -1,4 +1,10 @@
 export type UserType = "seeker" | "provider" | "admin";
+export type AdminRole = "super_admin" | "admin";
+
+export interface AdminProfile {
+  full_name?: string;
+  admin_role?: AdminRole;
+}
 
 export interface SeekerProfile {
   full_name?: string;
@@ -34,7 +40,25 @@ export interface ProviderProfile {
   primary_mode?: string;
   logo_url?: string;
   doc_url?: string;
+  workplace_photo_urls?: string[];
   verified?: boolean;
+}
+
+export interface ProviderProfileUpdatePayload {
+  provider_type?: string;
+  full_name?: string;
+  legal_name?: string;
+  incorporation?: string;
+  search_addr?: string;
+  pincode?: string;
+  area?: string;
+  locality?: string;
+  city?: string;
+  district?: string;
+  state?: string;
+  phone?: string;
+  email?: string;
+  primary_mode?: string;
 }
 
 export interface SeekerProfileUpdatePayload {
@@ -60,6 +84,7 @@ export interface AuthUser {
   profile_complete: boolean;
   seeker_profile?: SeekerProfile | null;
   provider_profile?: ProviderProfile | null;
+  admin_profile?: AdminProfile | null;
 }
 
 export interface TokenResponse {

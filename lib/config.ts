@@ -12,6 +12,7 @@ export const config = {
   },
   google: {
     clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "",
+    mapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
   },
   contact: {
     whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "",

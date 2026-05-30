@@ -12,6 +12,7 @@ import { JobsFiltersBar } from "./jobs-filters-bar";
 import { JobRow } from "./job-row";
 import { JobsListingStyles } from "./jobs-listing-styles";
 import { SectionLoader } from "@/components/ui/Spinner";
+import { compareJobsByNewest } from "@/lib/sort-jobs";
 import "@/lib/i18n";
 
 export type JobsListingPanelProps = {
@@ -75,7 +76,7 @@ export function JobsListingPanel({
   const [internalType, setInternalType] = useState("");
   const [internalLocation, setInternalLocation] = useState(initialLocation);
   const [query, setQuery] = useState(initialQuery);
-  const [sort, setSort] = useState<"relevant" | "newest" | "salary">("relevant");
+  const [sort, setSort] = useState<"relevant" | "newest" | "salary">("newest");
   const [page, setPage] = useState(1);
   const pageSize = 5;
 
@@ -118,8 +119,11 @@ export function JobsListingPanel({
       }
       return true;
     });
-    if (sort === "newest") out.sort((a, b) => a.postedDays - b.postedDays);
-    if (sort === "salary") out.sort((a, b) => b.salaryMax - a.salaryMax);
+    if (sort === "salary") {
+      out.sort((a, b) => b.salaryMax - a.salaryMax || compareJobsByNewest(a, b));
+    } else {
+      out.sort(compareJobsByNewest);
+    }
     return out;
   }, [jobs, role, salary, type, location, query, sort]);
 
@@ -182,6 +186,11 @@ export function JobsListingPanel({
             </Link>
           )}
         </div>
+      ) : isLoading ? (
+        <SectionLoader
+          label={t("pages.jobs.loading")}
+          className="mt-8 min-h-[320px] py-16"
+        />
       ) : (
         <>
       <div className="mb-4 mt-8 flex flex-wrap items-center justify-between gap-3">
@@ -200,30 +209,26 @@ export function JobsListingPanel({
         </label>
       </div>
 
-      {isLoading ? (
-        <SectionLoader label={t("dashboard.loading")} className="min-h-[280px] py-12" />
-      ) : (
-        <ul className="space-y-4">
-          {paged.map((j) => (
-            <JobRow
-              key={j.id}
-              job={j}
-              seekerMode={seekerMode}
-              applied={appliedIds?.has(j.id)}
-              bookmarked={bookmarkedIds?.has(j.id)}
-              onRequireLogin={onRequireLogin}
-              onStatusChange={onStatusChange}
-            />
-          ))}
-          {filtered.length === 0 && jobs.length > 0 && (
-            <li className="rounded-lg border border-dashed border-line bg-white p-10 text-center text-muted-foreground">
-              {t("pages.jobs.empty")}
-            </li>
-          )}
-        </ul>
-      )}
+      <ul className="space-y-4">
+        {paged.map((j) => (
+          <JobRow
+            key={j.id}
+            job={j}
+            seekerMode={seekerMode}
+            applied={appliedIds?.has(j.id)}
+            bookmarked={bookmarkedIds?.has(j.id)}
+            onRequireLogin={onRequireLogin}
+            onStatusChange={onStatusChange}
+          />
+        ))}
+        {filtered.length === 0 && jobs.length > 0 && (
+          <li className="rounded-lg border border-dashed border-line bg-white p-10 text-center text-muted-foreground">
+            {t("pages.jobs.empty")}
+          </li>
+        )}
+      </ul>
 
-      {!isLoading && filtered.length > 0 && (
+      {filtered.length > 0 && (
         <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-5">
           <p className="text-sm text-muted-foreground">
             Showing {startIdx + 1}–{Math.min(startIdx + pageSize, filtered.length)} of {filtered.length} results

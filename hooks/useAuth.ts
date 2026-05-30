@@ -50,6 +50,10 @@ export function useAuth() {
       router.push("/login/provider");
       return;
     }
+    if (role === "admin") {
+      router.push("/login/admin");
+      return;
+    }
     router.push("/login/seeker");
   }, [router, user?.user_type]);
 

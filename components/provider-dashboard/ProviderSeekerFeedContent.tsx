@@ -309,6 +309,10 @@ function FiltersBox({
 }) {
   const [roleMenuOpen, setRoleMenuOpen] = useState(false);
   const [expMenuOpen, setExpMenuOpen] = useState(false);
+  const closeMenus = () => {
+    setRoleMenuOpen(false);
+    setExpMenuOpen(false);
+  };
   const selectedRoleLabel = role ? t(`roles.${role}`, { defaultValue: role }) : t("pages.seekers.filters.anyRole");
   const selectedExpLabel = exp
     ? exp === "0-0"
@@ -347,14 +351,17 @@ function FiltersBox({
               <span className="text-[11px] font-light text-slate-400">{roleMenuOpen ? "▴" : "▾"}</span>
             </button>
             {roleMenuOpen ? (
-              <div className="dropdown-scroll absolute left-0 right-0 z-40 mt-1 max-h-56 overflow-auto rounded-md border border-line bg-white shadow-lg">
+              <div
+                className="dropdown-scroll absolute left-0 right-0 z-40 mt-1 max-h-56 overflow-auto rounded-md border border-line bg-white shadow-lg"
+                onClick={(e) => e.stopPropagation()}
+              >
                 {roleKeys.map((r) => (
                   <button
                     key={r}
                     type="button"
                     onClick={() => {
                       setRole(r);
-                      setRoleMenuOpen(false);
+                      closeMenus();
                     }}
                     className={`block w-full px-3 py-2 text-left text-sm hover:bg-soft ${
                       role === r ? "bg-primary/10 font-semibold text-primary" : "text-ink"
@@ -384,7 +391,10 @@ function FiltersBox({
               <span className="text-[11px] font-light text-slate-400">{expMenuOpen ? "▴" : "▾"}</span>
             </button>
             {expMenuOpen ? (
-              <div className="dropdown-scroll absolute left-0 right-0 z-40 mt-1 max-h-56 overflow-auto rounded-md border border-line bg-white shadow-lg">
+              <div
+                className="dropdown-scroll absolute left-0 right-0 z-40 mt-1 max-h-56 overflow-auto rounded-md border border-line bg-white shadow-lg"
+                onClick={(e) => e.stopPropagation()}
+              >
                 {[
                   { value: "", label: t("pages.seekers.filters.anyExp") },
                   { value: "0-0", label: t("pages.seekers.filters.expFresher") },
@@ -397,7 +407,7 @@ function FiltersBox({
                     type="button"
                     onClick={() => {
                       setExp(opt.value);
-                      setExpMenuOpen(false);
+                      closeMenus();
                     }}
                     className={`block w-full px-3 py-2 text-left text-sm hover:bg-soft ${
                       exp === opt.value ? "bg-primary/10 font-semibold text-primary" : "text-ink"

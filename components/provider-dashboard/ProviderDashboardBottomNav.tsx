@@ -24,7 +24,7 @@ export function ProviderDashboardBottomNav() {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-line bg-white px-1 pb-[env(safe-area-inset-bottom)] pt-1 lg:hidden">
       <ul className="mx-auto flex max-w-lg items-stretch justify-around">
-        {PROVIDER_DASHBOARD_NAV.filter((item) => item.mobile !== false).map((item) => {
+        {PROVIDER_DASHBOARD_NAV.filter((item) => item.mobile !== false && !item.hidden).map((item) => {
           const active = isActive(pathname, item.href);
           const Icon = item.icon;
           return (
