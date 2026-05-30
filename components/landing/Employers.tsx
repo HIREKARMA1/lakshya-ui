@@ -1,10 +1,26 @@
 "use client";
+
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/lib/api";
+import "@/lib/i18n";
 
 export function Employers() {
   const { t } = useTranslation();
-  const names = (t("employers.names", { returnObjects: true }) as string[]) ?? [];
-  const row = [...names, ...names];
+  const { data } = useQuery({
+    queryKey: ["public-employers", "names"],
+    queryFn: () => api.listPublicEmployerNames(50),
+    retry: false,
+  });
+
+  const names = data?.names ?? [];
+  const row = useMemo(() => {
+    if (!names.length) return [];
+    return names.length === 1 ? [...names, ...names] : [...names, ...names];
+  }, [names]);
+
+  if (!names.length) return null;
 
   return (
     <section id="employers" className="border-t border-line bg-white">
@@ -21,7 +37,7 @@ export function Employers() {
         <div className="lk-marquee flex w-max gap-12 whitespace-nowrap">
           {row.map((n, i) => (
             <span
-              key={i}
+              key={`${n}-${i}`}
               className="font-display text-xl font-extrabold tracking-tight text-ink/70"
             >
               {n}

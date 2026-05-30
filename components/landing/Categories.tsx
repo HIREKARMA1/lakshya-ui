@@ -3,29 +3,36 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { api } from "@/lib/api";
 import type { Job } from "@/types/job";
 import "@/lib/i18n";
 
 const colorCycle = ["bg-primary", "bg-sky", "bg-yellow", "bg-orange", "bg-red", "bg-green"];
 const inkOn = ["text-white", "text-white", "text-ink", "text-white", "text-white", "text-white"];
 
-export function Categories() {
+type CategoriesProps = {
+  jobs: Job[];
+};
+
+export function Categories({ jobs }: CategoriesProps) {
   const { t } = useTranslation();
-  const { data } = useQuery({
-    queryKey: ["public-jobs", "categories"],
-    queryFn: () => api.searchPublicJobs({ limit: 100 }),
-    retry: false,
-  });
 
   const items = useMemo(() => {
-    const map = new Map<string, number>();
-    (data?.jobs ?? []).forEach((j: Job) => {
-      map.set(j.roleKey, (map.get(j.roleKey) ?? 0) + j.openings);
+    const map = new Map<string, { openings: number; newestPostedDays: number }>();
+    jobs.forEach((j) => {
+      const prev = map.get(j.roleKey);
+      if (!prev) {
+        map.set(j.roleKey, { openings: j.openings, newestPostedDays: j.postedDays });
+      } else {
+        map.set(j.roleKey, {
+          openings: prev.openings + j.openings,
+          newestPostedDays: Math.min(prev.newestPostedDays, j.postedDays),
+        });
+      }
     });
-    return Array.from(map.entries()).map(([roleKey, openings]) => ({ roleKey, openings }));
-  }, [data?.jobs]);
+    return Array.from(map.entries())
+      .map(([roleKey, { openings, newestPostedDays }]) => ({ roleKey, openings, newestPostedDays }))
+      .sort((a, b) => a.newestPostedDays - b.newestPostedDays);
+  }, [jobs]);
 
   return (
     <section id="categories" className="border-t border-line bg-soft">

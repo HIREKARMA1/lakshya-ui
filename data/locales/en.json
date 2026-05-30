@@ -21,6 +21,8 @@
         "salary25plus": "₹25,000+",
         "type": "Job Type",
         "anyType": "Any Type",
+        "exp": "Experience",
+        "anyExp": "Any Experience",
         "fullTime": "Full Time",
         "partTime": "Part Time",
         "location": "Location",
@@ -49,6 +51,7 @@
       "type": { "fullTime": "Full Time", "partTime": "Part Time" },
       "exp": { "fresher": "Fresher (0 years)", "exp12": "1-2 years", "exp35": "3-5 years" },
       "empty": "No jobs match your filters.",
+      "loading": "Loading jobs…",
       "strip": [
         { "k": "Salary Range", "v": "₹10,000 – ₹40,000 /month" },
         { "k": "Top Skills", "v": "Role skills · Communication" },
@@ -222,6 +225,13 @@
       "notFound": "Job not found",
       "backToJobs": "Back to Jobs",
       "share": "Share",
+      "shareViaEmail": "Share via Email",
+      "shareViaWhatsApp": "Share via WhatsApp",
+      "copyLink": "Copy Link",
+      "linkCopied": "Job link copied to clipboard",
+      "linkCopyFailed": "Could not copy link. Please try again.",
+      "shareSubject": "{{title}} at {{company}} — LAKSHYA",
+      "shareMessage": "Check out this job: {{title}} at {{company}} in {{city}}.\n\nApply here: {{url}}",
       "save": "Save",
       "urgent": "Urgent Hiring",
       "posted": "Posted {{date}}",
@@ -251,6 +261,8 @@
       "salaryRange": "Salary Range",
       "salaryValue": "₹{{min}} – ₹{{max}} /monthly",
       "jobTitle": "Job Title",
+      "jobRole": "Job Role",
+      "joiningProcess": "Joining Process",
       "industryType": "Industry Type",
       "workingHours": "Working Hours",
       "education": "Education Qualification",
@@ -263,6 +275,9 @@
       "applying": "Applying…",
       "applySuccess": "Application submitted successfully",
       "applyFailed": "Could not submit application. Please try again.",
+      "providerDraftBanner": "This job is a draft — only you can see this preview. Publish it to list on Find Jobs and allow applications.",
+      "providerNotPublicBanner": "This job is not public (status: {{status}}). Seekers cannot find it until it is active.",
+      "publishing": "Publishing…",
       "saveJob": "Save Job",
       "saved": "Saved",
       "deadline": "Application Deadline",
@@ -277,19 +292,256 @@
       "reviewsCount": "0 reviews",
       "viewReviews": "View Reviews →",
       "verifiedEmployer": "Verified employer on LAKSHYA",
+      "viewCompany": "View Company",
       "emptyJobs": "No jobs available right now. Please check back soon."
+    },
+    "companyProfile": {
+      "notFound": "Company profile not found",
+      "back": "Back",
+      "share": "Share company profile",
+      "shareSubject": "{{name}} on LAKSHYA",
+      "shareMessage": "Check out {{name}} on LAKSHYA.\n\nView company profile: {{url}}",
+      "memberSince": "Member since {{date}}",
+      "openJobs": "Open positions",
+      "openJobsSub": "{{n}} active job listings",
+      "noOpenJobs": "No open positions right now.",
+      "contactCta": "Contact employer",
+      "copyProfileLink": "Copy profile link",
+      "viewWorkplacePhoto": "View workplace photo {{n}} of {{total}}"
+    },
+    "about": {
+      "eyebrow": "About LAKSHYA",
+      "title": "From every village, to every workplace — for Bharat.",
+      "subtitle": "LAKSHYA is a verified, hyperlocal employment platform connecting blue-collar workers with trusted employers across India.",
+      "storyEyebrow": "Our story",
+      "storyTitle": "Building the quick-commerce layer for work",
+      "storyBody": "Millions of skilled workers in Bharat still rely on word-of-mouth, middlemen, and long commutes to find their next shift. LAKSHYA changes that — with verified listings, local matching, and support in your language.",
+      "storyBody2": "Whether you are a driver, electrician, cook, or security guard — or an MSME hiring your next team member — we help you connect faster, fairly, and with full transparency.",
+      "highlightsEyebrow": "Why choose us",
+      "highlightsTitle": "Trusted by workers and employers",
+      "highlights": [
+        {
+          "title": "Verified opportunities",
+          "body": "Every employer and listing is reviewed so seekers see real jobs — not scams or hidden fees."
+        },
+        {
+          "title": "Hyperlocal matching",
+          "body": "Find work within your commute radius. Employers discover talent already near their workplace."
+        },
+        {
+          "title": "Multilingual support",
+          "body": "Browse, apply, and get help in English, Hindi, or Odia — by app, call, or WhatsApp."
+        }
+      ],
+      "stats": [
+        { "k": "1,200+", "v": "Active Seekers" },
+        { "k": "80+", "v": "Verified Employers" },
+        { "k": "30 min", "v": "Avg. Time to Hire" }
+      ],
+      "impact": {
+        "eyebrow": "Platform impact",
+        "title": "Built for scale across Bharat",
+        "subtitle": "We started hyperlocal and are expanding city by city — with zero registration fees for job seekers.",
+        "metrics": [
+          { "value": "28+", "label": "States & UTs", "hint": "Active listings and verified employers" },
+          { "value": "120+", "label": "Cities", "hint": "From tier-1 metros to district towns" },
+          { "value": "50+", "label": "Job roles", "hint": "Driver to welder, cook to security" },
+          { "value": "₹0", "label": "Seeker fees", "hint": "Free to register, browse, and apply" }
+        ]
+      },
+      "sectors": {
+        "eyebrow": "Industries we cover",
+        "title": "Everyday work. Every major sector.",
+        "subtitle": "LAKSHYA focuses on roles that keep Bharat running — on the shop floor, on the road, and on-site.",
+        "items": [
+          { "name": "Logistics & delivery", "body": "Drivers, riders, warehouse helpers, and last-mile partners for growing e-commerce and retail." },
+          { "name": "Manufacturing & trades", "body": "Machine operators, welders, fitters, electricians, and line workers for MSMEs and plants." },
+          { "name": "Hospitality & food", "body": "Cooks, kitchen staff, housekeeping, and front-of-house roles in hotels and QSR chains." },
+          { "name": "Security & facilities", "body": "Guards, cleaners, maintenance staff, and facility helpers for offices and residential sites." },
+          { "name": "Retail & sales", "body": "In-store promoters, cashiers, stock handlers, and field sales for local brands." },
+          { "name": "Construction & infra", "body": "Masons, helpers, supervisors, and site labour for builders and contractors." }
+        ]
+      },
+      "journey": {
+        "eyebrow": "Our journey",
+        "title": "From Bhubaneswar to pan-Bharat",
+        "subtitle": "LAKSHYA was founded to fix a simple problem — talented workers and honest employers couldn't find each other fast enough.",
+        "milestones": [
+          { "year": "2024", "title": "LAKSHYA launches in Odisha", "body": "Pilot with local MSMEs and hyperlocal job matching in Bhubaneswar and nearby districts." },
+          { "year": "2025", "title": "Multilingual platform goes live", "body": "English, Hindi, and Odia support — plus WhatsApp and call-based onboarding for first-time users." },
+          { "year": "2025", "title": "Verified employer network grows", "body": "Document checks, workplace photos, and review workflows so seekers trust every listing." },
+          { "year": "2026", "title": "Expanding across Bharat", "body": "Scaling to new cities with the same promise — fair pay, clear roles, and jobs near home." }
+        ]
+      },
+      "explore": {
+        "eyebrow": "Next steps",
+        "title": "See LAKSHYA in action",
+        "subtitle": "Whether you are hiring or looking for work, start in a few taps.",
+        "cards": [
+          { "title": "Find a job", "body": "Browse verified blue-collar roles near you. Filter by role, salary, and city.", "href": "/jobs", "cta": "Browse jobs" },
+          { "title": "Hire your team", "body": "Post openings, reach local seekers, and fill shifts without middlemen.", "href": "/find-seekers", "cta": "Find workers" },
+          { "title": "Talk to our team", "body": "Questions about listings, accounts, or safety? We are one call or WhatsApp away.", "href": "/contact", "cta": "Contact us" }
+        ]
+      }
+    },
+    "contact": {
+      "eyebrow": "Contact",
+      "title": "We are here to help",
+      "subtitle": "Reach our team for job support, employer onboarding, or platform questions. We respond quickly on call and WhatsApp.",
+      "reachTitle": "Talk to us",
+      "reachBody": "Prefer a quick chat? Call or message us — our support team helps seekers and employers across Bharat.",
+      "call": "Call now",
+      "whatsapp": "WhatsApp us",
+      "emailCta": "Send email",
+      "phoneLabel": "Phone",
+      "emailLabel": "Email",
+      "helpTitle": "What we can help with",
+      "helpBody": "Our team assists with account issues, job listings, applications, and safety concerns.",
+      "channels": [
+        "Finding and applying for jobs",
+        "Posting jobs as an employer",
+        "Account and profile support",
+        "Reporting suspicious listings"
+      ],
+      "officeTitle": "Office",
+      "hoursTitle": "Support hours",
+      "hoursBody": "Monday to Saturday, 9:00 AM – 7:00 PM IST. WhatsApp messages are answered within 30 minutes during business hours.",
+      "safetyTitle": "Stay safe",
+      "safetyBody": "Never pay anyone for a job on LAKSHYA. Report suspicious employers with screenshots — we review every report.",
+      "address": "2nd Floor, SS Niwas, <companyLink>Hirekarma Private Limited</companyLink>, Raghunathpur, Bhubaneswar, Raghunathpurjali, Odisha 751024"
+    },
+    "terms": {
+      "eyebrow": "Legal",
+      "title": "Terms of Service",
+      "subtitle": "Rules for using LAKSHYA — the employment platform operated by Hirekarma Private Limited.",
+      "updated": "Last updated: May 2026",
+      "sections": [
+        {
+          "title": "1. About LAKSHYA",
+          "body": "LAKSHYA is an online employment platform owned and operated by Hirekarma Private Limited (\"Hirekarma\", \"we\", \"us\"). By accessing or using LAKSHYA, you agree to these Terms of Service."
+        },
+        {
+          "title": "2. Eligibility",
+          "body": "You must be at least 18 years old and legally able to work in India to register as a job seeker or employer. You agree to provide accurate information in your profile and job listings."
+        },
+        {
+          "title": "3. Job seekers",
+          "body": "LAKSHYA does not charge job seekers a registration or application fee. Never pay a third party claiming to guarantee a job through LAKSHYA. Report suspicious listings to our support team."
+        },
+        {
+          "title": "4. Employers",
+          "body": "Employers must post genuine job openings with clear role details, location, and compensation. We may review, reject, or remove listings that are misleading, discriminatory, or violate applicable law."
+        },
+        {
+          "title": "5. Acceptable use",
+          "body": "You may not scrape, spam, impersonate others, upload malware, or use the platform for unlawful purposes. We may suspend or terminate accounts that breach these terms."
+        },
+        {
+          "title": "6. Limitation of liability",
+          "body": "LAKSHYA connects seekers and employers but does not employ workers directly. Hirekarma is not responsible for wages, working conditions, or disputes between users, except as required by applicable law."
+        },
+        {
+          "title": "7. Changes",
+          "body": "We may update these terms from time to time. Continued use of LAKSHYA after changes are posted constitutes acceptance of the revised terms."
+        }
+      ]
+    },
+    "privacy": {
+      "eyebrow": "Legal",
+      "title": "Privacy Policy",
+      "subtitle": "How Hirekarma Private Limited collects, uses, and protects your data on LAKSHYA.",
+      "updated": "Last updated: May 2026",
+      "sections": [
+        {
+          "title": "1. Who we are",
+          "body": "Hirekarma Private Limited operates LAKSHYA from 2nd Floor, SS Niwas, Raghunathpur, Bhubaneswar, Raghunathpurjali, Odisha 751024. This policy explains how we handle personal information on the platform."
+        },
+        {
+          "title": "2. Information we collect",
+          "body": "We collect information you provide when you register, create a profile, post or apply for jobs, upload documents, or contact support — such as name, phone, email, location, skills, and resume files."
+        },
+        {
+          "title": "3. How we use information",
+          "body": "We use your data to operate LAKSHYA, match seekers with nearby jobs, verify employers, improve our services, send service-related messages, and comply with legal obligations."
+        },
+        {
+          "title": "4. Sharing",
+          "body": "Job seeker profiles and applications may be shared with employers you apply to. We do not sell personal data. We may share data with service providers who help us host, secure, or support the platform."
+        },
+        {
+          "title": "5. Security & retention",
+          "body": "We use reasonable technical and organisational measures to protect your data. We retain information while your account is active and as needed for legal, security, or business purposes."
+        },
+        {
+          "title": "6. Your choices",
+          "body": "You may update profile information in your account settings or contact us to request access, correction, or deletion of your data, subject to applicable law and legitimate business needs."
+        },
+        {
+          "title": "7. Contact",
+          "body": "For privacy questions, reach us through the Contact page or the support channels listed on LAKSHYA."
+        }
+      ]
     }
   },
   "roles": {
-    "delivery": "Delivery Partner",
+    "accountingTaxation": "Accounting & Taxation",
+    "adminBackOffice": "Admin / Back Office",
+    "any": "Any Role",
+    "assemblyLineOperator": "Assembly Line Operator",
+    "barber": "Barber",
+    "cleaner": "Cleaner",
+    "clerk": "Clerk",
+    "cncMachineOperator": "CNC Machine Operator",
+    "constructionWorker": "Construction Worker",
+    "cook": "Cook",
+    "cuttingMachineOp": "Cutting Machine Op",
+    "dataCollection": "Data Collection",
+    "dataEntry": "Data Entry",
+    "delivery": "Rider / Delivery Boy",
     "driver": "Driver",
     "electrician": "Electrician",
-    "cook": "Cook",
+    "electricianWireman": "Electrician / Wireman",
+    "enterpriseB2bSales": "Enterprise & B2B Sales",
+    "executiveChef": "Executive Chef",
+    "fieldSales": "Field Sales",
+    "grindingMachineOp": "Grinding Machine Op",
+    "helper": "Helper",
+    "hospitalityManager": "Hospitality Manager",
+    "housekeeping": "Housekeeping",
+    "hrOperations": "HR Operations",
+    "inStorePromoter": "In-store Promoter",
+    "invigilator": "Invigilator",
+    "jrSupervisor": "Jr. Supervisor",
+    "latheOperator": "Lathe Operator",
+    "lineWorker": "Line Worker",
+    "maintTurnerFitter": "Maint. Turner / Fitter",
+    "manufacturingLabour": "Manufacturing Labour",
+    "manufacturingMgmt": "Manufacturing mgmt",
+    "manufacturingProduction": "Manufacturing/Production",
+    "mason": "Mason",
+    "mouldingMachineOp": "Moulding Machine Op",
+    "officeBoy": "Office Boy",
+    "opsQualityControl": "Ops Quality Control",
+    "packersMovers": "Packers & Movers",
+    "painter": "Painter",
+    "plumber": "Plumber",
+    "powerPressOperator": "Power Press Operator",
+    "procurementPurchase": "Procurement & Purchase",
+    "productionQuality": "Production Quality",
+    "qualityAssurance": "Quality Assurance",
+    "retailAssociate": "Retail Associate",
+    "salesExecutive": "Sales Executive",
     "security": "Security Guard",
-    "cleaner": "Cleaner",
-    "dataEntry": "Data Entry",
-    "welder": "Welder",
-    "any": "Any Role"
+    "steward": "Steward",
+    "storeHelper": "Store Helper",
+    "supervisor": "Supervisor",
+    "systemOperator": "System Operator",
+    "tailor": "Tailor",
+    "toolDieMaker": "Tool & Die Maker",
+    "trailerDriver": "Trailer Driver",
+    "turnerFitter": "Turner / Fitter",
+    "vmcMachineOperator": "VMC Machine Operator",
+    "welder": "Welder"
   },
   "brand": { "name": "LAKSHYA", "tagline": "Verified Hyperlocal Jobs" },
   "nav": {
@@ -305,6 +557,12 @@
     "whatsapp": "WhatsApp",
     "call": "Call Now",
     "language": "Language"
+  },
+  "languageSwitcher": {
+    "title": "Select language",
+    "subtitle": "Choose English, Hindi, or Odia",
+    "close": "Close",
+    "ariaSelect": "Select language"
   },
   "hero": {
     "eyebrow": "Verified · Hyperlocal · Instant",
@@ -347,17 +605,80 @@
     "kpi": "50+",
     "kpiLabel": "jobs within 10 km of you",
     "body": "LAKSHYA pinpoints openings on a live map so you spend less time commuting and more time earning.",
-    "cta": "View jobs near me"
+    "cta": "View jobs near me",
+    "providerOnly": "Jobs near me is for job seekers. Switch to a seeker account or log out to continue."
+  },
+  "nearbyJobs": {
+    "homeTitle": "Find jobs near you on the map",
+    "homeSubtitle": "Enter your area or pincode — no login required. Tap a pin to view the job details.",
+    "dashboardTitle": "Jobs near me",
+    "dashboardSubtitle": "Pick how far to search, change your location anytime, and expand the area if nothing shows up.",
+    "usingProfile": "Using your profile location",
+    "profileRequired": "Add city and pincode in your profile to see jobs near you.",
+    "profileOptional": "Save your address in profile for one-tap search, or enter any location below.",
+    "updateProfile": "Update profile",
+    "searchLabel": "Your location",
+    "searchPlaceholder": "e.g. 751001 or Bhubaneswar, Odisha",
+    "radiusLabel": "Search within",
+    "radiusChip": "{{km}} km",
+    "radiusHint": "Search a location first, then change distance.",
+    "searchCta": "Search",
+    "mapHint": "Enter your location and choose a distance to see jobs on the map.",
+    "searchingNear": "Showing jobs near",
+    "useProfileLocation": "Use my profile location",
+    "changeLocation": "Change location",
+    "resultsSummary": "{{count}} jobs within {{radius}} km of {{location}}",
+    "noJobsInRadius": "No jobs within {{radius}} km of {{location}}",
+    "yourArea": "your area",
+    "distance": "{{km}} km",
+    "empty": "No jobs in this area.",
+    "searchFailed": "Could not search nearby jobs. Try again.",
+    "noCenter": "Could not determine location.",
+    "locationRequired": "Enter your address or pincode to search.",
+    "expandTitle": "No jobs in this area",
+    "expandBody": "Try a wider search — like increasing delivery range on Swiggy or Zomato.",
+    "searchWithin": "Search within {{km}} km",
+    "maxRadiusReached": "Already searching at maximum distance. Try a different location.",
+    "travel": {
+      "label": "How you'll travel",
+      "twoWheeler": "Bike",
+      "car": "Car",
+      "bus": "Bus",
+      "cycle": "Cycle",
+      "walk": "Walk",
+      "distanceKm": "{{km}} km",
+      "calculating": "Calculating route…",
+      "fastest": "Nearest by your route: {{job}} — {{time}} ({{distance}} km)"
+    },
+    "highlight": {
+      "legendTitle": "Map pins",
+      "legendTop": "Top match — new, fewer applicants, fits your profile",
+      "legendGood": "Good match",
+      "legendNormal": "Other jobs nearby",
+      "legendBodyProfile": "Orange pins are ranked using how recently the job was posted, how many people applied, and how well it matches your skills and experience.",
+      "legendBodyGuest": "Orange and green pins favour newer jobs with fewer applicants. Log in and complete your profile for skill and experience matching.",
+      "topMatch": "Top match",
+      "posted": "Posted {{days}}d ago",
+      "applied": "{{n}} applied · {{openings}} openings",
+      "reasonFresh": "Recently posted",
+      "reasonLowApplicants": "Few applicants",
+      "reasonSkillMatch": "Matches your skills",
+      "reasonExpMatch": "Fits your experience",
+      "reasonUrgent": "Urgent hiring"
+    },
+    "map": {
+      "yourLocation": "Your location"
+    }
   },
   "refer": {
-    "eyebrow": "Refer & Earn",
-    "title": "Refer a friend.",
-    "amount": "₹20",
-    "amountLabel": "Earn",
-    "afterAmount": "instantly to your UPI.",
-    "body": "Every friend who registers on LAKSHYA puts ₹20 in your wallet. No limits. Withdraw anytime.",
-    "cta": "Start referring",
-    "bullets": ["No limit on referrals", "Withdraw anytime", "UPI transfer", "Safe & secure"]
+    "eyebrow": "For job seekers",
+    "title": "Find verified work.",
+    "amount": "Zero fees.",
+    "amountLabel": "Always free",
+    "afterAmount": "Apply without paying anyone.",
+    "body": "Browse local blue-collar jobs, apply in your language, and track every application — no registration charges and no middlemen.",
+    "cta": "Browse jobs",
+    "bullets": ["Verified employers only", "Jobs near your home", "English, Hindi & Odia", "Help on call & WhatsApp"]
   },
   "vision": {
     "eyebrow": "Why LAKSHYA",
@@ -405,14 +726,25 @@
   },
   "footer": {
     "tagline": "From every corner. To every career. For Bharat.",
+    "companyLine": "LAKSHYA is a product of <companyLink>Hirekarma Private Limited</companyLink>.",
     "linksTitle": "Platform",
-    "links": ["Find Jobs", "For Employers", "Categories", "Refer & Earn", "Live Jobs"],
+    "links": [
+      { "label": "Find Jobs", "href": "/jobs" },
+      { "label": "For Employers", "href": "/find-seekers" }
+    ],
     "companyTitle": "Company",
-    "company": ["About", "Careers", "Press", "Contact"],
+    "company": [
+      { "label": "About", "href": "/about" },
+      { "label": "Contact", "href": "/contact" }
+    ],
     "legalTitle": "Legal",
-    "legal": ["Terms", "Privacy", "Refund Policy"],
-    "address": "Bhubaneswar, Odisha · Bharat",
-    "rights": "© 2026 LAKSHYA. All rights reserved."
+    "legal": [
+      { "label": "Terms of Service", "href": "/terms" },
+      { "label": "Privacy Policy", "href": "/privacy" }
+    ],
+    "address": "2nd Floor, SS Niwas, <companyLink>Hirekarma Private Limited</companyLink>, Raghunathpur, Bhubaneswar, Raghunathpurjali, Odisha 751024",
+    "rights": "© 2026 <companyLink>Hirekarma Private Limited</companyLink>. All rights reserved.",
+    "madeIn": "Made for Bharat"
   },
   "common": {
     "yes": "Yes",
@@ -426,6 +758,8 @@
     "today": "Today",
     "clear": "Clear",
     "confirm": "Confirm",
+    "add": "Add",
+    "edit": "Edit",
     "loading": "Loading…",
     "daysAgo": "{{n}}d ago",
     "verified": "Verified",
@@ -613,6 +947,7 @@
       "verified": "Verified",
       "verify": "Verify",
       "primaryModeLabel": "Primary Mode of Communication",
+      "phoneRequired": "Phone is required",
       "logoCta": "Upload Company Logo",
       "logoSub": "PNG, JPG up to 5MB",
       "docCta": "Upload Registration Document",
@@ -623,6 +958,8 @@
   "dashboard": {
     "nav": {
       "overview": "Overview",
+      "nearbyJobs": "Jobs Near Me",
+      "availability": "Go Live",
       "findJobs": "Find Jobs",
       "savedJobs": "Saved Jobs",
       "applications": "Applications",
@@ -786,6 +1123,7 @@
     "nav": {
       "overview": "Overview",
       "jobManagement": "Job Management",
+      "availableWorkers": "Available Workers",
       "seekerFeed": "Seeker Feed",
       "savedProfiles": "Saved Profiles",
       "companyProfile": "Company Profile",
@@ -816,12 +1154,316 @@
       "title": "Your Job Postings",
       "subtitle": "Manage and track your active job listings.",
       "postNew": "Post New Job",
+      "create": "Create Job",
+      "update": "Update Job",
+      "edit": "Edit Job",
+      "viewJob": "View Job",
+      "created": "Job created",
+      "updated": "Job updated",
+      "deleted": "Job deleted",
+      "createFailed": "Failed to create job",
+      "updateFailed": "Failed to update job",
+      "deleteFailed": "Failed to delete job",
+      "confirmDelete": "Delete this job?",
+      "confirmClose": "Close this job? It will be hidden from seekers on the map and job search.",
+      "closeJob": "Close",
+      "closed": "Job closed",
+      "closeFailed": "Failed to close job",
+      "publish": "Publish",
+      "publishNow": "Publish now",
+      "publishNowHint": "Publish immediately instead of waiting for the scheduled time",
+      "statusDraft": "Draft",
+      "statusScheduled": "Scheduled",
+      "goesLiveAt": "Goes live {{when}}",
+      "scheduledExplain": "Scheduled jobs stay in draft until the chosen date and time, then go live automatically.",
+      "published": "Job is now live for seekers",
+      "publishFailed": "Failed to publish job",
+      "confirmPublish": "Publish this job? It will appear on the public jobs page for seekers.",
+      "statusClosed": "Closed",
+      "tabs": {
+        "active": "Active",
+        "drafts": "Drafts",
+        "closed": "Closed jobs"
+      },
+      "emptyActiveTitle": "No active jobs",
+      "emptyActiveBody": "Publish a job or reactivate a closed listing to see it here.",
+      "emptyDraftTitle": "No draft jobs",
+      "emptyDraftBody": "Saved drafts and scheduled jobs waiting to go live will appear here.",
+      "emptyClosedTitle": "No closed jobs",
+      "emptyClosedBody": "Jobs you close manually or after the application deadline passes will appear here.",
+      "reactivate": "Activate",
+      "reactivateTitle": "Reactivate job",
+      "reactivateBody": "Set a new application deadline to make this job live again for seekers.",
+      "reactivateConfirm": "Activate job",
+      "reactivated": "Job is active again",
+      "reactivateFailed": "Could not reactivate job",
+      "deadlineRequired": "Application deadline is required",
+      "deadlineFuture": "Deadline must be today or a future date",
+      "applicationDeadline": "Application deadline",
+      "cityRequired": "City is required",
+      "salaryInvalid": "Min salary cannot exceed max salary",
       "emptyTitle": "No job listings yet",
       "emptyBody": "Post your first job to get started with candidate matches.",
       "stats": {
         "total": "Total jobs posted",
+        "active": "Active jobs",
         "applicants": "Total applicants",
         "onboarded": "Onboarded"
+      }
+    },
+    "postJob": {
+      "title": "Post New Job",
+      "titleSub": "Add job details and publish to seekers",
+      "minCharsHint": "(min 100 characters)",
+      "bulkUpload": "Bulk Upload",
+      "selectOption": "Select an option",
+      "searchRoles": "Search...",
+      "noRolesFound": "No roles found",
+      "publishJob": "Publish Job",
+      "monthly": "Monthly",
+      "characters": "characters",
+      "notSpecified": "Not specified",
+      "questionsHint": "Add screening questions for applicants (optional).",
+      "noQuestions": "No questions added yet.",
+      "requiredQuestion": "Required question",
+      "steps": {
+        "basic": "Basic Info",
+        "basicSub": "",
+        "details": "Details",
+        "detailsSub": "",
+        "questions": "Questions",
+        "questionsSub": "",
+        "review": "Review",
+        "reviewSub": ""
+      },
+      "fields": {
+        "role": "Job Role",
+        "jobTitle": "Job Title",
+        "jobTitlePh": "e.g., Delivery Driver, Sales Executive",
+        "openings": "Number of Openings",
+        "deadline": "Application Deadline",
+        "employment": "Employment Type",
+        "searchAddr": "Search Address",
+        "searchAddrHint": "Enter pincode to auto-fill address",
+        "searchAddrPh": "Start typing your address...",
+        "industry": "Industry Type",
+        "phone": "Phone number",
+        "email": "Email address",
+        "salaryMin": "Salary min",
+        "salaryMax": "Salary max",
+        "responsibilitiesPh": "Describe the responsibilities you want the worker to do daily....",
+        "benefitsPh": "Search benefits or type your own...",
+        "benefitsAdd": "Add",
+        "benefitsAddAll": "Add all benefits",
+        "benefitsNoResults": "No match — click Add to create a custom benefit",
+        "joining": "Joining process",
+        "wfh": "Yes, work from home",
+        "urgent": "Yes, urgent",
+        "experience": "Experience Required",
+        "skills": "Skills Required",
+        "skillsPh": "Search skills or type your own...",
+        "skillsAdd": "Add",
+        "skillsNoResults": "No match — click Add to create a custom skill",
+        "questionPh": "e.g., Do you have a valid driving license?",
+        "customHoursPh": "e.g., 11:00 AM – 8:00 PM or Flexible timing",
+        "schedulePh": "mm/dd/yyyy, hh:mm AM",
+        "selectSchedule": "Select date & time",
+        "time": "Time"
+      },
+      "employment": {
+        "fullTime": "Full-time",
+        "partTime": "Part-time",
+        "internship": "Internship",
+        "contractual": "Contractual",
+        "freelancer": "Freelancer"
+      },
+      "industries": {
+        "retail": "Retail",
+        "logistics": "Logistics",
+        "hospitality": "Hospitality",
+        "manufacturing": "Manufacturing",
+        "healthcare": "Healthcare",
+        "construction": "Construction",
+        "it": "IT & Software",
+        "agriculture": "Agriculture",
+        "other": "Other"
+      },
+      "hours": {
+        "hours7to3": "7:00 AM – 3:00 PM (8 hours)",
+        "hours8to4": "8:00 AM – 4:00 PM (8 hours)",
+        "hours8to5": "8:00 AM – 5:00 PM (9 hours)",
+        "hours9to5": "9:00 AM – 5:00 PM (8 hours)",
+        "hours9to6": "9:00 AM – 6:00 PM (9 hours)",
+        "hours10to6": "10:00 AM – 6:00 PM (8 hours)",
+        "hours10to7": "10:00 AM – 7:00 PM (9 hours)",
+        "hours12to8": "12:00 PM – 8:00 PM (8 hours)",
+        "hours6pmto2am": "6:00 PM – 2:00 AM (8 hours – Night Shift)",
+        "hours10pmto6am": "10:00 PM – 6:00 AM (8 hours – Night Shift)",
+        "flexible": "Flexible Hours",
+        "shiftBased": "Shift-based (as per roster)",
+        "custom": "Custom"
+      },
+      "shifts": {
+        "morning": "Morning",
+        "afternoon": "Afternoon",
+        "evening": "Evening",
+        "night": "Night"
+      },
+      "joining": {
+        "walkIn": "Walk-in interview",
+        "phone": "Phone screening",
+        "online": "Online interview",
+        "immediate": "Immediate joining"
+      },
+      "experience": {
+        "fresher": "Fresher (0 years)",
+        "exp12": "1-2 years",
+        "exp35": "3-5 years",
+        "exp57": "5-7 years",
+        "exp10plus": "10+ years"
+      },
+      "education": {
+        "none": "No requirement",
+        "tenth": "10th pass",
+        "twelfth": "12th pass",
+        "diploma": "Diploma",
+        "graduate": "Graduate",
+        "postGraduate": "Post graduate"
+      },
+      "benefitsList": {
+        "esi": "Employees' State Insurance (ESI)",
+        "healthInsurance": "Health Insurance",
+        "housingAllowance": "Housing or Housing Allowance",
+        "transportFacility": "Transport Facility",
+        "foodAllowance": "Food Allowance",
+        "epf": "Employees' Provident Fund (EPF)",
+        "accidentalInsurance": "Accidental Insurance",
+        "canteenFacility": "Canteen Facility",
+        "conveyanceAllowance": "Conveyance Allowance",
+        "apprenticeshipStipend": "Apprenticeship Stipend",
+        "casualLeave": "Casual Leave",
+        "eap": "Counseling / Employee Assistance Program (EAP)",
+        "deathCompensation": "Death Compensation",
+        "crecheFacility": "Crèche Facility",
+        "drinkingWater": "Drinking Water Facility",
+        "employeeWelfareFund": "Employee Welfare Fund",
+        "educationAssistance": "Education Assistance",
+        "eps": "Employees' Pension Scheme (EPS)",
+        "familyPension": "Family Pension",
+        "festivalAdvance": "Festival Advance",
+        "firstAid": "First Aid Facility",
+        "festivalGifts": "Festival Gifts / Incentives",
+        "groupLifeInsurance": "Group Life Insurance",
+        "interestFreeLoans": "Interest-free Loans",
+        "maternityBenefit": "Maternity Benefit",
+        "legalAid": "Legal Aid Support",
+        "leaveEncashment": "Leave Encashment",
+        "nightShiftAllowance": "Night Shift Allowance",
+        "paidAnnualLeave": "Paid Annual Leave",
+        "wageSlip": "Wage Slip",
+        "paternityLeave": "Paternity Leave",
+        "overtimeWages": "Overtime Wages",
+        "gratuity": "Payment of Gratuity",
+        "performanceBonus": "Performance Bonus",
+        "restRoom": "Rest Room Facility",
+        "retrenchmentCompensation": "Retrenchment Compensation",
+        "safetyTraining": "Safety Training Programs",
+        "scholarshipChildren": "Scholarship for Workers' Children",
+        "shiftAllowance": "Shift Allowance",
+        "skillDevelopment": "Skill Development Training",
+        "sickLeave": "Sick Leave",
+        "statutoryBonus": "Statutory Bonus",
+        "uniformAllowance": "Uniform Allowance"
+      },
+      "skillsList": {
+        "communication": "Communication",
+        "teamwork": "Teamwork",
+        "customerService": "Customer service",
+        "sales": "Sales",
+        "timeManagement": "Time management",
+        "problemSolving": "Problem solving",
+        "leadership": "Leadership",
+        "attentionToDetail": "Attention to detail",
+        "reliability": "Reliability",
+        "physicalStamina": "Physical stamina",
+        "drivingLicense": "Driving license",
+        "twoWheeler": "Two-wheeler riding",
+        "fourWheeler": "Four-wheeler driving",
+        "routeKnowledge": "Route knowledge",
+        "navigation": "Navigation / GPS",
+        "safetyCompliance": "Safety compliance",
+        "foodPreparation": "Food preparation",
+        "hygieneStandards": "Hygiene standards",
+        "cooking": "Cooking",
+        "housekeeping": "Housekeeping",
+        "inventoryManagement": "Inventory management",
+        "warehouseHandling": "Warehouse handling",
+        "packingLabeling": "Packing & labeling",
+        "machineOperation": "Machine operation",
+        "forklift": "Forklift operation",
+        "loadingUnloading": "Loading & unloading",
+        "cashHandling": "Cash handling",
+        "msOffice": "MS Office",
+        "excel": "Excel",
+        "dataEntry": "Data entry",
+        "typing": "Typing",
+        "tally": "Tally",
+        "gst": "GST",
+        "bookkeeping": "Bookkeeping",
+        "accounting": "Accounting",
+        "englishSpeaking": "English speaking",
+        "hindiSpeaking": "Hindi speaking",
+        "computerBasics": "Computer basics",
+        "socialMedia": "Social media",
+        "qualityControl": "Quality control",
+        "welding": "Welding",
+        "electrical": "Electrical work",
+        "plumbing": "Plumbing",
+        "carpentry": "Carpentry",
+        "tailoring": "Tailoring",
+        "beautyWellness": "Beauty & wellness",
+        "retailBilling": "Retail billing / POS",
+        "negotiation": "Negotiation",
+        "training": "Training & mentoring"
+      },
+      "notifications": {
+        "title": "Notification Preferences",
+        "sub": "Choose how you'd like to be notified about applications",
+        "daily": "Daily Summary Email",
+        "dailyDesc": "Receive a daily summary of all new applications and updates",
+        "immediate": "Immediate Notifications",
+        "immediateDesc": "Get notified instantly when someone applies to your job"
+      },
+      "publish": {
+        "title": "Publishing Method",
+        "now": "Post now",
+        "nowDesc": "Your job will be published immediately and start receiving applications.",
+        "schedule": "Schedule for later",
+        "scheduleDesc": "Choose a specific date and time to publish this job post."
+      },
+      "additional": {
+        "title": "Additional Actions",
+        "template": "Save as template",
+        "templateDesc": "Reuse these job details for future postings."
+      },
+      "review": {
+        "basicInfo": "Basic Information",
+        "jobDetails": "Job Details",
+        "screeningQuestions": "Screening Questions",
+        "publishSettings": "Publishing & Notifications"
+      },
+      "errors": {
+        "role": "Please select a job role",
+        "title": "Job title is required",
+        "location": "Complete location details (PIN, city, state)",
+        "industry": "Please select industry type",
+        "contact": "Phone and email are required",
+        "hours": "Please select working hours",
+        "hoursCustom": "Please describe your custom working hours",
+        "shifts": "Select at least one shift",
+        "responsibilities": "Key responsibilities must be at least 100 characters",
+        "skills": "Add at least one skill",
+        "schedule": "Select a date and time to schedule publishing"
       }
     },
     "seekerFeed": {
@@ -836,13 +1478,418 @@
     },
     "companyProfile": {
       "title": "Company Profile",
-      "subtitle": "Your organization details and contact information."
+      "subtitle": "Your organization details and contact information.",
+      "incomplete": "Complete your company profile so seekers and admins see accurate information.",
+      "businessEmail": "Business email",
+      "businessName": "Business Name (Trading Name)",
+      "viewDocument": "View uploaded document",
+      "workplacePhotos": "Workplace photos",
+      "workplacePhotosHint": "Up to 5 photos of your workplace (from registration or edit profile).",
+      "workplaceEmpty": "No workplace photos uploaded yet.",
+      "uploadWorkplace": "Add workplace photos",
+      "workplaceUploading": "Uploading…",
+      "workplaceUploaded": "Workplace photo uploaded",
+      "workplaceUploadFailed": "Could not upload workplace photo",
+      "workplaceRemoved": "Workplace photo removed",
+      "workplaceRemoveFailed": "Could not remove workplace photo",
+      "maxWorkplacePhotos": "Maximum 5 workplace photos reached",
+      "removePhoto": "Remove photo",
+      "sections": {
+        "organization": "Organization",
+        "contact": "Contact",
+        "location": "Location",
+        "documents": "Documents & branding",
+        "workplace": "Workplace"
+      }
     },
     "help": {
       "title": "Help & Support",
-      "subtitle": "Need assistance with hiring? Reach support on call or WhatsApp.",
+      "subtitle": "We are here to help you hire verified blue-collar talent across Bharat.",
+      "faqTitle": "Common questions",
+      "faqs": [
+        {
+          "q": "Is posting jobs on LAKSHYA free?",
+          "a": "Yes. Creating an employer account and posting verified job openings is free. We do not charge per application or per hire on the platform."
+        },
+        {
+          "q": "How do I publish a job for seekers to see?",
+          "a": "Open Job Management, tap Post New Job, complete the wizard and publish. Active jobs appear on the public jobs page and in seeker search."
+        },
+        {
+          "q": "How can I find and contact candidates?",
+          "a": "Use Seeker Feed to search and filter workers by skill and location. Save profiles you like and reach applicants from Job Management."
+        },
+        {
+          "q": "How do I update my company profile?",
+          "a": "Go to Company Profile and tap Edit Profile. Update contact details, location, logo and workplace photos, then save."
+        },
+        {
+          "q": "A candidate asked me to pay a fee before joining. Is that normal?",
+          "a": "No. Ethical hiring does not require seekers to pay joining fees. Report suspicious behaviour to LAKSHYA support with screenshots."
+        },
+        {
+          "q": "How long does support take to respond?",
+          "a": "During business hours we usually reply on call or WhatsApp within 30 minutes. Email may take up to one working day."
+        }
+      ],
+      "guidesTitle": "How things work",
+      "guides": [
+        {
+          "title": "Complete your company profile",
+          "body": "Add accurate contact details, location and workplace photos so seekers trust your brand before they apply."
+        },
+        {
+          "title": "Post and manage jobs",
+          "body": "Create listings from Job Management, track applicants and close roles when filled. Draft jobs stay private until you publish."
+        },
+        {
+          "title": "Shortlist from Seeker Feed",
+          "body": "Browse available workers near you, save promising profiles and invite them to apply to your open roles."
+        }
+      ],
+      "safetyTitle": "Hire responsibly",
+      "safetyBody": "Fair hiring protects your brand and workers. LAKSHYA supports transparent, fee-free recruitment for blue-collar roles.",
+      "safetyItems": [
+        "Do not ask candidates for cash, UPI or “security deposits” to get a job.",
+        "Verify identity and skills before onboarding; keep records as per your company policy.",
+        "Report fake profiles or abusive messages to support with screenshots on WhatsApp."
+      ],
+      "hoursTitle": "Support hours",
+      "hoursBody": "Our team usually answers calls and WhatsApp between 9 am – 7 pm, Monday to Saturday (India time).",
+      "contactTitle": "Contact us",
       "call": "Call support",
-      "whatsapp": "Chat on WhatsApp"
+      "whatsapp": "Chat on WhatsApp",
+      "emailCta": "Email support"
+    }
+  },
+  "geoIntelligence": {
+    "title": "Geo-political workforce intelligence",
+    "subtitle": "Constituency-level employment reality, wages, migration, and claim vs platform data — powered by pincode mapping.",
+    "refresh": "Refresh",
+    "saveSnapshot": "Save daily snapshot",
+    "snapshotSaved": "Saved metrics for {{n}} constituencies",
+    "snapshotFailed": "Could not save snapshot",
+    "state": "State",
+    "allStates": "All states",
+    "constituency": "Constituency",
+    "allConstituencies": "All constituencies",
+    "avgWage": "Avg wage",
+    "noMigration": "No cross-constituency migration recorded yet.",
+    "noClaims": "No employment claims entered. Super admins can add claims via API.",
+    "noAlerts": "No active alerts for current filters.",
+    "constituencyTable": "Constituency breakdown",
+    "stats": {
+      "constituencies": "Constituencies",
+      "avgWri": "Avg WRI",
+      "highRisk": "High risk zones",
+      "alerts": "Active alerts"
+    },
+    "charts": {
+      "wriLeaderboard": "Workforce Reality Index (top constituencies)",
+      "wagesBySkill": "Average wage by skill",
+      "migration": "Labor migration flows",
+      "claimVsReality": "Claim vs platform employment",
+      "alerts": "Insights & alerts"
+    },
+    "table": {
+      "constituency": "Constituency",
+      "claimed": "Claimed employed",
+      "platform": "Platform employed",
+      "accuracy": "Accuracy",
+      "name": "Name",
+      "risk": "Unemployment risk",
+      "workers": "Active / inactive",
+      "jobs": "Jobs posted",
+      "wage": "Median wage"
+    }
+  },
+  "workforceHeatmaps": {
+    "title": "Workforce supply & demand heatmaps",
+    "subtitle": "Geographic labor availability, shortages, salary trends, and migration patterns across Bharat.",
+    "refresh": "Refresh",
+    "export": "Export CSV",
+    "saveSnapshot": "Save snapshot",
+    "exportSuccess": "Report downloaded",
+    "exportFailed": "Export failed",
+    "snapshotSaved": "Saved {{n}} grid cells to database",
+    "snapshotFailed": "Could not save snapshot",
+    "loadFailed": "Could not load workforce data. Check that the server is running and try again.",
+    "metric": "Heatmap metric",
+    "metrics": {
+      "shortage": "Labor shortage",
+      "supply": "Worker supply",
+      "demand": "Job demand",
+      "salary": "Salary levels",
+      "applications": "Applications"
+    },
+    "state": "State",
+    "allStates": "All states",
+    "city": "City",
+    "cityPh": "Filter by city",
+    "skill": "Skill / role",
+    "skillPh": "e.g. driver, cook",
+    "lastUpdated": "Last updated",
+    "totals": {
+      "cells": "Grid zones",
+      "supply": "Workers (supply)",
+      "live": "Live available",
+      "jobs": "Active job posts",
+      "shortage": "Total shortage index"
+    },
+    "demand": "Demand",
+    "supply": "Supply",
+    "jobs": "Jobs posted",
+    "openings": "Openings",
+    "predicted": "Predicted shortage",
+    "confidence": "Confidence",
+    "charts": {
+      "skillDemand": "Skill demand heatmap",
+      "skillSupply": "Skill supply heatmap",
+      "regionalShortage": "Regional shortage by state",
+      "timeTrends": "Workforce trends over time",
+      "employerDemand": "Employer demand by role",
+      "shortagePrediction": "Shortage prediction (next period)",
+      "migration": "Worker migration flows"
+    }
+  },
+  "workerAvailability": {
+    "title": "My availability",
+    "subtitle": "Let employers know when you can work. Your status expires automatically.",
+    "statusLive": "You are visible to employers",
+    "statusOffline": "You are offline",
+    "expires": "Expires",
+    "whenAvailable": "When are you available?",
+    "windows": {
+      "now": "Available now",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "next_week": "Next week"
+    },
+    "shift": "Shift preference",
+    "shifts": {
+      "day": "Day",
+      "night": "Night",
+      "rotational": "Rotational"
+    },
+    "dailyWage": "Expected pay (₹/day)",
+    "maxTravel": "Willing to travel",
+    "joinWithin": "Can join within",
+    "emergency": "Emergency join available",
+    "emergencyHint": "Show me first for urgent hiring",
+    "location": "Current location",
+    "useGps": "Use my current location",
+    "locationSet": "GPS: {{lat}}, {{lng}}",
+    "locationFallback": "Or we use your profile city/pincode",
+    "locationUnsupported": "GPS not supported on this device",
+    "locationDenied": "Could not get location — allow GPS or update profile",
+    "locationCaptured": "Location updated",
+    "goLive": "Go live",
+    "updateLive": "Update availability",
+    "goOffline": "Go offline",
+    "liveSuccess": "You are now visible to nearby employers",
+    "liveFailed": "Could not update availability",
+    "offlineSuccess": "You are offline",
+    "offlineFailed": "Could not go offline",
+    "employer": {
+      "title": "Available workers near you",
+      "subtitle": "Live workers ready to join — refreshes every 15 seconds",
+      "refresh": "Refresh now",
+      "useLocation": "Use my location to search",
+      "locationReady": "Searching near you",
+      "joinFilter": "Can join within",
+      "allShifts": "All shifts",
+      "emergencyOnly": "Emergency only",
+      "lastRefresh": "Last updated",
+      "workersFound": "workers",
+      "startHint": "Enable location to see available workers nearby",
+      "empty": "No available workers in this area. Try a wider radius.",
+      "distance": "Distance",
+      "trust": "Trust",
+      "experience": "Experience",
+      "years": "yrs",
+      "join": "Join in"
+    }
+  },
+  "adminDashboard": {
+    "loading": "Loading admin dashboard…",
+    "loadFailed": "Could not load analytics. Try again.",
+    "superAdmin": "Super Admin",
+    "admin": "Admin",
+    "readOnlyHint": "View only — contact super admin to make changes.",
+    "nav": {
+      "overview": "Overview",
+      "analytics": "Analytics",
+      "workforceHeatmaps": "Workforce Heatmaps",
+      "geoIntelligence": "Geo Intelligence",
+      "geoMapping": "Pincode & Constituencies",
+      "jobs": "Job Management",
+      "seekers": "Job Seekers",
+      "providers": "Job Providers",
+      "admins": "Admin Users",
+      "logout": "Logout"
+    },
+    "overview": {
+      "title": "Platform overview",
+      "subtitle": "Jobs, applications, and user activity across LAKSHYA.",
+      "viewAllAnalytics": "Full analytics"
+    },
+    "analytics": {
+      "title": "Analytics & trends",
+      "subtitle": "Job postings, applications, salary, skills, demographics, and posting duration."
+    },
+    "stats": {
+      "totalJobs": "Total jobs",
+      "activeClosed": "{{active}} active · {{closed}} closed",
+      "applications": "Applications",
+      "applicationsHint": "All time applications",
+      "seekers": "Job seekers",
+      "providers": "Providers",
+      "activeCount": "{{n}} active"
+    },
+    "duration": {
+      "avgDaysOpen": "Avg. days open (active jobs)",
+      "avgDaysToClose": "Avg. days until closed"
+    },
+    "geoMapping": {
+      "title": "Pincode & constituency mapping",
+      "subtitle": "Manage pincode master data, constituencies (Lok Sabha / Vidhan Sabha), and pincode-to-constituency links used for geo intelligence.",
+      "tabs": {
+        "pincodes": "Pincodes",
+        "constituencies": "Constituencies",
+        "mappings": "Mappings"
+      },
+      "testResolve": "Test resolution",
+      "runTest": "Resolve",
+      "validPincode": "Valid — mappings found",
+      "invalidPincode": "No active mappings for this pincode",
+      "searchPh": "Search…",
+      "add": "Add new",
+      "create": "Create",
+      "edit": "Edit",
+      "pincode": "Pincode",
+      "district": "District",
+      "state": "State",
+      "code": "Code",
+      "name": "Name",
+      "type": "Type",
+      "constituency": "Constituency",
+      "constituencyId": "Constituency UUID",
+      "parentLokSabhaId": "Parent Lok Sabha UUID (Vidhan only)",
+      "weight": "Weight (0–1)",
+      "mappings": "Mappings",
+      "saved": "Saved successfully",
+      "saveFailed": "Could not save",
+      "deleted": "Deleted",
+      "deleteFailed": "Could not delete",
+      "confirmDelete": "Delete this record? Related mappings may also be removed.",
+      "empty": "No records found.",
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "charts": {
+      "jobsOverTime": "Jobs posted over time",
+      "applicationsOverTime": "Applications over time",
+      "jobsByStatus": "Jobs by status",
+      "applicationsByStatus": "Applications by status",
+      "salaryBuckets": "Salary ranges",
+      "salaryByRole": "Average salary by role",
+      "skillsTrends": "Top job roles (skills)",
+      "experienceJobs": "Experience required (jobs)",
+      "seekerExperience": "Seeker experience (years)",
+      "gender": "Gender distribution",
+      "jobTypes": "Job types",
+      "daysOpen": "Days job stayed open",
+      "selectionFunnel": "Application status funnel"
+    },
+    "jobs": {
+      "title": "Job management",
+      "subtitle": "All job postings across providers. Super admins can create, edit, and delete.",
+      "search": "Search title, company, city, role, or provider…",
+      "allStatuses": "All statuses",
+      "statusActive": "Active",
+      "statusDraft": "Draft",
+      "statusClosed": "Closed",
+      "add": "Add job",
+      "create": "Create job",
+      "edit": "Edit job",
+      "view": "View public page",
+      "provider": "Provider",
+      "selectProvider": "Select provider",
+      "roleKey": "Role key",
+      "titleField": "Job title",
+      "company": "Company",
+      "city": "City",
+      "state": "State",
+      "salaryMin": "Min salary (₹)",
+      "salaryMax": "Max salary (₹)",
+      "jobType": "Job type",
+      "expKey": "Experience",
+      "openings": "Openings",
+      "status": "Status",
+      "role": "Role",
+      "posted": "Posted",
+      "applied": "Applied",
+      "saved": "Job saved",
+      "saveFailed": "Could not save job",
+      "deleted": "Job deleted",
+      "deleteFailed": "Could not delete job",
+      "confirmDelete": "Delete this job? It will be removed from listings.",
+      "loadDetailFailed": "Could not load job details",
+      "empty": "No jobs found.",
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "seekers": {
+      "title": "Job seekers",
+      "subtitle": "All registered seekers on the platform."
+    },
+    "providers": {
+      "title": "Job providers",
+      "subtitle": "Employers and companies posting jobs."
+    },
+    "admins": {
+      "title": "Admin users",
+      "subtitle": "Manage admin accounts (super admin only)."
+    },
+    "users": {
+      "search": "Search by email or name…",
+      "add": "Add user",
+      "create": "Create",
+      "edit": "Edit",
+      "save": "Save",
+      "cancel": "Cancel",
+      "email": "Email",
+      "password": "Password (min 8 chars)",
+      "fullName": "Full name",
+      "legalName": "Legal name",
+      "phone": "Phone",
+      "city": "City",
+      "name": "Name",
+      "role": "Role",
+      "status": "Status",
+      "actions": "Actions",
+      "active": "Active",
+      "inactive": "Inactive",
+      "activate": "Activate",
+      "deactivate": "Deactivate",
+      "confirmDelete": "Delete this user permanently?",
+      "saved": "Saved",
+      "saveFailed": "Could not save",
+      "updated": "Updated",
+      "updateFailed": "Update failed",
+      "deleted": "Deleted",
+      "deleteFailed": "Delete failed",
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "login": {
+      "kicker": "Admin access",
+      "title": "Sign in to admin",
+      "subtitle": "Super admins and admins — use your assigned credentials.",
+      "email": "Email",
+      "password": "Password",
+      "cta": "Sign in",
+      "failed": "Invalid email or password"
     }
   },
   "decorative": {

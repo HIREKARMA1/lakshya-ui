@@ -38,14 +38,10 @@ export function Navbar() {
   const showSingleLogin = (isJobs || isSeekers) && !isAnyLoggedIn;
   const loginTo = isSeekers ? "/login/provider" : "/login/seeker";
 
-  const allLinks = [
-    { k: "jobs", href: "/jobs" },
-    { k: "employers", href: "/find-seekers" },
-    { k: "categories", href: "/#categories" },
-    { k: "about", href: "/#vision" },
-    { k: "contact", href: "/#footer" },
+  const links = [
+    { k: "about", href: "/about" },
+    { k: "contact", href: "/contact" },
   ];
-  const links = isSeekerLoggedIn ? allLinks.filter((l) => l.k !== "employers") : allLinks;
 
   const label = displayName(user?.name, user?.email);
   const photoSrc = isSeekerLoggedIn

@@ -24,7 +24,7 @@ export function JobsPage() {
   const qc = useQueryClient();
   const seekerMode = Boolean(user && user.user_type === "seeker");
 
-  const { data: jobsResponse } = useQuery({
+  const { data: jobsResponse, isLoading: jobsLoading } = useQuery({
     queryKey: ["public-jobs"],
     queryFn: () => api.searchPublicJobs({ limit: 100 }),
     retry: false,
@@ -88,6 +88,7 @@ export function JobsPage() {
           <div className="jobs-scroll lg:col-span-9 lg:h-[calc(100vh-3rem)] lg:overflow-y-scroll lg:pr-3">
             <JobsListingPanel
               jobs={JOBS}
+              isLoading={jobsLoading}
               filterLayout="sidebar"
               filterState={filters}
               filterSetters={setters}

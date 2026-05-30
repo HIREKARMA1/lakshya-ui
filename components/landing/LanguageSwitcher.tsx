@@ -1,17 +1,19 @@
 "use client";
+
 import { useTranslation } from "react-i18next";
 import { SUPPORTED_LANGS } from "@/lib/i18n";
 import { useEffect, useRef, useState } from "react";
 import { Check, X, Languages, ChevronDown, ChevronUp } from "lucide-react";
 
 export function LanguageSwitcher() {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(i18n.language?.slice(0, 2) ?? "en");
   const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const c = i18n.language?.slice(0, 2) ?? "en";
+    const raw = i18n.language?.slice(0, 2) ?? "en";
+    const c = raw === "od" ? "or" : raw;
     setCurrent(c);
     if (typeof document !== "undefined") {
       document.documentElement.lang = c;
@@ -48,25 +50,24 @@ export function LanguageSwitcher() {
         aria-expanded={open}
       >
         <Languages className="h-4 w-4 text-ink/70" />
-        {active.label}
+        {active.native}
         {open ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
       </button>
 
       {open && (
         <div
           role="dialog"
-          aria-label="Select language"
+          aria-label={t("languageSwitcher.ariaSelect")}
           className="absolute right-0 top-[calc(100%+10px)] z-[80] w-[min(18rem,calc(100vw-2rem))] overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-line"
         >
-
           <div className="flex items-start justify-between px-5 pb-3 pt-4">
             <div>
-              <h3 className="text-base font-extrabold text-ink">Select Language</h3>
-              <p className="mt-0.5 text-xs text-muted-foreground">Choose your preferred language</p>
+              <h3 className="text-base font-extrabold text-ink">{t("languageSwitcher.title")}</h3>
+              <p className="mt-0.5 text-xs text-muted-foreground">{t("languageSwitcher.subtitle")}</p>
             </div>
             <button
               onClick={() => setOpen(false)}
-              aria-label="Close"
+              aria-label={t("languageSwitcher.close")}
               className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#e94e3a] text-white hover:bg-[#d63b27]"
             >
               <X className="h-3.5 w-3.5" />

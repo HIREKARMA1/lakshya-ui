@@ -20,9 +20,11 @@ import {
   Clock,
   Award,
   ArrowRight,
+  Calendar,
 } from "lucide-react";
 import type { Job } from "@/types/job";
 import { api } from "@/lib/api";
+import { JobCardHeading } from "@/components/jobs/job-card-heading";
 import "@/lib/i18n";
 
 const ROLE_ICONS: Record<string, typeof Bike> = {
@@ -35,6 +37,14 @@ const ROLE_ICONS: Record<string, typeof Bike> = {
   dataEntry: Keyboard,
   welder: Wrench,
 };
+
+function formatDeadline(value?: string) {
+  if (!value?.trim()) return "—";
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(value.trim());
+  if (!m) return value;
+  const date = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  return date.toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" });
+}
 
 function MetaField({
   icon: Icon,
@@ -142,10 +152,7 @@ export function JobRow({
           </span>
 
           <div className="min-w-0 flex-1">
-            <h3 className="font-display text-lg font-extrabold leading-tight text-ink sm:text-xl">
-              {t(`roles.${job.roleKey}`)}
-            </h3>
-            <p className="mt-0.5 text-sm text-muted-foreground">{job.company}</p>
+            <JobCardHeading job={job} />
             <div className="mt-2 flex flex-wrap items-center gap-2">
               {job.urgent && (
                 <span className="rounded-full bg-orange px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
@@ -186,6 +193,11 @@ export function JobRow({
             />
             <MetaField icon={Briefcase} label={t("pages.jobs.card.type")} value={t(`pages.jobs.type.${job.type}`)} />
             <MetaField icon={Clock} label={t("pages.jobs.card.exp")} value={t(`pages.jobs.exp.${job.expKey}`)} />
+            <MetaField
+              icon={Calendar}
+              label={t("providerDashboard.jobManagement.applicationDeadline", { defaultValue: "Application deadline" })}
+              value={formatDeadline(job.applicationDeadline)}
+            />
           </dl>
         </div>
       </div>

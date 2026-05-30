@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
 import { api } from "@/lib/api";
+import { useAuth } from "@/hooks/useAuth";
 import {
   Field,
   RegisterShell,
@@ -73,6 +74,7 @@ const MAX_WORKPLACE_PHOTOS = 5;
 export function RegisterProvider() {
   const { t } = useTranslation();
   const router = useRouter();
+  const { user } = useAuth();
   const [step, setStep] = useState(1);
   const [searchOptions, setSearchOptions] = useState<NominatimResult[]>([]);
   const [showSearchOptions, setShowSearchOptions] = useState(false);
@@ -115,16 +117,35 @@ export function RegisterProvider() {
   };
 
   useEffect(() => {
+    let loginEmail = "";
+    try {
+      const userRaw = localStorage.getItem("user");
+      if (userRaw) {
+        const cached = JSON.parse(userRaw) as { email?: string; provider_profile?: { email?: string } };
+        loginEmail = (cached.provider_profile?.email?.trim() || cached.email?.trim() || "").toLowerCase();
+      }
+    } catch {
+      // ignore invalid cached user
+    }
+
     try {
       const raw = localStorage.getItem(REGISTER_PROVIDER_DRAFT_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as Partial<ProviderDraft>;
         if (parsed.form) {
-          setF((prev) => ({ ...prev, ...parsed.form, logo: null, doc: null, workplacePhotos: [] }));
+          setF((prev) => {
+            const merged = { ...prev, ...parsed.form, logo: null, doc: null, workplacePhotos: [] };
+            if (!merged.email.trim() && loginEmail) merged.email = loginEmail;
+            return merged;
+          });
+        } else if (loginEmail) {
+          setF((prev) => (prev.email.trim() ? prev : { ...prev, email: loginEmail }));
         }
         if (typeof parsed.step === "number" && parsed.step >= 1) {
           setStep(parsed.step);
         }
+      } else if (loginEmail) {
+        setF((prev) => (prev.email.trim() ? prev : { ...prev, email: loginEmail }));
       }
     } catch {
       // ignore invalid drafts
@@ -139,24 +160,31 @@ export function RegisterProvider() {
     localStorage.setItem(REGISTER_PROVIDER_DRAFT_KEY, JSON.stringify(payload));
   }, [f, hydrated, step]);
 
+  useEffect(() => {
+    if (!hydrated) return;
+    const loginEmail = (user?.provider_profile?.email?.trim() || user?.email?.trim() || "").toLowerCase();
+    if (!loginEmail) return;
+    setF((prev) => (prev.email.trim() ? prev : { ...prev, email: loginEmail }));
+  }, [hydrated, user?.email, user?.provider_profile?.email]);
+
   const isIndividual = f.providerType === "individual";
   const totalSteps = isIndividual ? 4 : 5;
   const steps = useMemo(
     () =>
       isIndividual
         ? [
-            "Provider Type & Basic Information",
-            "Location & Address",
-            "Contact Details",
-            "Workplace Photos",
-          ]
+          "Provider Type & Basic Information",
+          "Location & Address",
+          "Contact Details",
+          "Workplace Photos",
+        ]
         : [
-            "Provider Type & Basic Information",
-            "Business Registration Details",
-            "Location & Address",
-            "Contact Details",
-            "Documents & Photos",
-          ],
+          "Provider Type & Basic Information",
+          "Business Registration Details",
+          "Location & Address",
+          "Contact Details",
+          "Documents & Photos",
+        ],
     [isIndividual],
   );
 
@@ -315,9 +343,15 @@ export function RegisterProvider() {
       });
       api
         .registerProvider(fd)
-        .then(() => {
+        .then(async () => {
           skipSaveRef.current = true;
           localStorage.removeItem(REGISTER_PROVIDER_DRAFT_KEY);
+          try {
+            const me = await api.getMe();
+            localStorage.setItem("user", JSON.stringify(me));
+          } catch {
+            // dashboard will refresh profile on load
+          }
           toast.success(t("toast.registerSuccess"));
           router.push("/provider-dashboard");
         })
@@ -522,11 +556,10 @@ export function RegisterProvider() {
                       key={m}
                       type="button"
                       onClick={() => set("primaryMode", m)}
-                      className={`inline-flex items-center justify-center gap-2 rounded-md border-2 px-4 py-3 text-sm font-semibold transition ${
-                        f.primaryMode === m
+                      className={`inline-flex items-center justify-center gap-2 rounded-md border-2 px-4 py-3 text-sm font-semibold transition ${f.primaryMode === m
                           ? "border-[#1b52a4] bg-[#1b52a4]/5 text-[#1b52a4]"
                           : "border-line bg-white text-ink hover:bg-soft"
-                      }`}
+                        }`}
                     >
                       {m === "email" ? <Mail className="h-4 w-4" /> : null}
                       {m === "phone" ? t("register.provider.primaryPhone") : t("register.provider.primaryEmail")}
@@ -574,11 +607,10 @@ export function RegisterProvider() {
                   </span>
                 </p>
                 <label
-                  className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-line px-4 py-8 text-center transition ${
-                    maxWorkplacePhotosReached
+                  className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-line px-4 py-8 text-center transition ${maxWorkplacePhotosReached
                       ? "cursor-not-allowed bg-soft/20 opacity-60"
                       : "cursor-pointer bg-soft/40 hover:bg-soft"
-                  }`}
+                    }`}
                 >
                   <div className="grid h-12 w-12 place-items-center rounded-md bg-white">
                     <Upload className="h-7 w-7 text-muted-foreground" />
