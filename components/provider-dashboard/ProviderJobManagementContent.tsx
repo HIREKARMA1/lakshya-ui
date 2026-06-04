@@ -35,9 +35,8 @@ import { formatScheduledAt, getJobScheduleInfo } from "@/lib/job-schedule";
 import { SeekersHero } from "@/components/landing/SeekersHero";
 import { JobCardHeading } from "@/components/jobs/job-card-heading";
 import { config } from "@/lib/config";
+import { JOB_ROLE_KEYS } from "@/data/jobRoleKeys";
 import "@/lib/i18n";
-
-const ROLE_OPTIONS = ["delivery", "driver", "electrician", "cook", "security", "cleaner", "dataEntry", "welder"];
 const TYPE_OPTIONS = ["fullTime", "partTime"] as const;
 const EXP_OPTIONS = ["fresher", "exp12", "exp35"] as const;
 const ROLE_ICONS: Record<string, typeof Bike> = {
@@ -99,7 +98,7 @@ export function ProviderJobManagementContent() {
   const highlights = t("pages.jobs.strip", { returnObjects: true }) as { k: string; v: string }[];
   const roleKeys = useMemo(() => {
     const dynamic = Array.from(new Set(jobs.map((j) => j.roleKey))).filter(Boolean);
-    return dynamic.length ? Array.from(new Set([...ROLE_OPTIONS, ...dynamic])) : ROLE_OPTIONS;
+    return dynamic.length ? Array.from(new Set([...JOB_ROLE_KEYS, ...dynamic])) : [...JOB_ROLE_KEYS];
   }, [jobs]);
   const activeJobs = jobs.filter((j) => j.status === "active").length;
   const draftJobs = jobs.filter((j) => (j.status ?? "").toLowerCase() === "draft").length;
