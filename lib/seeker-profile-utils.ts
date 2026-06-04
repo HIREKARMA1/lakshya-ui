@@ -1,5 +1,8 @@
 import type { SeekerProfile } from "@/types/auth";
-import { WORK_ROLE_KEYS, type WorkRoleKey } from "@/components/auth/WorkRolesMultiSelect";
+import { JOB_ROLE_KEYS, type JobRoleKey } from "@/data/jobRoleKeys";
+
+type WorkRoleKey = JobRoleKey;
+const WORK_ROLE_KEYS = JOB_ROLE_KEYS;
 
 /** Legacy free-text labels and typos → canonical role keys. */
 const ROLE_ALIASES: Record<string, WorkRoleKey> = {

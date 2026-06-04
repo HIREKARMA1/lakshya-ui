@@ -5,21 +5,13 @@ import { ChevronDown, Search, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
+import { JOB_ROLE_KEYS, type JobRoleKey } from "@/data/jobRoleKeys";
 import { cn } from "@/lib/utils";
 
-export const WORK_ROLE_KEYS = [
-  "any",
-  "delivery",
-  "driver",
-  "electrician",
-  "cook",
-  "security",
-  "cleaner",
-  "dataEntry",
-  "welder",
-] as const;
+/** Same canonical list as post-job and job filters. */
+export const WORK_ROLE_KEYS = JOB_ROLE_KEYS;
 
-export type WorkRoleKey = (typeof WORK_ROLE_KEYS)[number];
+export type WorkRoleKey = JobRoleKey;
 
 const MAX_ROLES = 5;
 
