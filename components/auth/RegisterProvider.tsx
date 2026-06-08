@@ -15,6 +15,7 @@ import {
   registerCardScrollCls,
 } from "./registerShared";
 import { ImageIcon, FileText, Upload, Mail, X } from "lucide-react";
+import { ReferralCodeVerifyInput } from "@/components/auth/ReferralCodeVerifyInput";
 import "@/lib/i18n";
 
 const REGISTER_PROVIDER_DRAFT_KEY = "register-provider-draft-v1";
@@ -84,6 +85,8 @@ export function RegisterProvider() {
   const suppressNextSearchRef = useRef(false);
   const skipSaveRef = useRef(false);
 
+  const [referralVerified, setReferralVerified] = useState(false);
+  const [referralError, setReferralError] = useState<string | null>(null);
   const [f, setF] = useState<Form>({
     referral: "",
     providerType: "enterprise",
@@ -305,6 +308,17 @@ export function RegisterProvider() {
       return;
     }
 
+    if (f.referral.trim()) {
+      if (f.referral.trim().length !== 8) {
+        toast.error(t("register.referralVerify.errors.invalidFormat"));
+        return;
+      }
+      if (!referralVerified) {
+        toast.error(t("register.referralVerify.verifyRequired"));
+        return;
+      }
+    }
+
     {
       const fd = new FormData();
       const formKeyMap: Record<keyof Form, string> = {
@@ -384,13 +398,18 @@ export function RegisterProvider() {
                   {t("register.provider.referral.title")}{" "}
                   <span className="font-normal text-muted-foreground">({t("common.optional")})</span>
                 </p>
-                <input
-                  value={f.referral}
-                  onChange={(e) => set("referral", e.target.value.toUpperCase())}
-                  placeholder={t("register.provider.referral.ph")}
-                  maxLength={8}
-                  className="mt-2 w-full rounded-md border-2 border-[#1b52a4] bg-white px-3 py-2.5 text-sm tracking-widest text-ink outline-none focus:ring-2 focus:ring-[#1b52a4]/20"
-                />
+                <div className="mt-2">
+                  <ReferralCodeVerifyInput
+                    value={f.referral}
+                    onChange={(referral) => set("referral", referral)}
+                    verified={referralVerified}
+                    onVerifiedChange={setReferralVerified}
+                    error={referralError}
+                    onErrorChange={setReferralError}
+                    placeholder={t("register.provider.referral.ph")}
+                    inputClassName="w-full rounded-md border-2 border-[#1b52a4] bg-white px-3 py-2.5 text-sm tracking-widest text-ink outline-none focus:ring-2 focus:ring-[#1b52a4]/20"
+                  />
+                </div>
                 <p className="mt-2 text-xs text-muted-foreground">{t("register.provider.referralHint")}</p>
               </div>
 
