@@ -804,6 +804,20 @@
       "complete": "Complete Registration",
       "emojis": "👷‍♂️👩‍🌾👨‍🍳👩‍⚕️🧑‍🔧"
     },
+    "referralVerify": {
+      "verify": "Verify",
+      "verifying": "Verifying…",
+      "verified": "Referral code verified!",
+      "verifyRequired": "Please verify your referral code before continuing.",
+      "errors": {
+        "notFound": "Referral code does not exist.",
+        "expired": "Referral code has expired.",
+        "inactive": "This referral code is no longer active.",
+        "limitReached": "This referral code has reached its usage limit.",
+        "invalidFormat": "Enter a valid 8-character referral code.",
+        "generic": "Could not verify referral code. Please try again."
+      }
+    },
     "seeker": {
       "sideTitle": "Find Your Dream Job",
       "sideSubtitle": "Find jobs that match your skills, experience, and goals — all in one place",
@@ -1732,6 +1746,7 @@
       "seekers": "Job Seekers",
       "providers": "Job Providers",
       "admins": "Admin Users",
+      "referralCodes": "Referral Codes",
       "logout": "Logout"
     },
     "overview": {
@@ -1856,6 +1871,41 @@
     "admins": {
       "title": "Admin users",
       "subtitle": "Manage admin accounts (super admin only)."
+    },
+    "referralCodes": {
+      "title": "Referral codes",
+      "subtitle": "Create and manage referral codes for seeker sign-ups (super admin only).",
+      "add": "Create code",
+      "create": "New referral code",
+      "edit": "Edit referral code",
+      "search": "Search by code or name…",
+      "code": "Code",
+      "codePh": "Custom code (optional, 8 characters)",
+      "codeHint": "Leave blank to auto-generate an 8-character code.",
+      "name": "Name",
+      "namePh": "Referrer name (e.g. Lokanath Panda)",
+      "referrerEmail": "Referrer email",
+      "referrerEmailPh": "referrer@example.com",
+      "referrerContact": "Referrer contact",
+      "referrerContactPh": "10-digit mobile number",
+      "referrerDesignation": "Referrer designation",
+      "referrerDesignationPh": "e.g. Field agent, College coordinator",
+      "rewardAmount": "Reward (₹)",
+      "maxUses": "Max uses",
+      "uses": "Uses",
+      "expires": "Expires",
+      "createdBy": "Created by",
+      "active": "Active",
+      "copy": "Copy code",
+      "copied": "Code copied",
+      "copyFailed": "Could not copy",
+      "empty": "No referral codes yet.",
+      "saved": "Referral code saved",
+      "createdCode": "Created code: {{code}}",
+      "saveFailed": "Could not save referral code",
+      "deleted": "Referral code deleted",
+      "deleteFailed": "Could not delete referral code",
+      "confirmDelete": "Delete this referral code permanently?"
     },
     "users": {
       "search": "Search by email or name…",

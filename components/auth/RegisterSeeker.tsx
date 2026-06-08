@@ -20,6 +20,7 @@ import {
 import { serializeWorkRoles } from "@/lib/seeker-profile-utils";
 import { EDUCATION_KEYS, parseEducationLabels } from "@/lib/register-seeker-education";
 import { PageLoader } from "@/components/ui/Spinner";
+import { ReferralCodeVerifyInput } from "@/components/auth/ReferralCodeVerifyInput";
 import "@/lib/i18n";
 
 type Form = RegisterSeekerDraftForm & {
@@ -64,6 +65,8 @@ export function RegisterSeeker() {
   const skipSaveRef = useRef(false);
   const steps = t("register.seeker.steps", { returnObjects: true }) as string[];
   const [f, setF] = useState<Form>(defaultForm);
+  const [referralVerified, setReferralVerified] = useState(false);
+  const [referralError, setReferralError] = useState<string | null>(null);
   const set = <K extends keyof Form>(k: K, v: Form[K]) => setF((p) => ({ ...p, [k]: v }));
 
   useEffect(() => {
@@ -114,6 +117,12 @@ export function RegisterSeeker() {
     if (step === 2 && !f.state.trim()) return setErr(t("register.seeker.errors.stateRequired"));
     if (step === 2 && !f.education) return setErr(t("register.seeker.errors.educationRequired"));
     if (step === 3 && f.workRoles.length === 0) return setErr(t("register.seeker.errors.workRolesRequired"));
+    if (step === 4 && f.hasReferral === "yes") {
+      if (!f.referral.trim() || f.referral.trim().length !== 8) {
+        return setErr(t("register.referralVerify.errors.invalidFormat"));
+      }
+      if (!referralVerified) return setErr(t("register.referralVerify.verifyRequired"));
+    }
 
     if (step < 4) setStep((s) => s + 1);
     else {
@@ -305,7 +314,14 @@ export function RegisterSeeker() {
                     <button
                       key={v}
                       type="button"
-                      onClick={() => set("hasReferral", v)}
+                      onClick={() => {
+                        set("hasReferral", v);
+                        if (v === "no") {
+                          set("referral", "");
+                          setReferralVerified(false);
+                          setReferralError(null);
+                        }
+                      }}
                       className={`rounded-full px-4 py-2.5 text-sm font-semibold transition ${
                         f.hasReferral === v ? "bg-primary text-white" : "border border-line bg-white text-ink hover:bg-soft"
                       }`}
@@ -317,13 +333,17 @@ export function RegisterSeeker() {
                 {f.hasReferral === "yes" && (
                   <div className="mt-4">
                     <p className="text-sm font-medium text-ink">{t("register.seeker.referral.codeLabel")}</p>
-                    <input
-                      value={f.referral}
-                      onChange={(e) => set("referral", e.target.value.toUpperCase())}
-                      placeholder={t("register.seeker.referral.codePh")}
-                      maxLength={8}
-                      className="mt-2 w-full rounded-md border border-line bg-white px-3 py-2.5 text-sm tracking-widest text-ink outline-none focus:ring-2 focus:ring-primary/20"
-                    />
+                    <div className="mt-2">
+                      <ReferralCodeVerifyInput
+                        value={f.referral}
+                        onChange={(referral) => set("referral", referral)}
+                        verified={referralVerified}
+                        onVerifiedChange={setReferralVerified}
+                        error={referralError}
+                        onErrorChange={setReferralError}
+                        placeholder={t("register.seeker.referral.codePh")}
+                      />
+                    </div>
                     <p className="mt-2 text-xs text-muted-foreground">{t("register.seeker.referral.hint")}</p>
                   </div>
                 )}

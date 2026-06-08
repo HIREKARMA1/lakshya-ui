@@ -9,6 +9,7 @@ import {
   Map,
   MapPinned,
   Shield,
+  Ticket,
   UserCog,
   Users,
 } from "lucide-react";
@@ -22,7 +23,8 @@ export type AdminDashboardNavId =
   | "jobs"
   | "seekers"
   | "providers"
-  | "admins";
+  | "admins"
+  | "referralCodes";
 
 export type AdminDashboardNavItem = {
   id: AdminDashboardNavId;
@@ -89,6 +91,13 @@ export const ADMIN_DASHBOARD_NAV: AdminDashboardNavItem[] = [
     href: "/admin-dashboard/admins",
     labelKey: "adminDashboard.nav.admins",
     icon: Shield,
+    superAdminOnly: true,
+  },
+  {
+    id: "referralCodes",
+    href: "/admin-dashboard/referral-codes",
+    labelKey: "adminDashboard.nav.referralCodes",
+    icon: Ticket,
     superAdminOnly: true,
   },
 ];
