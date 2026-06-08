@@ -34,6 +34,11 @@ import type {
   ProviderAdminRow,
   SeekerAdminRow,
 } from "@/types/admin";
+import type {
+  PaginatedReferralCodes,
+  ReferralCodeRow,
+  ReferralCodeVerifyResponse,
+} from "@/types/referral-admin";
 import type { SeekerListItem, SeekerSearchResponse } from "@/types/seeker";
 
 class ApiClient {
@@ -679,6 +684,58 @@ class ApiClient {
     const res: AxiosResponse<PincodeResolveResult> = await this.client.get("/admin/geo-mapping/resolve", {
       params: { pincode },
     });
+    return res.data;
+  }
+
+  async verifyReferralCode(code: string) {
+    const res: AxiosResponse<ReferralCodeVerifyResponse> = await this.client.get(
+      "/public/referral-codes/verify",
+      { params: { code } },
+    );
+    return res.data;
+  }
+
+  async listReferralCodes(params?: { page?: number; page_size?: number; q?: string; is_active?: boolean }) {
+    const res: AxiosResponse<PaginatedReferralCodes> = await this.client.get("/admin/referral-codes", {
+      params,
+    });
+    return res.data;
+  }
+
+  async createReferralCode(payload: {
+    code?: string;
+    name?: string;
+    referrer_email?: string;
+    referrer_contact?: string;
+    referrer_designation?: string;
+    reward_amount?: number;
+    max_uses?: number;
+    is_active?: boolean;
+    expires_at?: string;
+  }) {
+    const res: AxiosResponse<ReferralCodeRow> = await this.client.post("/admin/referral-codes", payload);
+    return res.data;
+  }
+
+  async updateReferralCode(
+    id: string,
+    payload: Partial<{
+      name: string;
+      referrer_email: string;
+      referrer_contact: string;
+      referrer_designation: string;
+      reward_amount: number;
+      max_uses: number;
+      is_active: boolean;
+      expires_at: string;
+    }>,
+  ) {
+    const res: AxiosResponse<ReferralCodeRow> = await this.client.patch(`/admin/referral-codes/${id}`, payload);
+    return res.data;
+  }
+
+  async deleteReferralCode(id: string) {
+    const res = await this.client.delete(`/admin/referral-codes/${id}`);
     return res.data;
   }
 
