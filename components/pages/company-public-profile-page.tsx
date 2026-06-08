@@ -15,7 +15,6 @@ import {
   Link2,
   Mail,
   MapPin,
-  Phone,
   Share2,
   ImageIcon,
 } from "lucide-react";
@@ -290,6 +289,7 @@ function CompanyProfileContent({
               </div>
             </div>
 
+            {/* Company contact details hidden for now — may re-enable later
             <div className="rounded-xl border border-line bg-white p-5 sm:p-6">
               <h2 className="font-display text-xl font-bold text-ink">
                 {t("providerDashboard.companyProfile.sections.contact")}
@@ -311,6 +311,7 @@ function CompanyProfileContent({
                 />
               </div>
             </div>
+            */}
 
             <div className="rounded-xl border border-line bg-white p-5 sm:p-6">
               <h2 className="font-display text-xl font-bold text-ink">
@@ -380,6 +381,7 @@ function CompanyProfileContent({
               </div>
 
               <div className="rounded-xl border border-line bg-white p-5">
+                {/* Company contact details hidden for now — may re-enable later
                 <h3 className="font-display text-base font-bold text-ink">{t("pages.companyProfile.contactCta")}</h3>
                 <div className="mt-4 space-y-3 text-sm">
                   {company.phone ? (
@@ -404,10 +406,11 @@ function CompanyProfileContent({
                     <p className="text-muted-foreground">{notSet}</p>
                   ) : null}
                 </div>
+                */}
                 <button
                   type="button"
                   onClick={() => void handleCopyLink()}
-                  className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-md border border-line py-2.5 text-sm font-semibold text-ink hover:border-primary hover:text-primary"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-line py-2.5 text-sm font-semibold text-ink hover:border-primary hover:text-primary"
                 >
                   <Link2 className="h-4 w-4" />
                   {t("pages.companyProfile.copyProfileLink")}
