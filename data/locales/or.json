@@ -441,6 +441,7 @@
     "any": "ଯେକୌଣସି ଭୂମିକା",
     "assemblyLineOperator": "ଆସେମ୍ବଲି ଲାଇନ ଅପରେଟର",
     "barber": "ନାଇ",
+    "cashier": "କ୍ୟାସିଅର",
     "cleaner": "ସଫେଇ କର୍ମୀ",
     "clerk": "କ୍ଲର୍କ",
     "cncMachineOperator": "ସିଏନସି ମେସିନ ଅପରେଟର",
@@ -473,7 +474,9 @@
     "manufacturingLabour": "ଉତ୍ପାଦନ ଶ୍ରମିକ",
     "manufacturingMgmt": "ଉତ୍ପାଦନ ପରିଚାଳନା",
     "manufacturingProduction": "ଉତ୍ପାଦନ/ପ୍ରୋଡକ୍ସନ",
+    "manager": "ମ୍ୟାନେଜର",
     "mason": "ରାଜମିଷ୍ଟ୍ରି",
+    "mechanic": "ମେକାନିକ",
     "mouldingMachineOp": "ମୋଲ୍ଡିଂ ମେସିନ ଅପରେଟର",
     "officeBoy": "ଅଫିସ ବଏ",
     "opsQualityControl": "ଅପ୍ସ କ୍ୱାଲିଟି କଣ୍ଟ୍ରୋଲ",
@@ -499,7 +502,8 @@
     "turnerFitter": "ଟର୍ନର / ଫିଟର",
     "vmcMachineOperator": "ଭିଏମସି ମେସିନ ଅପରେଟର",
     "videoEditor": "ଭିଡିଓ ଏଡିଟର",
-    "welder": "ୱେଲ୍ଡର"
+    "welder": "ୱେଲ୍ଡର",
+    "worker": "କର୍ମୀ"
   },
   "brand": { "name": "ଲକ୍ଷ୍ୟ", "tagline": "ଯାଞ୍ଚିତ ସ୍ଥାନୀୟ ଚାକିରି" },
   "nav": {
@@ -1244,6 +1248,7 @@
         "none": "କୌଣସି ଆବଶ୍ୟକତା ନାହିଁ",
         "tenth": "୧୦ମ ପାସ",
         "twelfth": "୧୨ମ ପାସ",
+        "iti": "ITI",
         "diploma": "ଡିପ୍ଲୋମା",
         "graduate": "ସ୍ନାତକ",
         "postGraduate": "ସ୍ନାତକୋତ୍ତର"

@@ -441,6 +441,7 @@
     "any": "कोई भी भूमिका",
     "assemblyLineOperator": "असेंबली लाइन ऑपरेटर",
     "barber": "नाई",
+    "cashier": "कैशियर",
     "cleaner": "सफ़ाई कर्मचारी",
     "clerk": "क्लर्क",
     "cncMachineOperator": "सीएनसी मशीन ऑपरेटर",
@@ -473,7 +474,9 @@
     "manufacturingLabour": "मैन्युफैक्चरिंग लेबर",
     "manufacturingMgmt": "मैन्युफैक्चरिंग मैनेजमेंट",
     "manufacturingProduction": "मैन्युफैक्चरिंग/प्रोडक्शन",
+    "manager": "मैनेजर",
     "mason": "राजमिस्त्री",
+    "mechanic": "मैकेनिक",
     "mouldingMachineOp": "मोल्डिंग मशीन ऑपरेटर",
     "officeBoy": "ऑफिस बॉय",
     "opsQualityControl": "ऑप्स क्वालिटी कंट्रोल",
@@ -499,7 +502,8 @@
     "turnerFitter": "टर्नर / फिटर",
     "vmcMachineOperator": "वीएमसी मशीन ऑपरेटर",
     "videoEditor": "वीडियो एडिटर",
-    "welder": "वेल्डर"
+    "welder": "वेल्डर",
+    "worker": "कर्मचारी"
   },
   "brand": { "name": "लक्ष्य", "tagline": "सत्यापित स्थानीय नौकरियाँ" },
   "nav": {
@@ -1244,6 +1248,7 @@
         "none": "कोई आवश्यकता नहीं",
         "tenth": "10वीं पास",
         "twelfth": "12वीं पास",
+        "iti": "ITI",
         "diploma": "डिप्लोमा",
         "graduate": "स्नातक",
         "postGraduate": "स्नातकोत्तर"

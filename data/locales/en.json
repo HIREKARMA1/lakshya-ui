@@ -489,6 +489,7 @@
     "any": "Any Role",
     "assemblyLineOperator": "Assembly Line Operator",
     "barber": "Barber",
+    "cashier": "Cashier",
     "cleaner": "Cleaner",
     "clerk": "Clerk",
     "cncMachineOperator": "CNC Machine Operator",
@@ -521,7 +522,9 @@
     "manufacturingLabour": "Manufacturing Labour",
     "manufacturingMgmt": "Manufacturing mgmt",
     "manufacturingProduction": "Manufacturing/Production",
+    "manager": "Manager",
     "mason": "Mason",
+    "mechanic": "Mechanic",
     "mouldingMachineOp": "Moulding Machine Op",
     "officeBoy": "Office Boy",
     "opsQualityControl": "Ops Quality Control",
@@ -547,7 +550,8 @@
     "turnerFitter": "Turner / Fitter",
     "vmcMachineOperator": "VMC Machine Operator",
     "videoEditor": "Video Editor",
-    "welder": "Welder"
+    "welder": "Welder",
+    "worker": "Worker"
   },
   "brand": { "name": "LAKSHYA", "tagline": "Verified Hyperlocal Jobs" },
   "nav": {
@@ -1346,6 +1350,7 @@
         "none": "No requirement",
         "tenth": "10th pass",
         "twelfth": "12th pass",
+        "iti": "ITI",
         "diploma": "Diploma",
         "graduate": "Graduate",
         "postGraduate": "Post graduate"
