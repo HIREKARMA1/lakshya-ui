@@ -5,6 +5,7 @@ export const JOB_ROLE_KEYS = [
   "any",
   "assemblyLineOperator",
   "barber",
+  "cashier",
   "cleaner",
   "clerk",
   "cncMachineOperator",
@@ -37,7 +38,9 @@ export const JOB_ROLE_KEYS = [
   "manufacturingLabour",
   "manufacturingMgmt",
   "manufacturingProduction",
+  "manager",
   "mason",
+  "mechanic",
   "mouldingMachineOp",
   "officeBoy",
   "opsQualityControl",
@@ -64,6 +67,7 @@ export const JOB_ROLE_KEYS = [
   "vmcMachineOperator",
   "videoEditor",
   "welder",
+  "worker",
 ] as const;
 
 export type JobRoleKey = (typeof JOB_ROLE_KEYS)[number];
