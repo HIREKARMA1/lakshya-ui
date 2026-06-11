@@ -67,7 +67,19 @@ class ApiClient {
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
-        if (error.response?.status === 401 && originalRequest && !originalRequest._retry) {
+        const requestUrl = String(originalRequest?.url ?? "");
+        const isAuthEndpoint =
+          requestUrl.includes("/auth/refresh") ||
+          requestUrl.includes("/auth/login") ||
+          requestUrl.includes("/auth/google") ||
+          requestUrl.includes("/auth/verify-email-otp");
+
+        if (
+          error.response?.status === 401 &&
+          originalRequest &&
+          !originalRequest._retry &&
+          !isAuthEndpoint
+        ) {
           originalRequest._retry = true;
           try {
             const refreshToken = localStorage.getItem("refresh_token");
@@ -79,23 +91,9 @@ class ApiClient {
               return this.client(originalRequest);
             }
           } catch {
-            const cachedUser = localStorage.getItem("user");
             localStorage.removeItem("access_token");
             localStorage.removeItem("refresh_token");
             localStorage.removeItem("user");
-            if (typeof window !== "undefined") {
-              let loginPath = "/login/seeker";
-              if (cachedUser) {
-                try {
-                  const parsed = JSON.parse(cachedUser) as { user_type?: string };
-                  if (parsed.user_type === "provider") loginPath = "/login/provider";
-                  else if (parsed.user_type === "admin") loginPath = "/login/admin";
-                } catch {
-                  // fallback to seeker login
-                }
-              }
-              window.location.href = loginPath;
-            }
           }
         }
         return Promise.reject(error);
@@ -133,9 +131,12 @@ class ApiClient {
   }
 
   async refreshToken(refreshToken: string): Promise<TokenResponse> {
-    const res: AxiosResponse<TokenResponse> = await this.client.post("/auth/refresh", {
-      refresh_token: refreshToken,
-    });
+    // Use a one-off request so a failed refresh cannot re-enter the 401 interceptor loop.
+    const res: AxiosResponse<TokenResponse> = await axios.post(
+      `${config.api.fullUrl}/auth/refresh`,
+      { refresh_token: refreshToken },
+      { headers: { "Content-Type": "application/json" } },
+    );
     return res.data;
   }
 
