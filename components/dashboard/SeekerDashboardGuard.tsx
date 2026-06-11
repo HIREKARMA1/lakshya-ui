@@ -27,7 +27,7 @@ export function SeekerDashboardGuard({ children }: { children: React.ReactNode }
     }
   }, [isLoading, user, router]);
 
-  if (isLoading || !user || user.user_type !== "seeker" || !user.profile_complete) {
+  if ((isLoading && !user) || !user || user.user_type !== "seeker" || !user.profile_complete) {
     return <PageLoader label={t("dashboard.loading")} />;
   }
 

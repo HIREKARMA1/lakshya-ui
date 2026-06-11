@@ -24,7 +24,7 @@ export function AdminDashboardGuard({ children }: { children: React.ReactNode })
     }
   }, [isLoading, user, router]);
 
-  if (isLoading || !user || !isAdminUser(user)) {
+  if ((isLoading && !user) || !user || !isAdminUser(user)) {
     return <PageLoader label={t("adminDashboard.loading")} />;
   }
 
