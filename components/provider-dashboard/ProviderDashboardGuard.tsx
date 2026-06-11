@@ -27,7 +27,7 @@ export function ProviderDashboardGuard({ children }: { children: React.ReactNode
     }
   }, [isLoading, router, user]);
 
-  if (isLoading || !user || user.user_type !== "provider" || !user.profile_complete) {
+  if ((isLoading && !user) || !user || user.user_type !== "provider" || !user.profile_complete) {
     return <PageLoader label={t("dashboard.loading")} />;
   }
 

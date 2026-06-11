@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Mail } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -27,7 +27,6 @@ type Step = "choose" | "email" | "otp";
 
 export function LoginCard({ role }: Props) {
   const { t } = useTranslation();
-  const router = useRouter();
   const searchParams = useSearchParams();
   const returnTo = sanitizeReturnTo(searchParams.get("returnTo"));
   const copy = {
@@ -49,20 +48,14 @@ export function LoginCard({ role }: Props) {
 
   const registerPath = role === "seeker" ? "/register/seeker" : "/register/provider";
 
-  const afterAuth = async (profileComplete: boolean) => {
+  const afterAuth = (profileComplete: boolean) => {
+    let destination: string;
     if (role === "seeker") {
-      if (profileComplete) {
-        router.push(returnTo ?? "/dashboard");
-      } else {
-        router.push(registerSeekerHref(returnTo));
-      }
-      return;
-    }
-    if (profileComplete) {
-      router.push(returnTo ?? "/provider-dashboard");
+      destination = profileComplete ? (returnTo ?? "/dashboard") : registerSeekerHref(returnTo);
     } else {
-      router.push(registerPath);
+      destination = profileComplete ? (returnTo ?? "/provider-dashboard") : registerPath;
     }
+    window.location.assign(destination);
   };
 
   const onGoogleSuccess = async (response: CredentialResponse) => {
