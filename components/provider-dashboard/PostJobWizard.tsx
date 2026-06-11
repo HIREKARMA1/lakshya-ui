@@ -111,7 +111,7 @@ const HOURS_KEYS = [
 const SHIFT_KEYS = ["morning", "afternoon", "evening", "night"];
 const EMPLOYMENT_KEYS = ["fullTime", "partTime", "internship", "contractual", "freelancer"] as const;
 const EXP_KEYS = ["fresher", "exp12", "exp35", "exp57", "exp10plus"] as const;
-const EDUCATION_KEYS = ["none", "tenth", "twelfth", "diploma", "graduate", "postGraduate"] as const;
+const EDUCATION_KEYS = ["none", "tenth", "twelfth", "iti", "diploma", "graduate", "postGraduate"] as const;
 const JOINING_KEYS = ["walkIn", "phone", "online", "immediate"] as const;
 type NominatimAddress = {
   road?: string;
