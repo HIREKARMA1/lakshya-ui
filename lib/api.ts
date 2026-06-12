@@ -41,6 +41,8 @@ import type {
 } from "@/types/referral-admin";
 import type { SeekerListItem, SeekerSearchResponse } from "@/types/seeker";
 
+let refreshInFlight: Promise<TokenResponse> | null = null;
+
 class ApiClient {
   public client: AxiosInstance;
 
@@ -85,15 +87,12 @@ class ApiClient {
             const refreshToken = localStorage.getItem("refresh_token");
             if (refreshToken) {
               const response = await this.refreshToken(refreshToken);
-              localStorage.setItem("access_token", response.access_token);
-              localStorage.setItem("refresh_token", response.refresh_token);
+              this.persistTokens(response);
               originalRequest.headers.Authorization = `Bearer ${response.access_token}`;
               return this.client(originalRequest);
             }
           } catch {
-            localStorage.removeItem("access_token");
-            localStorage.removeItem("refresh_token");
-            localStorage.removeItem("user");
+            this.clearSession();
           }
         }
         return Promise.reject(error);
@@ -101,10 +100,27 @@ class ApiClient {
     );
   }
 
-  private setTokens(data: TokenResponse) {
+  private persistTokens(data: TokenResponse) {
     localStorage.setItem("access_token", data.access_token);
     localStorage.setItem("refresh_token", data.refresh_token);
-    localStorage.setItem("user", JSON.stringify(data.user));
+    if (data.user) {
+      localStorage.setItem("user", JSON.stringify(data.user));
+    }
+  }
+
+  private setTokens(data: TokenResponse) {
+    this.persistTokens(data);
+  }
+
+  clearSession() {
+    if (typeof window === "undefined") return;
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("user");
+  }
+
+  hasSessionToken() {
+    return typeof window !== "undefined" && !!localStorage.getItem("access_token");
   }
 
   async sendEmailOtp(data: SendEmailOtpRequest) {
@@ -131,13 +147,19 @@ class ApiClient {
   }
 
   async refreshToken(refreshToken: string): Promise<TokenResponse> {
-    // Use a one-off request so a failed refresh cannot re-enter the 401 interceptor loop.
-    const res: AxiosResponse<TokenResponse> = await axios.post(
-      `${config.api.fullUrl}/auth/refresh`,
-      { refresh_token: refreshToken },
-      { headers: { "Content-Type": "application/json" } },
-    );
-    return res.data;
+    if (!refreshInFlight) {
+      refreshInFlight = axios
+        .post<TokenResponse>(
+          `${config.api.fullUrl}/auth/refresh`,
+          { refresh_token: refreshToken },
+          { headers: { "Content-Type": "application/json" } },
+        )
+        .then((res) => res.data)
+        .finally(() => {
+          refreshInFlight = null;
+        });
+    }
+    return refreshInFlight;
   }
 
   async getMe(): Promise<AuthUser> {
@@ -149,9 +171,7 @@ class ApiClient {
     try {
       await this.client.post("/auth/logout");
     } finally {
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("refresh_token");
-      localStorage.removeItem("user");
+      this.clearSession();
     }
   }
 

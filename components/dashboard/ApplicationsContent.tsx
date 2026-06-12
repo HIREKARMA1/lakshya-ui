@@ -2,7 +2,8 @@
 
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
 import { api } from "@/lib/api";
 import { JobsListingPanel } from "@/components/jobs/jobs-listing-panel";
 import "@/lib/i18n";
@@ -11,15 +12,9 @@ export function ApplicationsContent() {
   const { t } = useTranslation();
   const qc = useQueryClient();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["applications"],
-    queryFn: () => api.listAppliedJobs(),
-  });
+  const { data, isLoading } = useAuthQuery(["applications"], () => api.listAppliedJobs());
 
-  const { data: myStatus } = useQuery({
-    queryKey: ["seeker-jobs-status"],
-    queryFn: () => api.getSeekerJobsStatus(),
-  });
+  const { data: myStatus } = useAuthQuery(["seeker-jobs-status"], () => api.getSeekerJobsStatus());
 
   const bookmarkedSet = new Set(myStatus?.bookmarked_job_ids ?? []);
   const jobs = data?.jobs ?? [];

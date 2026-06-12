@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
 import { api } from "@/lib/api";
 import { JobsListingPanel } from "@/components/jobs/jobs-listing-panel";
 import "@/lib/i18n";
@@ -19,10 +20,7 @@ export function JobsContent() {
     queryFn: () => api.searchPublicJobs({ limit: 100 }),
   });
 
-  const { data: myStatus } = useQuery({
-    queryKey: ["seeker-jobs-status"],
-    queryFn: () => api.getSeekerJobsStatus(),
-  });
+  const { data: myStatus } = useAuthQuery(["seeker-jobs-status"], () => api.getSeekerJobsStatus());
 
   const appliedSet = new Set(myStatus?.applied_job_ids ?? []);
   const bookmarkedSet = new Set(myStatus?.bookmarked_job_ids ?? []);
