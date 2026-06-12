@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
 import {
   Clock,
   Loader2,
@@ -32,11 +33,11 @@ export function SeekerAvailabilityContent() {
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
   const [locating, setLocating] = useState(false);
 
-  const { data: status, isLoading } = useQuery({
-    queryKey: ["worker-availability-me"],
-    queryFn: () => api.getMyWorkerAvailability(),
-    refetchInterval: 30_000,
-  });
+  const { data: status, isLoading } = useAuthQuery(
+    ["worker-availability-me"],
+    () => api.getMyWorkerAvailability(),
+    { refetchInterval: 30_000 },
+  );
 
   useEffect(() => {
     if (!status?.is_live) return;

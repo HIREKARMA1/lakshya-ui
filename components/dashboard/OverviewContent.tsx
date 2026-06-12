@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
 import { FileText, Eye, Bookmark, Briefcase, Search, MapPin } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
 import { api } from "@/lib/api";
 import "@/lib/i18n";
 
@@ -23,15 +23,9 @@ export function OverviewContent() {
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("");
 
-  const { data: bookmarks } = useQuery({
-    queryKey: ["bookmarks"],
-    queryFn: () => api.listBookmarkedJobs(),
-  });
+  const { data: bookmarks } = useAuthQuery(["bookmarks"], () => api.listBookmarkedJobs());
 
-  const { data: myStatus } = useQuery({
-    queryKey: ["seeker-jobs-status"],
-    queryFn: () => api.getSeekerJobsStatus(),
-  });
+  const { data: myStatus } = useAuthQuery(["seeker-jobs-status"], () => api.getSeekerJobsStatus());
 
   const savedCount = bookmarks?.total ?? 0;
   const applicationsCount = myStatus?.applied_job_ids?.length ?? 0;

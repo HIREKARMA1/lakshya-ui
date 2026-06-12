@@ -2,7 +2,8 @@
 
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
 import { api } from "@/lib/api";
 import { JobsListingPanel } from "@/components/jobs/jobs-listing-panel";
 import "@/lib/i18n";
@@ -10,15 +11,9 @@ import "@/lib/i18n";
 export function SavedJobsContent() {
   const { t } = useTranslation();
   const qc = useQueryClient();
-  const { data, isLoading } = useQuery({
-    queryKey: ["bookmarks"],
-    queryFn: () => api.listBookmarkedJobs(),
-  });
+  const { data, isLoading } = useAuthQuery(["bookmarks"], () => api.listBookmarkedJobs());
 
-  const { data: myStatus } = useQuery({
-    queryKey: ["seeker-jobs-status"],
-    queryFn: () => api.getSeekerJobsStatus(),
-  });
+  const { data: myStatus } = useAuthQuery(["seeker-jobs-status"], () => api.getSeekerJobsStatus());
 
   const appliedSet = new Set(myStatus?.applied_job_ids ?? []);
   const jobs = useMemo(
