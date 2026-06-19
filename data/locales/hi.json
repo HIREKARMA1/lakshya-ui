@@ -215,7 +215,40 @@
         "areEmployer": "क्या आप नियोक्ता हैं?",
         "loginProvider": "नियोक्ता के रूप में लॉगिन",
         "lookingJob": "नौकरी ढूँढ़ रहे हैं?",
-        "loginSeeker": "जॉब सीकर के रूप में लॉगिन"
+        "loginSeeker": "जॉब सीकर के रूप में लॉगिन",
+        "signUp": "साइन अप",
+        "signIn": "साइन इन",
+        "signUpTitle": "अपना खाता बनाएँ",
+        "signInTitle": "ईमेल से साइन इन करें",
+        "noAccount": "खाता नहीं है?",
+        "haveAccount": "पहले से खाता है?",
+        "passwordLabel": "पासवर्ड",
+        "passwordPh": "कम से कम 8 अक्षर",
+        "confirmPasswordLabel": "पासवर्ड की पुष्टि करें",
+        "confirmPasswordPh": "पासवर्ड दोबारा दर्ज करें",
+        "passwordMismatch": "पासवर्ड मेल नहीं खाते",
+        "passwordTooShort": "पासवर्ड कम से कम 8 अक्षर का होना चाहिए",
+        "passwordOptional": "वैकल्पिक — OTP के लिए खाली छोड़ें",
+        "signInPasswordPh": "अपना पासवर्ड दर्ज करें",
+        "forgotPassword": "पासवर्ड भूल गए?",
+        "forgotTitle": "पासवर्ड रीसेट करें",
+        "forgotSubtitle": "अपना ईमेल दर्ज करें, हम रीसेट कोड भेजेंगे।",
+        "rememberPassword": "पासवर्ड याद है?",
+        "resetPasswordTitle": "नया पासवर्ड सेट करें",
+        "resetOtpLabel": "रीसेट कोड",
+        "newPasswordLabel": "नया पासवर्ड",
+        "resetPassword": "पासवर्ड रीसेट करें",
+        "sendResetCode": "रीसेट कोड भेजें",
+        "loginFailed": "अमान्य ईमेल या पासवर्ड",
+        "sendVerificationCode": "सत्यापन कोड भेजें",
+        "signupVerifyTitle": "अपना ईमेल सत्यापित करें",
+        "signupVerifySubtitle": "{{email}} पर भेजा 6 अंकों का कोड दर्ज करें",
+        "signupOtpLabel": "सत्यापन कोड",
+        "verifyEmail": "ईमेल सत्यापित करें",
+        "signupConfirmTitle": "साइन अप की पुष्टि करें",
+        "signupConfirmSubtitle": "आपका ईमेल सत्यापित है। खाता बनाने के लिए नीचे टैप करें।",
+        "signupEmailVerified": "✓ {{email}} सत्यापित",
+        "completeSignup": "खाता बनाएँ"
       }
     },
     "jobDetail": {
@@ -432,6 +465,20 @@
         { "title": "5. सुरक्षा", "body": "हम उचित तकनीकी उपायों से डेटा की सुरक्षा करते हैं और आवश्यकतानुसार रखते हैं।" },
         { "title": "6. आपके विकल्प", "body": "प्रोफ़ाइल अपडेट करें या डेटा एक्सेस/सुधार/हटाने के लिए हमसे संपर्क करें।" },
         { "title": "7. संपर्क", "body": "गोपनीयता प्रश्नों के लिए संपर्क पृष्ठ या LAKSHYA पर सहायता चैनलों का उपयोग करें।" }
+      ]
+    },
+    "refund": {
+      "eyebrow": "क़ानूनी",
+      "title": "रिफंड नीति",
+      "subtitle": "LAKSHYA पर सशुल्क सेवाओं के लिए Hirekarma Private Limited रिफंड कैसे संभालती है।",
+      "updated": "अंतिम अपडेट: जून 2026",
+      "sections": [
+        { "title": "1. अवलोकन", "body": "LAKSHYA Hirekarma Private Limited द्वारा संचालित है। नौकरी खोजने वालों के लिए पंजीकरण और आवेदन निःशुल्क हैं। यह नीति नियोक्ताओं या प्रीमियम सशुल्क सेवाओं पर लागू होती है।" },
+        { "title": "2. पात्र रिफंड", "body": "यदि आपने भुगतान किया और प्लेटफ़ॉर्म त्रुटि, डुप्लिकेट चार्ज, या वर्णित सेवा न मिलने के कारण सेवा नहीं मिली, तो भुगतान के 7 दिनों के भीतर रिफंड का अनुरोध कर सकते हैं।" },
+        { "title": "3. गैर-रिफंडेबल", "body": "सशुल्क लिस्टिंग या सब्सक्रिप्शन अवधि उपयोग हो जाने पर, मन बदलने पर, या शर्तों के उल्लंघन पर खाता निलंबित होने पर आमतौर पर रिफंड नहीं मिलता।" },
+        { "title": "4. रिफंड अनुरोध", "body": "संपर्क पृष्ठ पर पंजीकृत ईमेल/फ़ोन, भुगतान संदर्भ और कारण के साथ संपर्क करें। 3–5 कार्य दिवसों में जवाब देने का प्रयास करते हैं।" },
+        { "title": "5. प्रसंस्करण समय", "body": "स्वीकृत रिफंड मूल भुगतान विधि में 7–10 कार्य दिवसों में प्रसंस्कृत होते हैं।" },
+        { "title": "6. संपर्क", "body": "रिफंड प्रश्नों के लिए संपर्क पृष्ठ या LAKSHYA सहायता चैनलों का उपयोग करें।" }
       ]
     }
   },
@@ -689,11 +736,12 @@
     ],
     "legalTitle": "क़ानूनी",
     "legal": [
-      { "label": "सेवा की शर्तें", "href": "/terms" },
-      { "label": "गोपनीयता नीति", "href": "/privacy" }
+      { "label": "गोपनीयता नीति", "href": "/privacy" },
+      { "label": "नियम और शर्तें", "href": "/terms" },
+      { "label": "रिफंड नीति", "href": "/refund" }
     ],
     "address": "2nd Floor, SS Niwas, <companyLink>Hirekarma Private Limited</companyLink>, Raghunathpur, Bhubaneswar, Raghunathpurjali, Odisha 751024",
-    "rights": "© 2026 <companyLink>Hirekarma Private Limited</companyLink>. सर्वाधिकार सुरक्षित।",
+    "rights": "© 2026 <companyLink>Hirekarma pvt ltd</companyLink>. सर्वाधिकार सुरक्षित।",
     "madeIn": "भारत के लिए बना"
   },
   "common": {
@@ -719,6 +767,7 @@
     "openings_plural": "{{n}} खाली पद",
     "applied": "{{n}} ने आवेदन किया",
     "configureGoogle": "(GOOGLE_CLIENT_ID कॉन्फ़िगर करें)",
+    "whatsappChat": "WhatsApp पर हमसे चैट करें",
     "gender": { "male": "पुरुष", "female": "महिला", "other": "अन्य" }
   },
   "toast": {
@@ -730,6 +779,19 @@
     "invalidOtp": "अमान्य OTP",
     "otpResent": "OTP फिर भेजा गया",
     "otpResendFailed": "OTP फिर नहीं भेजा जा सका",
+    "resetOtpSent": "यदि खाता मौजूद है, तो रीसेट कोड भेज दिया गया है",
+    "resetOtpFailed": "रीसेट कोड नहीं भेजा जा सका",
+    "resetOtpResent": "रीसेट कोड फिर भेजा गया",
+    "resetOtpResendFailed": "रीसेट कोड फिर नहीं भेजा जा सका",
+    "passwordReset": "पासवर्ड अपडेट हो गया। अब साइन इन करें।",
+    "passwordResetFailed": "पासवर्ड रीसेट नहीं हो सका",
+    "signupOtpSent": "सत्यापन कोड आपके ईमेल पर भेजा गया",
+    "signupOtpFailed": "सत्यापन कोड नहीं भेजा जा सका",
+    "signupOtpResent": "सत्यापन कोड फिर भेजा गया",
+    "signupOtpResendFailed": "सत्यापन कोड फिर नहीं भेजा जा सका",
+    "signupOtpVerified": "ईमेल सफलतापूर्वक सत्यापित",
+    "signupComplete": "खाता सफलतापूर्वक बनाया गया",
+    "signupFailed": "साइन अप पूरा नहीं हो सका",
     "registerSuccess": "पंजीकरण पूर्ण",
     "registerFailed": "पंजीकरण विफल। पहले लॉगिन करें।",
     "profileSaved": "प्रोफ़ाइल अपडेट हो गई",

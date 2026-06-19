@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { I18nextProvider } from "react-i18next";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/components/providers/auth-provider";
+import { WhatsAppFloatingButton } from "@/components/ui/WhatsAppFloatingButton";
 import { config } from "@/lib/config";
 import i18n from "@/lib/i18n";
 
@@ -33,6 +34,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <AuthProvider>
             {children}
+            <WhatsAppFloatingButton />
             <Toaster position="top-right" />
           </AuthProvider>
         </ThemeProvider>

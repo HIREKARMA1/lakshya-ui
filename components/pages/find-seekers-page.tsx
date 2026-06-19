@@ -14,7 +14,7 @@ import { Footer } from "@/components/landing/Footer";
 import { SeekersHero } from "@/components/landing/SeekersHero";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { LoginRequiredModal } from "@/components/LoginRequiredModal";
-import { config } from "@/lib/config";
+import { contactTelHref } from "@/lib/contact";
 const FREE_LIMIT = 10;
 
 export function FindSeekersPage() {
@@ -99,7 +99,7 @@ export function FindSeekersPage() {
                   </p>
                   <p className="mt-1 text-sm text-muted-foreground">{t("pages.jobs.help.body")}</p>
                   <a
-                    href={config.contact.phone ? `tel:${config.contact.phone}` : "#"}
+                    href={contactTelHref()}
                     className="mt-4 inline-flex w-full items-center justify-center rounded-md bg-orange px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90"
                   >
                     {t("pages.jobs.help.cta")}

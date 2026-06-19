@@ -105,6 +105,23 @@ export interface VerifyEmailOtpRequest {
   role: "seeker" | "provider";
 }
 
+export interface SignupVerifyOtpRequest {
+  email: string;
+  code: string;
+  role: "seeker" | "provider";
+}
+
+export interface SignupVerifyOtpResponse {
+  signup_verification_token: string;
+}
+
+export interface SignupCompleteRequest {
+  email: string;
+  password: string;
+  role: "seeker" | "provider";
+  signup_verification_token: string;
+}
+
 export interface GoogleAuthRequest {
   id_token: string;
   role: "seeker" | "provider";
@@ -112,5 +129,23 @@ export interface GoogleAuthRequest {
 
 export interface AdminLoginRequest {
   email: string;
+  password: string;
+}
+
+export interface PortalLoginRequest {
+  email: string;
+  password: string;
+  role: "seeker" | "provider";
+}
+
+export interface ForgotPasswordRequest {
+  email: string;
+  role: "seeker" | "provider";
+}
+
+export interface ResetPasswordRequest {
+  email: string;
+  code: string;
+  role: "seeker" | "provider";
   password: string;
 }

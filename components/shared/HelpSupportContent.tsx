@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 import { BookOpen, Clock, Mail, MessageCircle, Phone, Shield } from "lucide-react";
-import { config } from "@/lib/config";
+import { contactDisplay, contactMailtoHref, contactTelHref, contactWhatsAppHref } from "@/lib/contact";
 import "@/lib/i18n";
 
 type FaqItem = { q: string; a: string };
@@ -68,23 +68,27 @@ export function HelpSupportContent({ i18nKey }: HelpSupportContentProps) {
           <section className={cardCls}>
             <h2 className="font-display text-lg font-bold text-ink">{t(`${i18nKey}.contactTitle`)}</h2>
             <div className="mt-4 flex flex-col gap-3">
-              <a
-                href={config.contact.phone ? `tel:${config.contact.phone}` : "#"}
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-orange px-4 py-3 text-sm font-semibold text-white transition hover:opacity-90"
-              >
-                <Phone className="h-4 w-4 shrink-0" aria-hidden />
-                {t(`${i18nKey}.call`)}
-              </a>
-              <a
-                href={config.contact.whatsapp ? `https://wa.me/${config.contact.whatsapp}` : "#"}
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary/90"
-              >
-                <MessageCircle className="h-4 w-4 shrink-0" aria-hidden />
-                {t(`${i18nKey}.whatsapp`)}
-              </a>
-              {config.contact.email ? (
+              {contactDisplay.phone ? (
                 <a
-                  href={`mailto:${config.contact.email}`}
+                  href={contactTelHref()}
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-orange px-4 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                >
+                  <Phone className="h-4 w-4 shrink-0" aria-hidden />
+                  {t(`${i18nKey}.call`)}
+                </a>
+              ) : null}
+              {contactDisplay.whatsapp ? (
+                <a
+                  href={contactWhatsAppHref()}
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary/90"
+                >
+                  <MessageCircle className="h-4 w-4 shrink-0" aria-hidden />
+                  {t(`${i18nKey}.whatsapp`)}
+                </a>
+              ) : null}
+              {contactDisplay.email ? (
+                <a
+                  href={contactMailtoHref()}
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-white px-4 py-3 text-sm font-semibold text-ink transition hover:bg-soft"
                 >
                   <Mail className="h-4 w-4 shrink-0" aria-hidden />
@@ -92,6 +96,26 @@ export function HelpSupportContent({ i18nKey }: HelpSupportContentProps) {
                 </a>
               ) : null}
             </div>
+            {(contactDisplay.phone || contactDisplay.whatsapp || contactDisplay.email) && (
+              <div className="mt-4 space-y-1 text-sm text-muted-foreground">
+                {contactDisplay.phone ? (
+                  <p>
+                    {t(`${i18nKey}.phoneLabel`, { defaultValue: "Phone" })}:{" "}
+                    <a href={contactTelHref()} className="font-semibold text-primary hover:underline">
+                      {contactDisplay.phone}
+                    </a>
+                  </p>
+                ) : null}
+                {contactDisplay.email ? (
+                  <p>
+                    {t(`${i18nKey}.emailLabel`, { defaultValue: "Email" })}:{" "}
+                    <a href={contactMailtoHref()} className="font-semibold text-primary hover:underline">
+                      {contactDisplay.email}
+                    </a>
+                  </p>
+                ) : null}
+              </div>
+            )}
           </section>
 
           <section className={cardCls}>

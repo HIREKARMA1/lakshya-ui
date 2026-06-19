@@ -218,7 +218,40 @@
         "areEmployer": "Are you an employer?",
         "loginProvider": "Login as Provider",
         "lookingJob": "Looking for a job?",
-        "loginSeeker": "Login as Seeker"
+        "loginSeeker": "Login as Seeker",
+        "signUp": "Sign up",
+        "signIn": "Sign in",
+        "signUpTitle": "Create your account",
+        "signInTitle": "Sign in with email",
+        "noAccount": "Don't have an account?",
+        "haveAccount": "Already have an account?",
+        "passwordLabel": "Password",
+        "passwordPh": "At least 8 characters",
+        "confirmPasswordLabel": "Confirm password",
+        "confirmPasswordPh": "Re-enter your password",
+        "passwordMismatch": "Passwords do not match",
+        "passwordTooShort": "Password must be at least 8 characters",
+        "passwordOptional": "optional — leave blank for OTP",
+        "signInPasswordPh": "Enter your password",
+        "forgotPassword": "Forgot password?",
+        "forgotTitle": "Reset your password",
+        "forgotSubtitle": "Enter your email and we'll send a reset code.",
+        "rememberPassword": "Remember your password?",
+        "resetPasswordTitle": "Set a new password",
+        "resetOtpLabel": "Reset code",
+        "newPasswordLabel": "New password",
+        "resetPassword": "Reset password",
+        "sendResetCode": "Send reset code",
+        "loginFailed": "Invalid email or password",
+        "sendVerificationCode": "Send verification code",
+        "signupVerifyTitle": "Verify your email",
+        "signupVerifySubtitle": "Enter the 6-digit code sent to {{email}}",
+        "signupOtpLabel": "Verification code",
+        "verifyEmail": "Verify email",
+        "signupConfirmTitle": "Confirm sign up",
+        "signupConfirmSubtitle": "Your email is verified. Tap below to create your account.",
+        "signupEmailVerified": "✓ {{email}} verified",
+        "completeSignup": "Create account"
       }
     },
     "jobDetail": {
@@ -412,7 +445,7 @@
     },
     "terms": {
       "eyebrow": "Legal",
-      "title": "Terms of Service",
+      "title": "Terms and Conditions",
       "subtitle": "Rules for using LAKSHYA — the employment platform operated by Hirekarma Private Limited.",
       "updated": "Last updated: May 2026",
       "sections": [
@@ -479,6 +512,38 @@
         {
           "title": "7. Contact",
           "body": "For privacy questions, reach us through the Contact page or the support channels listed on LAKSHYA."
+        }
+      ]
+    },
+    "refund": {
+      "eyebrow": "Legal",
+      "title": "Refund Policy",
+      "subtitle": "How Hirekarma Private Limited handles refunds for paid services on LAKSHYA.",
+      "updated": "Last updated: June 2026",
+      "sections": [
+        {
+          "title": "1. Overview",
+          "body": "LAKSHYA is operated by Hirekarma Private Limited. Job seeker registration and job applications are free. This policy applies to any paid employer or premium services offered on the platform."
+        },
+        {
+          "title": "2. Eligible refunds",
+          "body": "If you paid for a LAKSHYA service and we are unable to deliver it due to a platform error, duplicate charge, or service not activated as described, you may request a refund within 7 days of payment."
+        },
+        {
+          "title": "3. Non-refundable cases",
+          "body": "Refunds are generally not provided once a paid listing or subscription period has been used, for change of mind, or when account suspension results from a breach of our Terms of Service."
+        },
+        {
+          "title": "4. How to request a refund",
+          "body": "Contact us through the Contact page with your registered email or phone, payment reference, and reason for the request. We aim to respond within 3–5 business days."
+        },
+        {
+          "title": "5. Processing time",
+          "body": "Approved refunds are processed to the original payment method within 7–10 business days, depending on your bank or payment provider."
+        },
+        {
+          "title": "6. Contact",
+          "body": "For refund-related questions, reach Hirekarma Private Limited through the Contact page or support channels listed on LAKSHYA."
         }
       ]
     }
@@ -749,11 +814,12 @@
     ],
     "legalTitle": "Legal",
     "legal": [
-      { "label": "Terms of Service", "href": "/terms" },
-      { "label": "Privacy Policy", "href": "/privacy" }
+      { "label": "Privacy Policy", "href": "/privacy" },
+      { "label": "Terms and Conditions", "href": "/terms" },
+      { "label": "Refund Policy", "href": "/refund" }
     ],
     "address": "2nd Floor, SS Niwas, <companyLink>Hirekarma Private Limited</companyLink>, Raghunathpur, Bhubaneswar, Raghunathpurjali, Odisha 751024",
-    "rights": "© 2026 <companyLink>Hirekarma Private Limited</companyLink>. All rights reserved.",
+    "rights": "© 2026 <companyLink>Hirekarma pvt ltd</companyLink>. All rights reserved.",
     "madeIn": "Made for Bharat"
   },
   "common": {
@@ -779,6 +845,7 @@
     "openings_plural": "{{n}} openings",
     "applied": "{{n}} applied",
     "configureGoogle": "(configure GOOGLE_CLIENT_ID)",
+    "whatsappChat": "Chat with us on WhatsApp",
     "gender": { "male": "Male", "female": "Female", "other": "Other" }
   },
   "toast": {
@@ -790,6 +857,19 @@
     "invalidOtp": "Invalid OTP",
     "otpResent": "OTP resent",
     "otpResendFailed": "Could not resend OTP",
+    "resetOtpSent": "If an account exists, a reset code has been sent",
+    "resetOtpFailed": "Could not send reset code",
+    "resetOtpResent": "Reset code resent",
+    "resetOtpResendFailed": "Could not resend reset code",
+    "passwordReset": "Password updated. You can sign in now.",
+    "passwordResetFailed": "Could not reset password",
+    "signupOtpSent": "Verification code sent to your email",
+    "signupOtpFailed": "Could not send verification code",
+    "signupOtpResent": "Verification code resent",
+    "signupOtpResendFailed": "Could not resend verification code",
+    "signupOtpVerified": "Email verified successfully",
+    "signupComplete": "Account created successfully",
+    "signupFailed": "Could not complete sign up",
     "registerSuccess": "Registration complete",
     "registerFailed": "Registration failed. Please login first.",
     "profileSaved": "Profile updated successfully",

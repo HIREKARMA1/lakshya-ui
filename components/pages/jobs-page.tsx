@@ -10,7 +10,7 @@ import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { JobsExtras } from "@/components/landing/JobsExtras";
 import { LoginRequiredModal } from "@/components/LoginRequiredModal";
-import { config } from "@/lib/config";
+import { contactTelHref } from "@/lib/contact";
 import { FiltersBox } from "@/components/jobs/filters-box";
 import { JobsListingPanel } from "@/components/jobs/jobs-listing-panel";
 import { JobsListingStyles } from "@/components/jobs/jobs-listing-styles";
@@ -75,7 +75,7 @@ export function JobsPage() {
                   <p className="font-display text-base font-bold text-ink">{t("pages.jobs.help.title")}</p>
                   <p className="mt-1 text-sm text-muted-foreground">{t("pages.jobs.help.body")}</p>
                   <a
-                    href={config.contact.phone ? `tel:${config.contact.phone}` : "#"}
+                    href={contactTelHref()}
                     className="mt-4 inline-flex w-full items-center justify-center rounded-md bg-orange px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90"
                   >
                     {t("pages.jobs.help.cta")}

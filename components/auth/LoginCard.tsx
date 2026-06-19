@@ -23,7 +23,10 @@ interface Props {
   role: LoginRole;
 }
 
-type Step = "choose" | "email" | "otp";
+type Step = "choose" | "email" | "otp" | "signup-confirm";
+type AuthMode = "signin" | "signup" | "forgot";
+
+const MIN_PASSWORD_LEN = 8;
 
 export function LoginCard({ role }: Props) {
   const { t } = useTranslation();
@@ -37,8 +40,15 @@ export function LoginCard({ role }: Props) {
   };
 
   const [step, setStep] = useState<Step>("choose");
+  const [authMode, setAuthMode] = useState<AuthMode>("signin");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [signInPassword, setSignInPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [otp, setOtp] = useState("");
+  const [signupVerificationToken, setSignupVerificationToken] = useState("");
   const [loading, setLoading] = useState(false);
 
   const accent = role === "seeker" ? "bg-primary" : "bg-[#1b52a4]";
@@ -79,9 +89,104 @@ export function LoginCard({ role }: Props) {
     }
   };
 
+  const resetEmailForm = () => {
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setSignInPassword("");
+    setNewPassword("");
+    setConfirmNewPassword("");
+    setOtp("");
+    setSignupVerificationToken("");
+  };
+
+  const switchAuthMode = (mode: AuthMode) => {
+    setAuthMode(mode);
+    setPassword("");
+    setConfirmPassword("");
+    setSignInPassword("");
+    setNewPassword("");
+    setConfirmNewPassword("");
+    setOtp("");
+    setSignupVerificationToken("");
+    setStep("email");
+  };
+
+  const validatePasswordPair = (value: string, confirm: string) => {
+    if (value.length < MIN_PASSWORD_LEN) {
+      toast.error(t("pages.login.card.passwordTooShort"));
+      return false;
+    }
+    if (value !== confirm) {
+      toast.error(t("pages.login.card.passwordMismatch"));
+      return false;
+    }
+    return true;
+  };
+
+  const validateSignupPassword = () => validatePasswordPair(password, confirmPassword);
+
+  const validateResetPassword = () => validatePasswordPair(newPassword, confirmNewPassword);
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (step === "email" && /.+@.+\..+/.test(email)) {
+      if (authMode === "signup" && !validateSignupPassword()) return;
+
+      if (authMode === "signin" && signInPassword.length > 0) {
+        setLoading(true);
+        try {
+          const data = await api.portalLogin({ email, password: signInPassword, role });
+          toast.success(t("toast.signedIn"));
+          afterAuth(data.user.profile_complete);
+        } catch (err: unknown) {
+          const msg =
+            err && typeof err === "object" && "response" in err
+              ? (err as { response?: { data?: { detail?: string } } }).response?.data?.detail
+              : t("pages.login.card.loginFailed");
+          toast.error(typeof msg === "string" ? msg : t("pages.login.card.loginFailed"));
+        } finally {
+          setLoading(false);
+        }
+        return;
+      }
+
+      if (authMode === "forgot") {
+        setLoading(true);
+        try {
+          await api.forgotPassword({ email, role });
+          setStep("otp");
+          toast.success(t("toast.resetOtpSent"));
+        } catch (err: unknown) {
+          const msg =
+            err && typeof err === "object" && "response" in err
+              ? (err as { response?: { data?: { detail?: string } } }).response?.data?.detail
+              : t("toast.resetOtpFailed");
+          toast.error(typeof msg === "string" ? msg : t("toast.resetOtpFailed"));
+        } finally {
+          setLoading(false);
+        }
+        return;
+      }
+
+      if (authMode === "signup") {
+        setLoading(true);
+        try {
+          await api.sendSignupOtp({ email, role });
+          setStep("otp");
+          toast.success(t("toast.signupOtpSent"));
+        } catch (err: unknown) {
+          const msg =
+            err && typeof err === "object" && "response" in err
+              ? (err as { response?: { data?: { detail?: string } } }).response?.data?.detail
+              : t("toast.signupOtpFailed");
+          toast.error(typeof msg === "string" ? msg : t("toast.signupOtpFailed"));
+        } finally {
+          setLoading(false);
+        }
+        return;
+      }
+
       setLoading(true);
       try {
         await api.sendEmailOtp({ email, role });
@@ -99,6 +204,44 @@ export function LoginCard({ role }: Props) {
       return;
     }
     if (step === "otp" && otp.length === 6) {
+      if (authMode === "forgot") {
+        if (!validateResetPassword()) return;
+        setLoading(true);
+        try {
+          await api.resetPassword({ email, code: otp, role, password: newPassword });
+          toast.success(t("toast.passwordReset"));
+          switchAuthMode("signin");
+        } catch (err: unknown) {
+          const msg =
+            err && typeof err === "object" && "response" in err
+              ? (err as { response?: { data?: { detail?: string } } }).response?.data?.detail
+              : t("toast.passwordResetFailed");
+          toast.error(typeof msg === "string" ? msg : t("toast.passwordResetFailed"));
+        } finally {
+          setLoading(false);
+        }
+        return;
+      }
+
+      if (authMode === "signup") {
+        setLoading(true);
+        try {
+          const verified = await api.verifySignupOtp({ email, code: otp, role });
+          setSignupVerificationToken(verified.signup_verification_token);
+          setStep("signup-confirm");
+          toast.success(t("toast.signupOtpVerified"));
+        } catch (err: unknown) {
+          const msg =
+            err && typeof err === "object" && "response" in err
+              ? (err as { response?: { data?: { detail?: string } } }).response?.data?.detail
+              : t("toast.invalidOtp");
+          toast.error(typeof msg === "string" ? msg : t("toast.invalidOtp"));
+        } finally {
+          setLoading(false);
+        }
+        return;
+      }
+
       setLoading(true);
       try {
         const data = await api.verifyEmailOtp({ email, code: otp, role });
@@ -113,16 +256,53 @@ export function LoginCard({ role }: Props) {
       } finally {
         setLoading(false);
       }
+      return;
+    }
+    if (step === "signup-confirm") {
+      if (!validateSignupPassword() || !signupVerificationToken) return;
+      setLoading(true);
+      try {
+        const data = await api.completeSignup({
+          email,
+          password,
+          role,
+          signup_verification_token: signupVerificationToken,
+        });
+        toast.success(t("toast.signupComplete"));
+        afterAuth(data.user.profile_complete);
+      } catch (err: unknown) {
+        const msg =
+          err && typeof err === "object" && "response" in err
+            ? (err as { response?: { data?: { detail?: string } } }).response?.data?.detail
+            : t("toast.signupFailed");
+        toast.error(typeof msg === "string" ? msg : t("toast.signupFailed"));
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   const resendOtp = async () => {
     setLoading(true);
     try {
-      await api.sendEmailOtp({ email, role });
-      toast.success(t("toast.otpResent"));
+      if (authMode === "forgot") {
+        await api.forgotPassword({ email, role });
+        toast.success(t("toast.resetOtpResent"));
+      } else if (authMode === "signup") {
+        await api.sendSignupOtp({ email, role });
+        toast.success(t("toast.signupOtpResent"));
+      } else {
+        await api.sendEmailOtp({ email, role });
+        toast.success(t("toast.otpResent"));
+      }
     } catch {
-      toast.error(t("toast.otpResendFailed"));
+      if (authMode === "forgot") {
+        toast.error(t("toast.resetOtpResendFailed"));
+      } else if (authMode === "signup") {
+        toast.error(t("toast.signupOtpResendFailed"));
+      } else {
+        toast.error(t("toast.otpResendFailed"));
+      }
     } finally {
       setLoading(false);
     }
@@ -193,35 +373,204 @@ export function LoginCard({ role }: Props) {
                   </div>
                   <button
                     type="button"
-                    onClick={() => setStep("email")}
+                    onClick={() => {
+                      setAuthMode("signin");
+                      resetEmailForm();
+                      setStep("email");
+                    }}
                     className={`inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg ${accent} px-4 text-sm font-semibold text-white shadow-sm transition ${accentHover}`}
                   >
                     <Mail className="h-4 w-4" />
                     {t("pages.login.card.continueEmail")}
                   </button>
+                  <p className="text-center text-xs text-muted-foreground">
+                    {t("pages.login.card.noAccount")}{" "}
+                    <button
+                      type="button"
+                      onClick={() => switchAuthMode("signup")}
+                      className={`font-semibold ${accentText} hover:underline`}
+                    >
+                      {t("pages.login.card.signUp")}
+                    </button>
+                  </p>
                 </div>
               ) : (
                 <form onSubmit={onSubmit} className="mt-7 space-y-4">
                   {step === "email" && (
-                    <label className="block">
-                      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                        {t("pages.login.card.emailLabel")}
-                      </span>
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder={t("pages.login.card.emailPh")}
-                        className="w-full rounded-md border border-line px-3 py-3 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
-                      />
-                    </label>
+                    <>
+                      <p className="text-center text-sm font-semibold text-ink">
+                        {authMode === "signup"
+                          ? t("pages.login.card.signUpTitle")
+                          : authMode === "forgot"
+                            ? t("pages.login.card.forgotTitle")
+                            : t("pages.login.card.signInTitle")}
+                      </p>
+                      {authMode === "forgot" && (
+                        <p className="text-center text-xs text-muted-foreground">
+                          {t("pages.login.card.forgotSubtitle")}
+                        </p>
+                      )}
+                      <label className="block">
+                        <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                          {t("pages.login.card.emailLabel")}
+                        </span>
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder={t("pages.login.card.emailPh")}
+                          autoComplete="email"
+                          className="w-full rounded-md border border-line px-3 py-3 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
+                        />
+                      </label>
+                      {authMode === "signin" && (
+                        <>
+                          <label className="block">
+                            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                              {t("pages.login.card.passwordLabel")}
+                              <span className="ml-1 font-normal normal-case text-muted-foreground">
+                                ({t("pages.login.card.passwordOptional")})
+                              </span>
+                            </span>
+                            <input
+                              type="password"
+                              value={signInPassword}
+                              onChange={(e) => setSignInPassword(e.target.value)}
+                              placeholder={t("pages.login.card.signInPasswordPh")}
+                              autoComplete="current-password"
+                              className="w-full rounded-md border border-line px-3 py-3 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
+                            />
+                          </label>
+                          <div className="text-right">
+                            <button
+                              type="button"
+                              onClick={() => switchAuthMode("forgot")}
+                              className={`text-xs font-semibold ${accentText} hover:underline`}
+                            >
+                              {t("pages.login.card.forgotPassword")}
+                            </button>
+                          </div>
+                        </>
+                      )}
+                      {authMode === "signup" && (
+                        <>
+                          <label className="block">
+                            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                              {t("pages.login.card.passwordLabel")}
+                            </span>
+                            <input
+                              type="password"
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                              placeholder={t("pages.login.card.passwordPh")}
+                              autoComplete="new-password"
+                              className="w-full rounded-md border border-line px-3 py-3 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
+                            />
+                          </label>
+                          <label className="block">
+                            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                              {t("pages.login.card.confirmPasswordLabel")}
+                            </span>
+                            <input
+                              type="password"
+                              value={confirmPassword}
+                              onChange={(e) => setConfirmPassword(e.target.value)}
+                              placeholder={t("pages.login.card.confirmPasswordPh")}
+                              autoComplete="new-password"
+                              className="w-full rounded-md border border-line px-3 py-3 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
+                            />
+                          </label>
+                        </>
+                      )}
+                      <p className="text-center text-xs text-muted-foreground">
+                        {authMode === "signup" ? (
+                          <>
+                            {t("pages.login.card.haveAccount")}{" "}
+                            <button
+                              type="button"
+                              onClick={() => switchAuthMode("signin")}
+                              className={`font-semibold ${accentText} hover:underline`}
+                            >
+                              {t("pages.login.card.signIn")}
+                            </button>
+                          </>
+                        ) : authMode === "forgot" ? (
+                          <>
+                            {t("pages.login.card.rememberPassword")}{" "}
+                            <button
+                              type="button"
+                              onClick={() => switchAuthMode("signin")}
+                              className={`font-semibold ${accentText} hover:underline`}
+                            >
+                              {t("pages.login.card.signIn")}
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            {t("pages.login.card.noAccount")}{" "}
+                            <button
+                              type="button"
+                              onClick={() => switchAuthMode("signup")}
+                              className={`font-semibold ${accentText} hover:underline`}
+                            >
+                              {t("pages.login.card.signUp")}
+                            </button>
+                          </>
+                        )}
+                      </p>
+                    </>
+                  )}
+
+                  {step === "signup-confirm" && (
+                    <>
+                      <p className="text-center text-sm font-semibold text-ink">
+                        {t("pages.login.card.signupConfirmTitle")}
+                      </p>
+                      <p className="text-center text-xs text-muted-foreground">
+                        {t("pages.login.card.signupConfirmSubtitle")}
+                      </p>
+                      <div className="rounded-md border border-green/30 bg-green/10 px-3 py-2.5 text-center text-sm font-medium text-green">
+                        {t("pages.login.card.signupEmailVerified", { email })}
+                      </div>
+                      <div className="text-xs">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSignupVerificationToken("");
+                            setStep("otp");
+                          }}
+                          className="font-semibold text-muted-foreground hover:text-ink"
+                        >
+                          {t("pages.login.card.back", "← Back")}
+                        </button>
+                      </div>
+                    </>
                   )}
 
                   {step === "otp" && (
                     <>
+                      {authMode === "forgot" && (
+                        <p className="text-center text-sm font-semibold text-ink">
+                          {t("pages.login.card.resetPasswordTitle")}
+                        </p>
+                      )}
+                      {authMode === "signup" && (
+                        <>
+                          <p className="text-center text-sm font-semibold text-ink">
+                            {t("pages.login.card.signupVerifyTitle")}
+                          </p>
+                          <p className="text-center text-xs text-muted-foreground">
+                            {t("pages.login.card.signupVerifySubtitle", { email })}
+                          </p>
+                        </>
+                      )}
                       <label className="block">
                         <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                          {t("pages.login.card.otpLabel", "Enter OTP")}
+                          {authMode === "forgot"
+                            ? t("pages.login.card.resetOtpLabel")
+                            : authMode === "signup"
+                              ? t("pages.login.card.signupOtpLabel")
+                              : t("pages.login.card.otpLabel", "Enter OTP")}
                         </span>
                         <input
                           inputMode="numeric"
@@ -232,6 +581,36 @@ export function LoginCard({ role }: Props) {
                           className="w-full rounded-md border border-line px-3 py-3 text-center font-display text-lg font-bold tracking-[0.4em] text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
                         />
                       </label>
+                      {authMode === "forgot" && (
+                        <>
+                          <label className="block">
+                            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                              {t("pages.login.card.newPasswordLabel")}
+                            </span>
+                            <input
+                              type="password"
+                              value={newPassword}
+                              onChange={(e) => setNewPassword(e.target.value)}
+                              placeholder={t("pages.login.card.passwordPh")}
+                              autoComplete="new-password"
+                              className="w-full rounded-md border border-line px-3 py-3 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
+                            />
+                          </label>
+                          <label className="block">
+                            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                              {t("pages.login.card.confirmPasswordLabel")}
+                            </span>
+                            <input
+                              type="password"
+                              value={confirmNewPassword}
+                              onChange={(e) => setConfirmNewPassword(e.target.value)}
+                              placeholder={t("pages.login.card.confirmPasswordPh")}
+                              autoComplete="new-password"
+                              className="w-full rounded-md border border-line px-3 py-3 text-sm text-ink outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
+                            />
+                          </label>
+                        </>
+                      )}
                       <div className="flex items-center justify-between text-xs">
                         <button
                           type="button"
@@ -256,8 +635,26 @@ export function LoginCard({ role }: Props) {
                     type="submit"
                     disabled={
                       loading ||
-                      (step === "email" && !/.+@.+\..+/.test(email)) ||
-                      (step === "otp" && otp.length !== 6)
+                      (step === "email" &&
+                        (!/.+@.+\..+/.test(email) ||
+                          (authMode === "signup" &&
+                            (password.length < MIN_PASSWORD_LEN ||
+                              confirmPassword.length < MIN_PASSWORD_LEN ||
+                              password !== confirmPassword)) ||
+                          (authMode === "signin" &&
+                            signInPassword.length > 0 &&
+                            signInPassword.length < MIN_PASSWORD_LEN))) ||
+                      (step === "otp" &&
+                        (otp.length !== 6 ||
+                          (authMode === "forgot" &&
+                            (newPassword.length < MIN_PASSWORD_LEN ||
+                              confirmNewPassword.length < MIN_PASSWORD_LEN ||
+                              newPassword !== confirmNewPassword)))) ||
+                      (step === "signup-confirm" &&
+                        (!signupVerificationToken ||
+                          password.length < MIN_PASSWORD_LEN ||
+                          confirmPassword.length < MIN_PASSWORD_LEN ||
+                          password !== confirmPassword))
                     }
                     className={`inline-flex w-full items-center justify-center gap-2 rounded-md ${accent} px-4 py-3 text-sm font-semibold text-white shadow-sm transition ${accentHover} disabled:cursor-not-allowed disabled:opacity-40`}
                   >
@@ -268,18 +665,34 @@ export function LoginCard({ role }: Props) {
                       </>
                     ) : (
                       <>
-                        {step === "otp"
-                          ? t("pages.login.card.verify", "Verify")
-                          : t("pages.login.card.continue", "Continue")}{" "}
+                        {step === "signup-confirm"
+                          ? t("pages.login.card.completeSignup")
+                          : step === "otp"
+                            ? authMode === "forgot"
+                              ? t("pages.login.card.resetPassword")
+                              : authMode === "signup"
+                                ? t("pages.login.card.verifyEmail")
+                                : t("pages.login.card.verify", "Verify")
+                            : authMode === "signin" && signInPassword.length > 0
+                              ? t("pages.login.card.signIn")
+                              : authMode === "forgot"
+                                ? t("pages.login.card.sendResetCode")
+                                : authMode === "signup"
+                                  ? t("pages.login.card.sendVerificationCode")
+                                  : t("pages.login.card.continue", "Continue")}{" "}
                         →
                       </>
                     )}
                   </button>
 
-                  {step !== "otp" && (
+                  {step !== "otp" && step !== "signup-confirm" && (
                     <button
                       type="button"
-                      onClick={() => setStep("choose")}
+                      onClick={() => {
+                        resetEmailForm();
+                        switchAuthMode("signin");
+                        setStep("choose");
+                      }}
                       className="block w-full text-center text-xs font-semibold text-muted-foreground hover:text-ink"
                     >
                       {t("pages.login.card.useDifferent")}

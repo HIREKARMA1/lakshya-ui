@@ -15,7 +15,7 @@ function readSections(v: unknown): Section[] {
 }
 
 type Props = {
-  i18nKey: "pages.terms" | "pages.privacy";
+  i18nKey: "pages.terms" | "pages.privacy" | "pages.refund";
 };
 
 export function LegalDocumentPage({ i18nKey }: Props) {

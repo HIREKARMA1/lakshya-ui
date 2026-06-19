@@ -3,10 +3,16 @@ import { config } from "./config";
 import type {
   AdminLoginRequest,
   AuthUser,
+  ForgotPasswordRequest,
   GoogleAuthRequest,
+  PortalLoginRequest,
   ProviderProfileUpdatePayload,
+  ResetPasswordRequest,
   SeekerProfileUpdatePayload,
   SendEmailOtpRequest,
+  SignupCompleteRequest,
+  SignupVerifyOtpRequest,
+  SignupVerifyOtpResponse,
   TokenResponse,
   VerifyEmailOtpRequest,
 } from "@/types/auth";
@@ -128,6 +134,22 @@ class ApiClient {
     return res.data;
   }
 
+  async sendSignupOtp(data: SendEmailOtpRequest) {
+    const res = await this.client.post("/auth/signup/send-otp", data);
+    return res.data;
+  }
+
+  async verifySignupOtp(data: SignupVerifyOtpRequest): Promise<SignupVerifyOtpResponse> {
+    const res = await this.client.post<SignupVerifyOtpResponse>("/auth/signup/verify-otp", data);
+    return res.data;
+  }
+
+  async completeSignup(data: SignupCompleteRequest): Promise<TokenResponse> {
+    const res: AxiosResponse<TokenResponse> = await this.client.post("/auth/signup/complete", data);
+    this.setTokens(res.data);
+    return res.data;
+  }
+
   async verifyEmailOtp(data: VerifyEmailOtpRequest): Promise<TokenResponse> {
     const res: AxiosResponse<TokenResponse> = await this.client.post("/auth/verify-email-otp", data);
     this.setTokens(res.data);
@@ -143,6 +165,22 @@ class ApiClient {
   async adminLogin(data: AdminLoginRequest): Promise<TokenResponse> {
     const res: AxiosResponse<TokenResponse> = await this.client.post("/auth/login", data);
     this.setTokens(res.data);
+    return res.data;
+  }
+
+  async portalLogin(data: PortalLoginRequest): Promise<TokenResponse> {
+    const res: AxiosResponse<TokenResponse> = await this.client.post("/auth/login/email", data);
+    this.setTokens(res.data);
+    return res.data;
+  }
+
+  async forgotPassword(data: ForgotPasswordRequest) {
+    const res = await this.client.post("/auth/forgot-password", data);
+    return res.data;
+  }
+
+  async resetPassword(data: ResetPasswordRequest) {
+    const res = await this.client.post("/auth/reset-password", data);
     return res.data;
   }
 

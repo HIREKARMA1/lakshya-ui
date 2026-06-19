@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Phone, MessageCircle, ChevronDown, Search } from "lucide-react";
+import { contactDisplay, contactTelHref, contactWhatsAppHref } from "@/lib/contact";
 
 interface FAQ { q: string; a: string }
 interface Cat { id: string; name: string }
@@ -32,64 +33,74 @@ export function JobsExtras() {
               </p>
             </div>
             <div className="space-y-3 lg:col-span-5">
-              <a
-                href="tel:1800123456"
-                className="flex items-center justify-between rounded-lg bg-primary px-5 py-4 text-white shadow-sm transition hover:bg-primary/90"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="grid h-9 w-9 place-items-center rounded-md bg-white/15">
-                    <Phone className="h-4 w-4" />
+              {contactDisplay.phone ? (
+                <a
+                  href={contactTelHref()}
+                  className="flex items-center justify-between rounded-lg bg-primary px-5 py-4 text-white shadow-sm transition hover:bg-primary/90"
+                >
+                  <span className="flex items-center gap-3">
+                    <span className="grid h-9 w-9 place-items-center rounded-md bg-white/15">
+                      <Phone className="h-4 w-4" />
+                    </span>
+                    <span className="text-sm font-semibold">{t("pages.jobs.extras.callCta")}</span>
                   </span>
-                  <span className="text-sm font-semibold">{t("pages.jobs.extras.callCta")}</span>
-                </span>
-                <span className="text-xs uppercase tracking-wider opacity-80">24×7</span>
-              </a>
-              <a
-                href="https://wa.me/911800123456"
-                className="flex items-center justify-between rounded-lg border border-line bg-white px-5 py-4 text-ink transition hover:border-primary"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="grid h-9 w-9 place-items-center rounded-md bg-green/10 text-green">
-                    <MessageCircle className="h-4 w-4" />
+                  <span className="text-xs uppercase tracking-wider opacity-80">24×7</span>
+                </a>
+              ) : null}
+              {contactDisplay.whatsapp ? (
+                <a
+                  href={contactWhatsAppHref()}
+                  className="flex items-center justify-between rounded-lg border border-line bg-white px-5 py-4 text-ink transition hover:border-primary"
+                >
+                  <span className="flex items-center gap-3">
+                    <span className="grid h-9 w-9 place-items-center rounded-md bg-green/10 text-green">
+                      <MessageCircle className="h-4 w-4" />
+                    </span>
+                    <span className="text-sm font-semibold">{t("pages.jobs.extras.waCta")}</span>
                   </span>
-                  <span className="text-sm font-semibold">{t("pages.jobs.extras.waCta")}</span>
-                </span>
-                <span className="text-xs uppercase tracking-wider text-muted-foreground">
-                  {t("pages.jobs.extras.instant")}
-                </span>
-              </a>
+                  <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                    {t("pages.jobs.extras.instant")}
+                  </span>
+                </a>
+              ) : null}
             </div>
           </div>
         </div>
       </section>
 
       {/* Contact strip */}
-      <section className="border-y border-line bg-soft">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 divide-y divide-line px-4 py-8 sm:grid-cols-2 sm:divide-x sm:divide-y-0 sm:py-0">
-          <a href="tel:+919999999999" className="flex items-center gap-4 py-6 sm:px-8">
-            <span className="grid h-12 w-12 place-items-center rounded-full bg-primary/10 text-primary">
-              <Phone className="h-5 w-5" />
-            </span>
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                {t("pages.jobs.extras.contactCall")}
-              </p>
-              <p className="font-display text-lg font-bold text-ink">+91 9999 999 999</p>
-            </div>
-          </a>
-          <a href="https://wa.me/919999999999" className="flex items-center gap-4 py-6 sm:px-8">
-            <span className="grid h-12 w-12 place-items-center rounded-full bg-green/10 text-green">
-              <MessageCircle className="h-5 w-5" />
-            </span>
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                {t("pages.jobs.extras.contactWa")}
-              </p>
-              <p className="font-display text-lg font-bold text-ink">+91 9999 999 999</p>
-            </div>
-          </a>
-        </div>
-      </section>
+      {(contactDisplay.phone || contactDisplay.whatsapp) && (
+        <section className="border-y border-line bg-soft">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 divide-y divide-line px-4 py-8 sm:grid-cols-2 sm:divide-x sm:divide-y-0 sm:py-0">
+            {contactDisplay.phone ? (
+              <a href={contactTelHref()} className="flex items-center gap-4 py-6 sm:px-8">
+                <span className="grid h-12 w-12 place-items-center rounded-full bg-primary/10 text-primary">
+                  <Phone className="h-5 w-5" />
+                </span>
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    {t("pages.jobs.extras.contactCall")}
+                  </p>
+                  <p className="font-display text-lg font-bold text-ink">{contactDisplay.phone}</p>
+                </div>
+              </a>
+            ) : null}
+            {contactDisplay.whatsapp ? (
+              <a href={contactWhatsAppHref()} className="flex items-center gap-4 py-6 sm:px-8">
+                <span className="grid h-12 w-12 place-items-center rounded-full bg-green/10 text-green">
+                  <MessageCircle className="h-5 w-5" />
+                </span>
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    {t("pages.jobs.extras.contactWa")}
+                  </p>
+                  <p className="font-display text-lg font-bold text-ink">{contactDisplay.whatsapp}</p>
+                </div>
+              </a>
+            ) : null}
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
       <section className="mx-auto max-w-7xl px-4 py-14">

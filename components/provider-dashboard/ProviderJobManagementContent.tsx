@@ -34,7 +34,7 @@ import type { Job } from "@/types/job";
 import { formatScheduledAt, getJobScheduleInfo } from "@/lib/job-schedule";
 import { SeekersHero } from "@/components/landing/SeekersHero";
 import { JobCardHeading } from "@/components/jobs/job-card-heading";
-import { config } from "@/lib/config";
+import { contactTelHref } from "@/lib/contact";
 import { JOB_ROLE_KEYS } from "@/data/jobRoleKeys";
 import "@/lib/i18n";
 const TYPE_OPTIONS = ["fullTime", "partTime"] as const;
@@ -251,7 +251,7 @@ export function ProviderJobManagementContent() {
                 <p className="font-display text-base font-bold text-ink">{t("pages.jobs.help.title")}</p>
                 <p className="mt-1 text-sm text-muted-foreground">{t("pages.jobs.help.body")}</p>
                 <a
-                  href={config.contact.phone ? `tel:${config.contact.phone}` : "#"}
+                  href={contactTelHref()}
                   className="mt-4 inline-flex w-full items-center justify-center rounded-md bg-orange px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90"
                 >
                   {t("pages.jobs.help.cta")}

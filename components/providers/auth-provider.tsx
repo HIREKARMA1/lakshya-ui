@@ -36,7 +36,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   const loadUser = useCallback(async () => {
-    setIsSessionReady(false);
     const token = typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
     const cachedUser = readCachedUser();
 

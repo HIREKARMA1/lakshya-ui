@@ -373,7 +373,7 @@ export function PostJobWizard({ editJobId }: { editJobId?: string }) {
   const { t } = useTranslation();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { user, refresh } = useAuth();
+  const { user } = useAuth();
   const [step, setStep] = useState(1);
   const [form, setForm] = useState<PostJobForm>(defaultForm);
   const [hydrated, setHydrated] = useState(false);
@@ -442,11 +442,6 @@ export function PostJobWizard({ editJobId }: { editJobId?: string }) {
     }
     setHydrated(true);
   }, [editJobId, editingJob, t]);
-
-  useEffect(() => {
-    if (editJobId) return;
-    void refresh();
-  }, [editJobId, refresh]);
 
   useEffect(() => {
     if (editJobId || !hydrated) return;

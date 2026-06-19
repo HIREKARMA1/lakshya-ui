@@ -215,7 +215,40 @@
         "areEmployer": "ଆପଣ ନିଯୁକ୍ତିଦାତା କି?",
         "loginProvider": "ନିଯୁକ୍ତିଦାତା ଭାବେ ଲଗଇନ୍",
         "lookingJob": "ଚାକିରି ଖୋଜୁଛନ୍ତି କି?",
-        "loginSeeker": "ଚାକିରି ଖୋଜାଳି ଭାବେ ଲଗଇନ୍"
+        "loginSeeker": "ଚାକିରି ଖୋଜାଳି ଭାବେ ଲଗଇନ୍",
+        "signUp": "ସାଇନ୍ ଅପ୍",
+        "signIn": "ସାଇନ୍ ଇନ୍",
+        "signUpTitle": "ଆପଣଙ୍କ ଖାତା ତିଆରି କରନ୍ତୁ",
+        "signInTitle": "ଇମେଲ୍ ସହ ସାଇନ୍ ଇନ୍ କରନ୍ତୁ",
+        "noAccount": "ଖାତା ନାହିଁ?",
+        "haveAccount": "ପୂର୍ବରୁ ଖାତା ଅଛି?",
+        "passwordLabel": "ପାସୱାର୍ଡ",
+        "passwordPh": "ଅତିକମରେ ୮ ଅକ୍ଷର",
+        "confirmPasswordLabel": "ପାସୱାର୍ଡ ନିଶ୍ଚିତ କରନ୍ତୁ",
+        "confirmPasswordPh": "ପାସୱାର୍ଡ ପୁଣି ଲେଖନ୍ତୁ",
+        "passwordMismatch": "ପାସୱାର୍ଡ ମେଳ ଖାଉନାହିଁ",
+        "passwordTooShort": "ପାସୱାର୍ଡ ଅତିକମରେ ୮ ଅକ୍ଷରର ହେବା ଉଚିତ",
+        "passwordOptional": "ବିକଳ୍ପ — OTP ପାଇଁ ଖାଲି ଛାଡ଼ନ୍ତୁ",
+        "signInPasswordPh": "ଆପଣଙ୍କ ପାସୱାର୍ଡ ଲେଖନ୍ତୁ",
+        "forgotPassword": "ପାସୱାର୍ଡ ଭୁଲିଗଲେ?",
+        "forgotTitle": "ପାସୱାର୍ଡ ରିସେଟ୍ କରନ୍ତୁ",
+        "forgotSubtitle": "ଆପଣଙ୍କ ଇମେଲ୍ ଲେଖନ୍ତୁ, ଆମେ ରିସେଟ୍ କୋଡ୍ ପଠାଇବୁ।",
+        "rememberPassword": "ପାସୱାର୍ଡ ମନେ ଅଛି?",
+        "resetPasswordTitle": "ନୂତନ ପାସୱାର୍ଡ ସେଟ୍ କରନ୍ତୁ",
+        "resetOtpLabel": "ରିସେଟ୍ କୋଡ୍",
+        "newPasswordLabel": "ନୂତନ ପାସୱାର୍ଡ",
+        "resetPassword": "ପାସୱାର୍ଡ ରିସେଟ୍ କରନ୍ତୁ",
+        "sendResetCode": "ରିସେଟ୍ କୋଡ୍ ପଠାନ୍ତୁ",
+        "loginFailed": "ଅବୈଧ ଇମେଲ୍ କିମ୍ବା ପାସୱାର୍ଡ",
+        "sendVerificationCode": "ଯାଞ୍ଚ କୋଡ୍ ପଠାନ୍ତୁ",
+        "signupVerifyTitle": "ଆପଣଙ୍କ ଇମେଲ୍ ଯାଞ୍ଚ କରନ୍ତୁ",
+        "signupVerifySubtitle": "{{email}} କୁ ପଠାଯାଇଥିବା ୬ ଅଙ୍କ କୋଡ୍ ଲେଖନ୍ତୁ",
+        "signupOtpLabel": "ଯାଞ୍ଚ କୋଡ୍",
+        "verifyEmail": "ଇମେଲ୍ ଯାଞ୍ଚ କରନ୍ତୁ",
+        "signupConfirmTitle": "ସାଇନ୍ ଅପ୍ ନିଶ୍ଚିତ କରନ୍ତୁ",
+        "signupConfirmSubtitle": "ଆପଣଙ୍କ ଇମେଲ୍ ଯାଞ୍ଚ ହୋଇଛି। ଖାତା ତିଆରି କରିବାକୁ ତଳେ ଟ୍ୟାପ୍ କରନ୍ତୁ।",
+        "signupEmailVerified": "✓ {{email}} ଯାଞ୍ଚ ହୋଇଛି",
+        "completeSignup": "ଖାତା ତିଆରି କରନ୍ତୁ"
       }
     },
     "jobDetail": {
@@ -432,6 +465,20 @@
         { "title": "5. ସୁରକ୍ଷା", "body": "ଉଚିତ ସୁରକ୍ଷା ଉପାୟ ଓ ଆବଶ୍ୟକ ଅବଧି ପର୍ଯ୍ୟନ୍ତ ସଂରକ୍ଷଣ।" },
         { "title": "6. ଆପଣଙ୍କ ପସନ୍ଦ", "body": "ପ୍ରୋଫାଇଲ୍ ଅପଡେଟ୍ କିମ୍ବା ଡାଟା ଅଭିଗମ/ସଂଶୋଧନ/ଡିଲିଟ୍ ପାଇଁ ଯୋଗାଯୋଗ କରନ୍ତୁ।" },
         { "title": "7. ଯୋଗାଯୋଗ", "body": "ଗୋପନୀୟତା ପ୍ରଶ୍ନ ପାଇଁ ଯୋଗାଯୋଗ ପୃଷ୍ଠା ବ୍ୟବହାର କରନ୍ତୁ।" }
+      ]
+    },
+    "refund": {
+      "eyebrow": "ଆଇନଗତ",
+      "title": "ରିଫଣ୍ଡ ନୀତି",
+      "subtitle": "LAKSHYA ରେ ପେଇଡ୍ ସେବା ପାଇଁ Hirekarma Private Limited ରିଫଣ୍ଡ କିପରି ସଂଭାଳେ।",
+      "updated": "ଶେଷ ଅପଡେଟ୍: ଜୁନ୍ 2026",
+      "sections": [
+        { "title": "1. ସାରାଂଶ", "body": "LAKSHYA Hirekarma Private Limited ଦ୍ୱାରା ପରିଚାଳିତ। ଆବେଦନକାରୀଙ୍କ ପଞ୍ଜିକରଣ ଓ ଆବେଦନ ମାଗଣା। ଏହି ନୀତି ନିଯୁକ୍ତିଦାତା କିମ୍ବା ପ୍ରିମିୟମ ପେଇଡ୍ ସେବା ପାଇଁ ଲାଗୁ।" },
+        { "title": "2. ଯୋଗ୍ୟ ରିଫଣ୍ଡ", "body": "ପେମେଣ୍ଟ କରିଥିଲେ ଓ ପ୍ଲାଟଫର୍ମ ତ୍ରୁଟି, ଡୁପ୍ଲିକେଟ୍ ଚାର୍ଜ କିମ୍ବା ବର୍ଣ୍ଣିତ ସେବା ନ ମିଳିଲେ, ପେମେଣ୍ଟର 7 ଦିନ ଭିତରେ ରିଫଣ୍ଡ ଅନୁରୋଧ କରିପାରିବେ।" },
+        { "title": "3. ଅଯୋଗ୍ୟ କ୍ଷେତ୍ର", "body": "ପେଇଡ୍ ଲିଷ୍ଟିଂ କିମ୍ବା ସବସ୍କ୍ରିପ୍ସନ ବ୍ୟବହୃତ ହେବା ପରେ, ମନ ବଦଳିବା କିମ୍ବା ସର୍ତ୍ତ ଉଲ୍ଲଂଘନରେ ଖାତା ନିଲମ୍ବିତ ହେଲେ ସାଧାରଣତଃ ରିଫଣ୍ଡ ମିଳେ ନାହିଁ।" },
+        { "title": "4. ଅନୁରୋଧ ପ୍ରକ୍ରିୟା", "body": "ଯୋଗାଯୋଗ ପୃଷ୍ଠାରେ ପଞ୍ଜିକୃତ ଇମେଲ୍/ଫୋନ୍, ପେମେଣ୍ଟ ରେଫରେନ୍ସ ଓ କାରଣ ସହ ଯୋଗାଯୋଗ କରନ୍ତୁ। 3–5 କାର୍ଯ୍ୟ ଦିନରେ ଉତ୍ତର ଦେବାକୁ ଚେଷ୍ଟା କରୁ।" },
+        { "title": "5. ପ୍ରକ୍ରିୟାକରଣ ସମୟ", "body": "ଅନୁମୋଦିତ ରିଫଣ୍ଡ ମୂଳ ପେମେଣ୍ଟ ପଦ୍ଧତିରେ 7–10 କାର୍ଯ୍ୟ ଦିନରେ ପ୍ରକ୍ରିୟାକରଣ ହୁଏ।" },
+        { "title": "6. ଯୋଗାଯୋଗ", "body": "ରିଫଣ୍ଡ ପ୍ରଶ୍ନ ପାଇଁ ଯୋଗାଯୋଗ ପୃଷ୍ଠା କିମ୍ବା LAKSHYA ସହାୟତା ଚ୍ୟାନେଲ ବ୍ୟବହାର କରନ୍ତୁ।" }
       ]
     }
   },
@@ -689,11 +736,12 @@
     ],
     "legalTitle": "ଆଇନଗତ",
     "legal": [
-      { "label": "ସେବା ସର୍ତ୍ତ", "href": "/terms" },
-      { "label": "ଗୋପନୀୟତା ନୀତି", "href": "/privacy" }
+      { "label": "ଗୋପନୀୟତା ନୀତି", "href": "/privacy" },
+      { "label": "ନିୟମ ଓ ସର୍ତ୍ତ", "href": "/terms" },
+      { "label": "ରିଫଣ୍ଡ ନୀତି", "href": "/refund" }
     ],
     "address": "2nd Floor, SS Niwas, <companyLink>Hirekarma Private Limited</companyLink>, Raghunathpur, Bhubaneswar, Raghunathpurjali, Odisha 751024",
-    "rights": "© 2026 <companyLink>Hirekarma Private Limited</companyLink>. ସର୍ବସ୍ୱତ୍ୱ ସଂରକ୍ଷିତ।",
+    "rights": "© 2026 <companyLink>Hirekarma pvt ltd</companyLink>. ସର୍ବସ୍ୱତ୍ୱ ସଂରକ୍ଷିତ।",
     "madeIn": "ଭାରତ ପାଇଁ ନିର୍ମିତ"
   },
   "common": {
@@ -719,6 +767,7 @@
     "openings_plural": "{{n}} ଖାଲି ପଦ",
     "applied": "{{n}} ଆବେଦନ",
     "configureGoogle": "(GOOGLE_CLIENT_ID ସେଟ୍ କରନ୍ତୁ)",
+    "whatsappChat": "WhatsApp ରେ ଆମ ସହ ଚାଟ୍ କରନ୍ତୁ",
     "gender": { "male": "ପୁରୁଷ", "female": "ମହିଳା", "other": "ଅନ୍ୟ" }
   },
   "toast": {
@@ -730,6 +779,19 @@
     "invalidOtp": "ଅବୈଧ OTP",
     "otpResent": "OTP ପୁଣି ପଠାଗଲା",
     "otpResendFailed": "OTP ପୁଣି ପଠାଇହେଲା ନାହିଁ",
+    "resetOtpSent": "ଖାତା ଥିଲେ ରିସେଟ୍ କୋଡ୍ ପଠାଇଦିଆଯାଇଛି",
+    "resetOtpFailed": "ରିସେଟ୍ କୋଡ୍ ପଠାଇହେଲା ନାହିଁ",
+    "resetOtpResent": "ରିସେଟ୍ କୋଡ୍ ପୁଣି ପଠାଗଲା",
+    "resetOtpResendFailed": "ରିସେଟ୍ କୋଡ୍ ପୁଣି ପଠାଇହେଲା ନାହିଁ",
+    "passwordReset": "ପାସୱାର୍ଡ ଅପଡେଟ୍ ହୋଇଗଲା। ଏବେ ସାଇନ୍ ଇନ୍ କରନ୍ତୁ।",
+    "passwordResetFailed": "ପାସୱାର୍ଡ ରିସେଟ୍ ହେଲା ନାହିଁ",
+    "signupOtpSent": "ଯାଞ୍ଚ କୋଡ୍ ଆପଣଙ୍କ ଇମେଲ୍ କୁ ପଠାଗଲା",
+    "signupOtpFailed": "ଯାଞ୍ଚ କୋଡ୍ ପଠାଇହେଲା ନାହିଁ",
+    "signupOtpResent": "ଯାଞ୍ଚ କୋଡ୍ ପୁଣି ପଠାଗଲା",
+    "signupOtpResendFailed": "ଯାଞ୍ଚ କୋଡ୍ ପୁଣି ପଠାଇହେଲା ନାହିଁ",
+    "signupOtpVerified": "ଇମେଲ୍ ସଫଳତାର ସହ ଯାଞ୍ଚ ହେଲା",
+    "signupComplete": "ଖାତା ସଫଳତାର ସହ ତିଆରି ହେଲା",
+    "signupFailed": "ସାଇନ୍ ଅପ୍ ସମ୍ପୂର୍ଣ୍ଣ ହେଲା ନାହିଁ",
     "registerSuccess": "ପଞ୍ଜିକରଣ ସମ୍ପୂର୍ଣ୍ଣ",
     "registerFailed": "ପଞ୍ଜିକରଣ ବିଫଳ। ପ୍ରଥମେ ଲଗଇନ୍ କରନ୍ତୁ।",
     "profileSaved": "ପ୍ରୋଫାଇଲ୍ ଅପଡେଟ୍ ହୋଇଗଲା",
