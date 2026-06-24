@@ -633,7 +633,8 @@
     "radiusChip": "{{km}} km",
     "radiusHint": "Search a location first, then change distance.",
     "searchCta": "Search",
-    "mapHint": "Enter your location and choose a distance to see jobs on the map.",
+    "mapHint": "Allow location access or enter your area to see jobs on the map.",
+    "searching": "Searching nearby jobs…",
     "searchingNear": "Showing jobs near",
     "useProfileLocation": "Use my profile location",
     "changeLocation": "Change location",
@@ -676,8 +677,16 @@
       "reasonExpMatch": "Fits your experience",
       "reasonUrgent": "Urgent hiring"
     },
+    "geo": {
+      "requesting": "Getting your location… Allow access when your browser asks.",
+      "denied": "Location access was blocked. Use the locate button or enter your area manually.",
+      "unavailable": "Could not detect your location. Enter your area or pincode below."
+    },
     "map": {
-      "yourLocation": "Your location"
+      "yourLocation": "Your location",
+      "directions": "Directions",
+      "viewJob": "View job",
+      "useMyLocation": "Use my current location"
     }
   },
   "refer": {
