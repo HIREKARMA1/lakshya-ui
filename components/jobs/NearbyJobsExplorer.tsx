@@ -20,7 +20,7 @@ import {
 import { api } from "@/lib/api";
 import { useAuth } from "@/hooks/useAuth";
 import { JobHighlightBadges } from "@/components/jobs/JobHighlightBadges";
-import { FullScreenLoader } from "@/components/ui/Spinner";
+import { Spinner } from "@/components/ui/Spinner";
 import { JobsNearbyMap, JobsNearbyMapPlaceholder } from "@/components/jobs/JobsNearbyMap";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
@@ -110,6 +110,7 @@ export function NearbyJobsExplorer({
   const userId = user?.id ?? null;
 
   const [hydrated, setHydrated] = useState(false);
+  const [bootstrapped, setBootstrapped] = useState(false);
   const [query, setQuery] = useState(initialQuery);
   const [radiusKm, setRadiusKm] = useState<number>(NEARBY_DEFAULT_RADIUS_KM);
   const [anchor, setAnchor] = useState<SearchAnchor | null>(null);
@@ -120,14 +121,18 @@ export function NearbyJobsExplorer({
   const [geoStatus, setGeoStatus] = useState<GeoStatus>("idle");
   const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
   const [hoveredJobId, setHoveredJobId] = useState<string | null>(null);
-  const [filterOpen, setFilterOpen] = useState(false);
+  const [desktopFilterOpen, setDesktopFilterOpen] = useState(false);
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [mobileListOpen, setMobileListOpen] = useState(false);
   const [draftRadiusKm, setDraftRadiusKm] = useState(String(NEARBY_DEFAULT_RADIUS_KM));
   const geoAttempted = useRef(false);
   const [usedCache, setUsedCache] = useState(false);
 
   useEffect(() => {
+    if (authLoading) return;
+
     const cached = loadNearbyJobsCacheForMount();
+    let restoredFromCache = false;
     if (cached?.result) {
       if (!cached.userId || cached.userId === userId) {
         setQuery(cached.query);
@@ -138,12 +143,18 @@ export function NearbyJobsExplorer({
         setGeoStatus(cached.geoStatus);
         geoAttempted.current = true;
         setUsedCache(true);
+        restoredFromCache = true;
       } else {
         clearNearbyJobsCache();
       }
     }
+
+    if (restoredFromCache || !autoGeolocate) {
+      setBootstrapped(true);
+    }
+
     setHydrated(true);
-  }, [userId]);
+  }, [authLoading, userId, autoGeolocate]);
 
   const fetchTravelForJobs = useCallback(
     async (center: GeoPoint, jobs: JobNearby[], mode: TravelModeId) => {
@@ -300,10 +311,8 @@ export function NearbyJobsExplorer({
   );
 
   const requestGeolocation = useCallback(async () => {
-    setGeoStatus("requesting");
     const geo = await requestUserLocation();
     if (geo.ok) {
-      setGeoStatus("granted");
       const reversed = await reverseGeocode(geo.lat, geo.lng);
       const label = reversed.ok ? reversed.label : t("nearbyJobs.map.yourLocation");
       setQuery(label);
@@ -312,6 +321,7 @@ export function NearbyJobsExplorer({
         labelOverride: label,
         cacheGeoStatus: "granted",
       });
+      setGeoStatus("granted");
       return;
     }
     const deniedStatus = geo.code === "denied" ? "denied" : "unavailable";
@@ -327,12 +337,12 @@ export function NearbyJobsExplorer({
   }, [runSearch, t, profileLocationQuery]);
 
   useEffect(() => {
-    if (!hydrated || authLoading || !autoGeolocate) return;
+    if (!hydrated || bootstrapped || !autoGeolocate || usedCache) return;
     if (geoAttempted.current) return;
     geoAttempted.current = true;
-    if (usedCache) return;
-    void requestGeolocation();
-  }, [hydrated, authLoading, autoGeolocate, usedCache, requestGeolocation]);
+    setGeoStatus("requesting");
+    void requestGeolocation().finally(() => setBootstrapped(true));
+  }, [hydrated, bootstrapped, autoGeolocate, usedCache, requestGeolocation]);
 
   const expandToRadius = useCallback(
     (nextKm: number) => {
@@ -362,15 +372,13 @@ export function NearbyJobsExplorer({
     }
     const next = clampRadiusKm(parsed);
     setDraftRadiusKm(String(next));
-    setFilterOpen(false);
+    setDesktopFilterOpen(false);
+    setMobileFilterOpen(false);
     selectRadius(next);
   }, [draftRadiusKm, radiusKm, selectRadius]);
 
-  const hasCachedResults = usedCache && Boolean(result);
-  const isPageLoading =
-    !hydrated ||
-    (!hasCachedResults &&
-      (authLoading || loading || geoStatus === "requesting" || travelLoading));
+  const showBootstrapOverlay = !hydrated || !bootstrapped;
+  const isBusy = showBootstrapOverlay || loading || travelLoading;
 
   const showProfileHint =
     useProfileApi && error?.toLowerCase().includes("profile") && !query.trim();
@@ -385,32 +393,29 @@ export function NearbyJobsExplorer({
   const jobs = result?.jobs ?? [];
   const jobCount = result?.total ?? jobs.length;
 
-  const searchToolbar = (
-    <NearbySearchToolbar
-      t={t}
-      query={query}
-      setQuery={setQuery}
-      setAnchor={setAnchor}
-      runSearch={runSearch}
-      isPageLoading={isPageLoading}
-      filterOpen={filterOpen}
-      setFilterOpen={setFilterOpen}
-      radiusKm={radiusKm}
-      anchor={anchor}
-      result={result}
-      draftRadiusKm={draftRadiusKm}
-      setDraftRadiusKm={setDraftRadiusKm}
-      selectRadius={selectRadius}
-      applyRadiusFilter={applyRadiusFilter}
-    />
-  );
+  const searchToolbarProps = {
+    t,
+    query,
+    setQuery,
+    setAnchor,
+    runSearch,
+    isBusy,
+    radiusKm,
+    anchor,
+    result,
+    draftRadiusKm,
+    setDraftRadiusKm,
+    selectRadius,
+    applyRadiusFilter,
+  };
 
   const resultsMeta = (
     <NearbyResultsMeta
       t={t}
       geoStatus={geoStatus}
       result={result}
-      isPageLoading={isPageLoading}
+      showBootstrapOverlay={showBootstrapOverlay}
+      isRefreshing={loading && bootstrapped}
       profileLocationQuery={profileLocationQuery}
     />
   );
@@ -418,7 +423,7 @@ export function NearbyJobsExplorer({
   const jobsListBody = (
     <NearbyJobsListBody
       t={t}
-      isPageLoading={isPageLoading}
+      showBootstrapOverlay={showBootstrapOverlay}
       result={result}
       jobs={jobs}
       widerOptions={widerOptions}
@@ -434,12 +439,31 @@ export function NearbyJobsExplorer({
   );
 
   return (
-    <div className="relative flex h-full min-h-0 flex-col overflow-hidden rounded-none border-0 bg-white lg:flex-row lg:rounded-xl lg:border lg:border-line lg:shadow-sm">
-      {isPageLoading && <FullScreenLoader label={t("nearbyJobs.loading")} />}
+    <div className="relative flex h-full min-h-0 flex-col overflow-hidden rounded-none border-0 bg-white lg:rounded-xl lg:border lg:border-line lg:shadow-sm">
+      {showBootstrapOverlay && (
+        <div
+          className="absolute inset-0 z-[100] flex flex-col items-center justify-center gap-3 bg-[#f4f6f9]"
+          aria-busy="true"
+          aria-live="polite"
+        >
+          <Spinner size={44} />
+          <p className="text-sm font-medium text-muted-foreground">{t("nearbyJobs.loading")}</p>
+        </div>
+      )}
 
+      <div
+        className={`flex min-h-0 flex-1 flex-col lg:flex-row ${showBootstrapOverlay ? "invisible" : ""}`}
+        aria-hidden={showBootstrapOverlay}
+      >
       {/* Desktop — left sidebar */}
       <aside className="hidden min-h-0 w-[min(400px,38%)] max-w-md flex-col border-r border-line lg:flex">
-        <div className="shrink-0 space-y-3 border-b border-line p-4">{searchToolbar}</div>
+        <div className="shrink-0 space-y-3 border-b border-line p-4">
+          <NearbySearchToolbar
+            {...searchToolbarProps}
+            filterOpen={desktopFilterOpen}
+            setFilterOpen={setDesktopFilterOpen}
+          />
+        </div>
         <div className="shrink-0 border-b border-line bg-soft/40 px-4 py-2.5">{resultsMeta}</div>
         {showProfileHint && (
           <p className="shrink-0 border-b border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
@@ -459,7 +483,13 @@ export function NearbyJobsExplorer({
 
       {/* Map column — full height on mobile */}
       <div className="relative flex min-h-0 flex-1 flex-col">
-        <div className="shrink-0 border-b border-line bg-white p-3 lg:hidden">{searchToolbar}</div>
+        <div className="shrink-0 border-b border-line bg-white p-3 lg:hidden">
+          <NearbySearchToolbar
+            {...searchToolbarProps}
+            filterOpen={mobileFilterOpen}
+            setFilterOpen={setMobileFilterOpen}
+          />
+        </div>
 
         <div className="relative min-h-0 flex-1">
           {showMap && mapCenter ? (
@@ -480,7 +510,7 @@ export function NearbyJobsExplorer({
             />
           )}
 
-          {result && !isPageLoading && (
+          {result && bootstrapped && (
             <button
               type="button"
               onClick={() => setMobileListOpen(true)}
@@ -538,6 +568,7 @@ export function NearbyJobsExplorer({
           </div>
         </SheetContent>
       </Sheet>
+      </div>
     </div>
   );
 }
@@ -548,7 +579,7 @@ function NearbySearchToolbar({
   setQuery,
   setAnchor,
   runSearch,
-  isPageLoading,
+  isBusy,
   filterOpen,
   setFilterOpen,
   radiusKm,
@@ -568,7 +599,7 @@ function NearbySearchToolbar({
     radiusOverride?: number;
     queryOverride?: string;
   }) => Promise<void>;
-  isPageLoading: boolean;
+  isBusy: boolean;
   filterOpen: boolean;
   setFilterOpen: (v: boolean) => void;
   radiusKm: number;
@@ -593,14 +624,14 @@ function NearbySearchToolbar({
           }}
           onKeyDown={(e) => e.key === "Enter" && void runSearch({ reuseAnchor: false })}
           placeholder={t("nearbyJobs.searchPlaceholder")}
-          disabled={isPageLoading}
+          disabled={isBusy}
           className="w-full rounded-lg border border-line py-2.5 pl-10 pr-3 text-sm outline-none ring-primary focus:ring-2 disabled:opacity-60"
         />
       </div>
       <button
         type="button"
         onClick={() => void runSearch({ reuseAnchor: false })}
-        disabled={isPageLoading || !query.trim()}
+        disabled={isBusy || !query.trim()}
         className="inline-flex shrink-0 items-center justify-center rounded-lg bg-primary p-2.5 text-white hover:bg-primary/90 disabled:opacity-60"
         title={t("nearbyJobs.searchCta")}
       >
@@ -610,7 +641,7 @@ function NearbySearchToolbar({
         <PopoverTrigger asChild>
           <button
             type="button"
-            disabled={isPageLoading}
+            disabled={isBusy}
             className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-line px-3 py-2.5 text-sm font-semibold text-ink hover:bg-soft/80 disabled:opacity-60"
           >
             <SlidersHorizontal className="h-4 w-4 text-primary" />
@@ -620,7 +651,12 @@ function NearbySearchToolbar({
             </span>
           </button>
         </PopoverTrigger>
-        <PopoverContent align="end" className="w-72 border-line bg-white p-4">
+        <PopoverContent
+          align="end"
+          side="bottom"
+          sideOffset={8}
+          className="z-[120] w-72 border-line bg-white p-4 shadow-lg"
+        >
           <p className="text-sm font-semibold text-ink">{t("nearbyJobs.radiusFilterTitle")}</p>
           <p className="mt-0.5 text-xs text-muted-foreground">{t("nearbyJobs.radiusHint")}</p>
           <div className="mt-3 flex flex-wrap gap-1.5">
@@ -685,27 +721,35 @@ function NearbyResultsMeta({
   t,
   geoStatus,
   result,
-  isPageLoading,
+  showBootstrapOverlay,
+  isRefreshing,
   profileLocationQuery,
 }: {
   t: (k: string, o?: Record<string, unknown>) => string;
   geoStatus: GeoStatus;
   result: JobNearbySearchResponse | null;
-  isPageLoading: boolean;
+  showBootstrapOverlay: boolean;
+  isRefreshing?: boolean;
   profileLocationQuery?: string;
 }) {
   return (
     <>
-      {geoStatus === "denied" && !result && !isPageLoading && (
+      {geoStatus === "denied" && !result && !showBootstrapOverlay && (
         <p className="flex items-start gap-2 text-sm text-amber-800">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
           {t("nearbyJobs.geo.denied")}
         </p>
       )}
-      {geoStatus === "unavailable" && !result && !isPageLoading && !profileLocationQuery && (
+      {geoStatus === "unavailable" && !result && !showBootstrapOverlay && !profileLocationQuery && (
         <p className="flex items-start gap-2 text-sm text-amber-800">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
           {t("nearbyJobs.geo.unavailable")}
+        </p>
+      )}
+      {isRefreshing && (
+        <p className="mb-1 flex items-center gap-2 text-xs text-muted-foreground">
+          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          {t("nearbyJobs.updating")}
         </p>
       )}
       {result?.center && (
@@ -734,7 +778,7 @@ function NearbyResultsMeta({
 
 function NearbyJobsListBody({
   t,
-  isPageLoading,
+  showBootstrapOverlay,
   result,
   jobs,
   widerOptions,
@@ -748,7 +792,7 @@ function NearbyJobsListBody({
   onOpenJob,
 }: {
   t: (k: string, o?: Record<string, unknown>) => string;
-  isPageLoading: boolean;
+  showBootstrapOverlay: boolean;
   result: JobNearbySearchResponse | null;
   jobs: JobNearby[];
   widerOptions: number[];
@@ -763,13 +807,13 @@ function NearbyJobsListBody({
 }) {
   return (
     <>
-      {!isPageLoading && !result && (
+      {!showBootstrapOverlay && !result && (
         <div className="px-6 py-12 text-center text-sm text-muted-foreground">
           {t("nearbyJobs.mapHint")}
         </div>
       )}
 
-      {result && result.total === 0 && !isPageLoading && (
+      {result && result.total === 0 && !showBootstrapOverlay && (
         <EmptyRadiusPanel
           currentRadius={result.radiusKm}
           widerOptions={widerOptions}

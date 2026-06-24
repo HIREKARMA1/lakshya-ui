@@ -639,6 +639,7 @@
     "applyFilter": "Apply",
     "searchCta": "Search",
     "loading": "Finding jobs near you…",
+    "updating": "Updating results…",
     "mapHint": "Allow location access or enter your area to see jobs on the map.",
     "searching": "Searching nearby jobs…",
     "searchingNear": "Showing jobs near",
