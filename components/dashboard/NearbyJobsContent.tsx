@@ -14,8 +14,8 @@ export function NearbyJobsContent() {
   const hasProfileLocation = Boolean(profileAddress);
 
   return (
-    <div className="-m-4 flex h-[calc(100dvh-4rem)] flex-col overflow-hidden sm:-m-6 lg:h-[calc(100dvh-3.5rem)]">
-      <div className="shrink-0 border-b border-line bg-white px-4 py-3 sm:px-6">
+    <div className="-mx-4 -mt-4 flex h-[calc(100dvh-4rem)] flex-col overflow-hidden sm:-mx-6 lg:-m-6 lg:h-[calc(100dvh-3.5rem)]">
+      <div className="hidden shrink-0 border-b border-line bg-white px-4 py-3 sm:px-6 lg:block">
         <h1 className="text-lg font-bold text-ink sm:text-xl">{t("nearbyJobs.dashboardTitle")}</h1>
         <p className="mt-0.5 text-xs text-muted-foreground sm:text-sm">
           {t("nearbyJobs.dashboardSubtitle")}
@@ -30,7 +30,7 @@ export function NearbyJobsContent() {
         )}
       </div>
 
-      <div className="min-h-0 flex-1 p-2 sm:p-3">
+      <div className="min-h-0 flex-1 lg:p-3">
         <NearbyJobsExplorer
           initialQuery={profileAddress}
           profileLocationQuery={profileAddress || undefined}

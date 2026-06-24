@@ -14,7 +14,8 @@ import {
 import { Clock, ExternalLink, MapPin, Navigation } from "lucide-react";
 import { config } from "@/lib/config";
 import { buildGoogleDirectionsUrl } from "@/lib/google-maps-utils";
-import { markerIconDataUrl, type JobHighlightTier } from "@/lib/job-highlight-score";
+import { layoutMapMarkers } from "@/lib/map-marker-layout";
+import { markerIconDataUrl, userLocationMarkerDataUrl, type JobHighlightTier } from "@/lib/job-highlight-score";
 import { zoomForRadiusKm } from "@/lib/nearby-radius";
 import type { TravelModeId } from "@/lib/travel-modes";
 import type { GeoPoint, JobNearby } from "@/types/nearby-jobs";
@@ -136,24 +137,14 @@ function JobsNearbyMapInner({
 }: JobsNearbyMapProps) {
   const { t } = useTranslation();
 
-  const markers = useMemo(
-    () =>
-      jobs.filter(
-        (j) =>
-          typeof j.latitude === "number" &&
-          typeof j.longitude === "number" &&
-          !Number.isNaN(j.latitude) &&
-          !Number.isNaN(j.longitude),
-      ),
-    [jobs],
-  );
+  const placements = useMemo(() => layoutMapMarkers(jobs), [jobs]);
 
   const mapCenter = useMemo(() => ({ lat: center.lat, lng: center.lng }), [center.lat, center.lng]);
   const zoom = useMemo(() => zoomForRadiusKm(radiusKm), [radiusKm]);
 
   const selectedJob = useMemo(
-    () => markers.find((j) => j.id === selectedJobId) ?? null,
-    [markers, selectedJobId],
+    () => placements.find((p) => p.job.id === selectedJobId)?.job ?? null,
+    [placements, selectedJobId],
   );
 
   const onMarkerClick = useCallback(
@@ -183,28 +174,32 @@ function JobsNearbyMapInner({
       <Circle
         center={mapCenter}
         radius={radiusKm * 1000}
-        fillColor="rgba(27, 82, 164, 0.08)"
+        fillColor="rgba(27, 82, 164, 0.06)"
         fillOpacity={1}
-        strokeColor="rgba(27, 82, 164, 0.55)"
+        strokeColor="rgba(27, 82, 164, 0.45)"
         strokeWeight={2}
+        strokeOpacity={0.9}
       />
       <Marker
         position={mapCenter}
         title={center.label || t("nearbyJobs.map.yourLocation")}
+        icon={userLocationMarkerDataUrl()}
         zIndex={1000}
       />
-      {markers.map((job) => {
+      {placements.map(({ job, lat, lng, stackSize }) => {
         const tier = tierOf(job);
         const isSelected = job.id === selectedJobId;
         const isHovered = job.id === hoveredJobId;
+        const highlighted = isSelected || isHovered;
         const topSuffix =
           job.highlightTier === "top" ? ` ★ ${t("nearbyJobs.highlight.topMatch")}` : "";
+        const stackSuffix = stackSize > 1 ? ` (${stackSize} ${t("nearbyJobs.map.jobsHere")})` : "";
         return (
           <Marker
             key={job.id}
-            position={{ lat: job.latitude!, lng: job.longitude! }}
-            title={`${job.title || job.company}${topSuffix}`}
-            icon={markerIconDataUrl(isSelected || isHovered ? "top" : tier)}
+            position={{ lat, lng }}
+            title={`${job.title || job.company}${topSuffix}${stackSuffix}`}
+            icon={markerIconDataUrl(highlighted ? "top" : tier, highlighted)}
             zIndex={isSelected ? 900 : isHovered ? 800 : tier === "top" ? 700 : 500}
             onClick={() => onMarkerClick(job.id)}
           />
@@ -247,7 +242,6 @@ export function JobsNearbyMap(props: JobsNearbyMapProps) {
         {t("nearbyJobs.resultsSummary", {
           count: props.jobs.length,
           radius: radiusKm,
-          location: center.label || t("nearbyJobs.yourArea"),
         })}
       </p>
     </div>
