@@ -632,13 +632,21 @@
     "radiusLabel": "Search within",
     "radiusChip": "{{km}} km",
     "radiusHint": "Search a location first, then change distance.",
+    "filterButton": "Filter",
+    "radiusFilterTitle": "Search radius",
+    "customRadiusLabel": "Custom distance",
+    "customRadiusHint": "Enter {{min}}–{{max}} km",
+    "applyFilter": "Apply",
     "searchCta": "Search",
-    "mapHint": "Enter your location and choose a distance to see jobs on the map.",
+    "loading": "Finding jobs near you…",
+    "updating": "Updating results…",
+    "mapHint": "Allow location access or enter your area to see jobs on the map.",
+    "searching": "Searching nearby jobs…",
     "searchingNear": "Showing jobs near",
     "useProfileLocation": "Use my profile location",
     "changeLocation": "Change location",
-    "resultsSummary": "{{count}} jobs within {{radius}} km of {{location}}",
-    "noJobsInRadius": "No jobs within {{radius}} km of {{location}}",
+    "resultsSummary": "{{count}} jobs within {{radius}} km",
+    "noJobsInRadius": "No jobs within {{radius}} km",
     "yourArea": "your area",
     "distance": "{{km}} km",
     "empty": "No jobs in this area.",
@@ -676,8 +684,24 @@
       "reasonExpMatch": "Fits your experience",
       "reasonUrgent": "Urgent hiring"
     },
+    "geo": {
+      "requesting": "Getting your location… Allow access when your browser asks.",
+      "denied": "Location access was blocked. Using your profile address instead.",
+      "unavailable": "Could not detect your location. Enter your area or pincode below."
+    },
     "map": {
-      "yourLocation": "Your location"
+      "yourLocation": "Your location",
+      "directions": "Directions",
+      "viewJob": "View job",
+      "useMyLocation": "Use my current location",
+      "jobsHere": "jobs at this spot",
+      "partialPins": "{{shown}} of {{total}} jobs shown on map — add pincode in job posting for exact pins."
+    },
+    "mobile": {
+      "viewJobs": "View {{count}} jobs",
+      "viewList": "View job list",
+      "jobsList": "Jobs nearby",
+      "showMap": "Show map"
     }
   },
   "refer": {

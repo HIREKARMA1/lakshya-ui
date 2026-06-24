@@ -584,13 +584,18 @@
     "radiusLabel": "ଏତେ ଦୂର ଭିତରେ",
     "radiusChip": "{{km}} କିମି",
     "radiusHint": "ପ୍ରଥମେ ସ୍ଥାନ ଖୋଜନ୍ତୁ, ପରେ ଦୂରତା ବଦଳାନ୍ତୁ।",
+    "filterButton": "ଫିଲ୍ଟର",
+    "radiusFilterTitle": "ଖୋଜ ଦୂରତା",
+    "customRadiusLabel": "କଷ୍ଟମ୍ ଦୂରତା",
+    "customRadiusHint": "{{min}}–{{max}} କିମି ଲେଖନ୍ତୁ",
+    "applyFilter": "ଲାଗୁ କରନ୍ତୁ",
     "searchCta": "ଖୋଜନ୍ତୁ",
     "mapHint": "ସ୍ଥାନ ଓ ଦୂରତା ବାଛି ମ୍ୟାପ୍ ଦେଖନ୍ତୁ।",
     "searchingNear": "ଏଠାରେ ନିକଟରେ ଚାକିରି",
     "useProfileLocation": "ପ୍ରୋଫାଇଲ୍ ସ୍ଥାନ ବ୍ୟବହାର",
     "changeLocation": "ସ୍ଥାନ ବଦଳାନ୍ତୁ",
-    "resultsSummary": "{{location}} ରୁ {{radius}} କିମି ଭିତରେ {{count}} ଚାକିରି",
-    "noJobsInRadius": "{{location}} ରୁ {{radius}} କିମି ଭିତରେ କୌଣସି ଚାକିରି ନାହିଁ",
+    "resultsSummary": "{{radius}} କିମି ଭିତରେ {{count}} ଚାକିରି",
+    "noJobsInRadius": "{{radius}} କିମି ଭିତରେ କୌଣସି ଚାକିରି ନାହିଁ",
     "yourArea": "ଆପଣଙ୍କ ଅଞ୍ଚଳ",
     "distance": "{{km}} କିମି",
     "empty": "ଏହି ଅଞ୍ଚଳରେ କୌଣସି ଚାକିରି ନାହିଁ।",
@@ -628,8 +633,15 @@
       "reasonExpMatch": "ଅଭିଜ୍ଞତା ଅନୁକୂଳ",
       "reasonUrgent": "ଜରୁରି ଭର୍ତ୍ତି"
     },
+    "geo": {
+      "requesting": "ଆପଣଙ୍କ ସ୍ଥାନ ନିଆଯାଉଛି… ବ୍ରାଉଜର୍ ପଚାରିଲେ ଅନୁମତି ଦିଅନ୍ତୁ।",
+      "denied": "ଲୋକେସନ୍ ଅନୁମତି ବ୍ଲକ୍। ପ୍ରୋଫାଇଲ୍ ଠିକଣା ବ୍ୟବହାର କରାଯାଉଛି।",
+      "unavailable": "ସ୍ଥାନ ମିଳିଲା ନାହିଁ। ତଳେ ଅଞ୍ଚଳ କିମ୍ବା ପିନକୋଡ୍ ଲେଖନ୍ତୁ।"
+    },
     "map": {
-      "yourLocation": "ଆପଣଙ୍କ ସ୍ଥାନ"
+      "yourLocation": "ଆପଣଙ୍କ ସ୍ଥାନ",
+      "directions": "ଦିଗନିର୍ଦ୍ଦେଶ",
+      "viewJob": "ଚାକିରି ଦେଖନ୍ତୁ"
     }
   },
   "refer": {
