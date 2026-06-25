@@ -704,6 +704,64 @@
       "showMap": "Show map"
     }
   },
+  "nearbyWorkers": {
+    "dashboardTitle": "Workers near me",
+    "dashboardSubtitle": "See live workers on the map, filter by shift and availability, and refresh automatically every 15 seconds.",
+    "profileOptional": "Save your company address in profile for one-tap search, or enter any location below.",
+    "updateProfile": "Update company profile",
+    "searchPlaceholder": "e.g. 751001 or Bhubaneswar, Odisha",
+    "filterButton": "Filter",
+    "radiusFilterTitle": "Search radius",
+    "radiusHint": "Search a location first, then change distance or filters.",
+    "radiusChip": "{{km}} km",
+    "customRadiusLabel": "Custom distance",
+    "applyFilter": "Apply",
+    "searchCta": "Search",
+    "loading": "Finding workers near you…",
+    "updating": "Updating results…",
+    "mapHint": "Allow location access or enter your area to see live workers on the map.",
+    "resultsSummary": "{{count}} workers within {{radius}} km",
+    "noWorkersInRadius": "No live workers within {{radius}} km",
+    "yourArea": "your area",
+    "distanceKm": "{{km}} km",
+    "searchFailed": "Could not search nearby workers. Try again.",
+    "locationRequired": "Enter your address or pincode to search.",
+    "expandTitle": "No workers in this area",
+    "expandBody": "Try a wider radius or check back later when more seekers go live.",
+    "searchWithin": "Search within {{km}} km",
+    "maxRadiusReached": "Already searching at maximum distance. Try a different location.",
+    "changeLocation": "Change location",
+    "shiftFilter": "Shift preference",
+    "allShifts": "All shifts",
+    "joinFilter": "Can join within",
+    "anyJoin": "Any time",
+    "emergencyOnly": "Emergency only",
+    "emergency": "Urgent",
+    "joinWithin": "Join in {{hours}}h",
+    "perDay": "day",
+    "labels": {
+      "location": "Location",
+      "availability": "Available",
+      "shift": "Shift",
+      "canJoin": "Can join",
+      "distance": "Distance",
+      "expectedPay": "Expected pay"
+    },
+    "lastRefresh": "Last updated",
+    "viewProfile": "View profile",
+    "workersHere": "workers at this spot",
+    "partialPins": "{{shown}} of {{total}} workers shown on map — some may be missing GPS.",
+    "geo": {
+      "denied": "Location access was blocked. Using your company profile address instead.",
+      "unavailable": "Could not detect your location. Enter your area or pincode below."
+    },
+    "mobile": {
+      "viewWorkers": "View {{count}} workers",
+      "viewList": "View worker list",
+      "workersList": "Workers nearby",
+      "showMap": "Show map"
+    }
+  },
   "refer": {
     "eyebrow": "For job seekers",
     "title": "Find verified work.",
@@ -892,7 +950,10 @@
         "pincode": "Pincode",
         "city": "City / Town / District / Village",
         "district": "District",
-        "state": "State"
+        "state": "State",
+        "exactLocation": "Exact location",
+        "exactLocationPh": "e.g. 12 Main Road, Kendujhar, Odisha 758083",
+        "exactLocationHint": "Use GPS above to fill this automatically, or type your full address."
       },
       "dob": {
         "selectDate": "SELECT DATE",
@@ -1063,6 +1124,7 @@
       "resumePendingHint": "Employers often review your CV before shortlisting. Add a PDF or Word resume in the section below.",
       "email": "Email",
       "location": "Full address",
+      "exactLocation": "Exact location",
       "notSet": "Not set",
       "edit": "Edit Profile",
       "editFlowHint": "Update any section below, then tap Save changes when you are done.",
@@ -1074,6 +1136,15 @@
         "personal": "Personal details",
         "location": "Location & education",
         "work": "Work preferences"
+      },
+      "locationGps": {
+        "useCurrent": "Use my current location",
+        "hint": "Detect your pincode, city, and state from GPS, then review the fields below.",
+        "capturing": "Detecting location…",
+        "captured": "Location updated — review the fields below",
+        "denied": "Location access blocked. Enter your address manually.",
+        "unsupported": "GPS is not supported on this device.",
+        "failed": "Could not resolve your address. Try again or enter manually."
       },
       "resume": {
         "title": "Resume",
@@ -1171,7 +1242,7 @@
     "nav": {
       "overview": "Overview",
       "jobManagement": "Job Management",
-      "availableWorkers": "Available Workers",
+      "availableWorkers": "Workers near me",
       "seekerFeed": "Seeker Feed",
       "savedProfiles": "Saved Profiles",
       "companyProfile": "Company Profile",
@@ -1525,6 +1596,22 @@
       "subtitle": "Profiles you saved from Seeker Feed.",
       "empty": "No saved profiles yet. Save candidates from Seeker Feed to see them here."
     },
+    "workerProfile": {
+      "notFound": "Worker profile not found",
+      "liveNow": "Live now",
+      "offline": "Offline",
+      "verified": "Verified",
+      "resume": "Resume",
+      "resumeOnFile": "Resume on file",
+      "expYears": "Experience (years)",
+      "status": "Availability status",
+      "sections": {
+        "personal": "Personal details",
+        "location": "Location",
+        "work": "Work preferences",
+        "availability": "Go live & availability"
+      }
+    },
     "companyProfile": {
       "title": "Company Profile",
       "subtitle": "Your organization details and contact information.",
@@ -1706,6 +1793,7 @@
     "subtitle": "Let employers know when you can work. Your status expires automatically.",
     "statusLive": "You are visible to employers",
     "statusOffline": "You are offline",
+    "statusCardHint": "Set your preferences below and go live to appear in employer searches.",
     "expires": "Expires",
     "whenAvailable": "When are you available?",
     "windows": {
@@ -1721,6 +1809,10 @@
       "rotational": "Rotational"
     },
     "dailyWage": "Expected pay (₹/day)",
+    "compensationTitle": "Pay & commute",
+    "summaryTravel": "Up to {{km}} km",
+    "summaryJoin": "Join in {{hours}}h",
+    "summaryWage": "₹{{amount}}/day",
     "maxTravel": "Willing to travel",
     "joinWithin": "Can join within",
     "emergency": "Emergency join available",
@@ -1735,6 +1827,19 @@
     "goLive": "Go live",
     "updateLive": "Update availability",
     "goOffline": "Go offline",
+    "actionsTitle": "Publish your status",
+    "actionsHint": "Employers nearby can discover you while you are live.",
+    "tips": {
+      "step1": "Step 1",
+      "step1Title": "Set your preferences",
+      "step1Body": "Choose when you can work, your shift, pay expectation, and how far you can travel.",
+      "step2": "Step 2",
+      "step2Title": "Go live",
+      "step2Body": "Your profile appears to verified employers searching for workers near your location.",
+      "step3": "Step 3",
+      "step3Title": "Get discovered",
+      "step3Body": "Stay live while you are available. Your status expires automatically for your privacy."
+    },
     "liveSuccess": "You are now visible to nearby employers",
     "liveFailed": "Could not update availability",
     "offlineSuccess": "You are offline",

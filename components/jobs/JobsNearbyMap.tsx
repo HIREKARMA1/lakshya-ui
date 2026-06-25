@@ -81,10 +81,15 @@ function JobInfoWindow({
     travelMode,
   );
 
+  const handleClose = useCallback(() => {
+    onClose();
+  }, [onClose]);
+
   return (
     <InfoWindow
       position={{ lat: job.latitude, lng: job.longitude }}
-      onCloseClick={onClose}
+      onClose={handleClose}
+      onCloseClick={handleClose}
       headerContent={
         <p className="pr-6 text-sm font-bold text-ink">{job.title || job.company}</p>
       }
@@ -149,10 +154,14 @@ function JobsNearbyMapInner({
 
   const onMarkerClick = useCallback(
     (jobId: string) => {
-      onJobSelect?.(jobId);
+      onJobSelect?.(selectedJobId === jobId ? null : jobId);
     },
-    [onJobSelect],
+    [onJobSelect, selectedJobId],
   );
+
+  const clearSelection = useCallback(() => {
+    onJobSelect?.(null);
+  }, [onJobSelect]);
 
   return (
   <>
@@ -210,7 +219,7 @@ function JobsNearbyMapInner({
           job={selectedJob}
           center={center}
           travelMode={travelMode}
-          onClose={() => onJobSelect?.(null)}
+          onClose={clearSelection}
         />
       )}
     </Map>

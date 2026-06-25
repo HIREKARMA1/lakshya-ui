@@ -82,7 +82,7 @@ export function ProfileContent() {
       : p?.education_key || notSet;
 
   const locationParts = [p?.city, p?.district !== p?.city ? p?.district : null, p?.state].filter(Boolean);
-  const location = locationParts.join(", ") || notSet;
+  const location = p?.exact_location?.trim() || locationParts.join(", ") || notSet;
   const photoSrc = resolveProfilePhotoUrl(p?.photo_url);
   const displayName = p?.full_name || user?.name || notSet;
   const initials = (displayName !== notSet ? displayName : user?.email ?? "U").slice(0, 2).toUpperCase();
@@ -192,7 +192,10 @@ export function ProfileContent() {
                 <InfoItem label={t("register.seeker.fields.pincode")} value={p?.pincode || notSet} />
                 <InfoItem label={t("register.seeker.fields.state")} value={p?.state || notSet} />
                 <div className="sm:col-span-2">
-                  <InfoItem label={t("dashboard.profile.location")} value={location} />
+                  <InfoItem
+                    label={p?.exact_location?.trim() ? t("dashboard.profile.exactLocation") : t("dashboard.profile.location")}
+                    value={location}
+                  />
                 </div>
                 <InfoItem label={t("register.seeker.fields.education")} value={educationLabel} />
               </div>

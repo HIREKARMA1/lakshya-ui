@@ -82,6 +82,7 @@ export type ProfileEditState = {
   city: string;
   district: string;
   state: string;
+  exactLocation: string;
   photo: File | null;
 };
 
@@ -102,6 +103,7 @@ export function profileToEditState(
     city: p?.city ?? "",
     district: p?.district ?? "",
     state: p?.state ?? "",
+    exactLocation: p?.exact_location ?? "",
     photo: null,
   };
 }

@@ -27,6 +27,7 @@ import type {
   WorkerAvailabilityStatus,
   WorkerAvailabilityUpsert,
 } from "@/types/worker-availability";
+import type { SeekerWorkerProfile } from "@/types/worker-profile";
 import type {
   AdminAnalytics,
   AdminUserRow,
@@ -774,6 +775,13 @@ class ApiClient {
     const res: AxiosResponse<AvailableWorkersResponse> = await this.client.get(
       "/seekers/available/nearby",
       { params },
+    );
+    return res.data;
+  }
+
+  async getWorkerProfile(seekerId: string): Promise<SeekerWorkerProfile> {
+    const res: AxiosResponse<SeekerWorkerProfile> = await this.client.get(
+      `/seekers/${seekerId}/worker-profile`,
     );
     return res.data;
   }

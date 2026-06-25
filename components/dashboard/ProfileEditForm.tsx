@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
-import { ExternalLink, FileText, Upload } from "lucide-react";
+import { ExternalLink, FileText, Loader2, Navigation, Upload } from "lucide-react";
 import type { SeekerProfile } from "@/types/auth";
 import { useAuth } from "@/hooks/useAuth";
 import { api } from "@/lib/api";
@@ -19,6 +19,10 @@ import {
   serializeWorkRoles,
   type ProfileEditState,
 } from "@/lib/seeker-profile-utils";
+import {
+  reverseGeocodeToAddress,
+  requestUserLocation,
+} from "@/lib/google-maps-utils";
 import "@/lib/i18n";
 
 const RESUME_MAX_BYTES = 5 * 1024 * 1024;
@@ -44,6 +48,7 @@ export function ProfileEditForm({ initialProfile, nameFallback, onCancel, onSave
   const resumeInputRef = useRef<HTMLInputElement>(null);
   const [err, setErr] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [locating, setLocating] = useState(false);
 
   const existingPhotoUrl = resolveProfilePhotoUrl(
     initialProfile?.photo_url ?? user?.seeker_profile?.photo_url ?? undefined,
@@ -90,6 +95,39 @@ export function ProfileEditForm({ initialProfile, nameFallback, onCancel, onSave
       return;
     }
     setResumeFile(file);
+  };
+
+  const captureCurrentLocation = async () => {
+    setLocating(true);
+    try {
+      const geo = await requestUserLocation();
+      if (!geo.ok) {
+        const key =
+          geo.code === "denied"
+            ? "dashboard.profile.locationGps.denied"
+            : geo.code === "unsupported"
+              ? "dashboard.profile.locationGps.unsupported"
+              : "dashboard.profile.locationGps.failed";
+        toast.error(t(key));
+        return;
+      }
+      const parsed = await reverseGeocodeToAddress(geo.lat, geo.lng);
+      if (!parsed.ok) {
+        toast.error(t("dashboard.profile.locationGps.failed"));
+        return;
+      }
+      const { pincode, city, district, state, label } = parsed.address;
+      if (pincode) set("pincode", pincode);
+      if (state) set("state", state);
+      if (city) {
+        set("city", city);
+        set("district", district || city);
+      }
+      if (label) set("exactLocation", label);
+      toast.success(t("dashboard.profile.locationGps.captured"));
+    } finally {
+      setLocating(false);
+    }
   };
 
   const openExistingResume = async () => {
@@ -140,6 +178,7 @@ export function ProfileEditForm({ initialProfile, nameFallback, onCancel, onSave
         city: f.city.trim(),
         district: f.district.trim() || f.city.trim(),
         state: f.state.trim(),
+        exact_location: f.exactLocation.trim() || undefined,
       });
       localStorage.setItem("user", JSON.stringify(updated));
       if (resumeFile) await api.uploadSeekerResume(resumeFile);
@@ -214,6 +253,34 @@ export function ProfileEditForm({ initialProfile, nameFallback, onCancel, onSave
 
       <section className="rounded-xl border border-line bg-white p-5 shadow-sm sm:p-6">
         <h2 className="font-display text-lg font-bold text-ink">{t("dashboard.profile.sections.location")}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t("dashboard.profile.locationGps.hint")}</p>
+        <button
+          type="button"
+          onClick={captureCurrentLocation}
+          disabled={locating || saving}
+          className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-primary/25 bg-primary/5 py-2.5 text-sm font-semibold text-primary transition hover:bg-primary/10 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-5"
+        >
+          {locating ? (
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+          ) : (
+            <Navigation className="h-4 w-4" aria-hidden />
+          )}
+          {locating
+            ? t("dashboard.profile.locationGps.capturing")
+            : t("dashboard.profile.locationGps.useCurrent")}
+        </button>
+        <div className="mt-4">
+          <Field label={t("register.seeker.fields.exactLocation")}>
+            <textarea
+              value={f.exactLocation}
+              onChange={(e) => set("exactLocation", e.target.value)}
+              placeholder={t("register.seeker.fields.exactLocationPh")}
+              rows={2}
+              className={`${inputCls} min-h-[4.5rem] resize-y`}
+            />
+          </Field>
+          <p className="mt-1 text-xs text-muted-foreground">{t("register.seeker.fields.exactLocationHint")}</p>
+        </div>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <Field label={t("register.seeker.fields.pincode")} required>
             <input
