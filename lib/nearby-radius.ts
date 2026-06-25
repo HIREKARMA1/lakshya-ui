@@ -7,6 +7,13 @@ export const NEARBY_DEFAULT_RADIUS_KM: NearbyRadiusKm = 10;
 
 export const NEARBY_MAX_RADIUS_KM = 50;
 
+export const NEARBY_MIN_RADIUS_KM = 1;
+
+export function clampRadiusKm(value: number): number {
+  if (!Number.isFinite(value)) return NEARBY_DEFAULT_RADIUS_KM;
+  return Math.min(NEARBY_MAX_RADIUS_KM, Math.max(NEARBY_MIN_RADIUS_KM, Math.round(value)));
+}
+
 export function getNextRadiusKm(current: number): number | null {
   const idx = NEARBY_RADIUS_OPTIONS_KM.findIndex((r) => r > current);
   if (idx === -1) return null;

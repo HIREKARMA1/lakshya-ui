@@ -11,7 +11,6 @@ import {
   Radio,
   User,
   Users,
-  UserCheck,
 } from "lucide-react";
 
 export type DashboardNavId =
@@ -88,8 +87,7 @@ export const PROVIDER_DASHBOARD_NAV: ProviderDashboardNavItem[] = [
     id: "availableWorkers",
     href: "/provider-dashboard/available-workers",
     labelKey: "providerDashboard.nav.availableWorkers",
-    icon: UserCheck,
-    hidden: true,
+    icon: MapPin,
   },
   {
     id: "seekerFeed",

@@ -17,6 +17,7 @@ export interface SeekerProfile {
   experience?: string;
   preferred_role?: string;
   pincode?: string;
+  exact_location?: string;
   gender?: string;
   dob?: string;
   age?: string;
@@ -74,6 +75,7 @@ export interface SeekerProfileUpdatePayload {
   city?: string;
   district?: string;
   state?: string;
+  exact_location?: string;
 }
 
 export interface AuthUser {

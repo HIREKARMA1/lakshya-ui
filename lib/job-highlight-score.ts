@@ -161,23 +161,48 @@ export function scoreJobsForHighlight<T extends Job>(
     });
 }
 
-/** Pin colors for map markers by tier. */
+/** Pin colors for map markers by tier — compact Google Maps–style teardrop pins. */
 export const HIGHLIGHT_MARKER_COLORS: Record<
   JobHighlightTier,
-  { fill: string; stroke: string; scale: number }
+  { fill: string; stroke: string }
 > = {
-  top: { fill: "#f97316", stroke: "#c2410c", scale: 1.25 },
-  good: { fill: "#22c55e", stroke: "#15803d", scale: 1.1 },
-  normal: { fill: "#64748b", stroke: "#475569", scale: 0.95 },
+  top: { fill: "#ea580c", stroke: "#c2410c" },
+  good: { fill: "#16a34a", stroke: "#15803d" },
+  normal: { fill: "#64748b", stroke: "#475569" },
 };
 
-export function markerIconDataUrl(tier: JobHighlightTier): string {
-  const { fill, stroke, scale } = HIGHLIGHT_MARKER_COLORS[tier];
-  const w = 28 * scale;
-  const h = 36 * scale;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 28 36">
-    <path fill="${fill}" stroke="${stroke}" stroke-width="1.5" d="M14 0C6.3 0 0 6.3 0 14c0 10.5 14 22 14 22s14-11.5 14-22C28 6.3 21.7 0 14 0z"/>
-    <circle cx="14" cy="14" r="5" fill="white" opacity="0.9"/>
+const PIN_W = 22;
+const PIN_H = 32;
+
+function markerSvg(tier: JobHighlightTier, selected = false): string {
+  const { fill, stroke } = HIGHLIGHT_MARKER_COLORS[tier];
+  const scale = selected ? 1.1 : 1;
+  const w = Math.round(PIN_W * scale);
+  const h = Math.round(PIN_H * scale);
+  const ring = selected
+    ? `<circle cx="11" cy="10" r="6.5" fill="none" stroke="white" stroke-width="1.5" opacity="0.95"/>`
+    : "";
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 22 32">
+    <path fill="${fill}" stroke="${stroke}" stroke-width="0.6" d="M11 1C5.5 1 1 5.5 1 11c0 7.5 10 19.5 10 19.5s10-12 10-19.5C21 5.5 16.5 1 11 1z"/>
+    ${ring}
+    <circle cx="11" cy="10" r="3.25" fill="white"/>
+  </svg>`;
+}
+
+export function markerIconDataUrl(tier: JobHighlightTier, selected = false): string {
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(markerSvg(tier, selected))}`;
+}
+
+export function markerIconSize(tier: JobHighlightTier, selected = false): { w: number; h: number } {
+  const scale = selected ? 1.1 : 1;
+  return { w: Math.round(PIN_W * scale), h: Math.round(PIN_H * scale) };
+}
+
+/** Compact blue dot for the user's location (Google Maps style). */
+export function userLocationMarkerDataUrl(): string {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9" fill="rgba(66,133,244,0.18)"/>
+    <circle cx="12" cy="12" r="5.5" fill="#4285F4" stroke="white" stroke-width="2"/>
   </svg>`;
   return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 }
