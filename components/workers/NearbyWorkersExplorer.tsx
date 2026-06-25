@@ -40,6 +40,7 @@ import {
   getNextRadiusKm,
   getWiderRadiusOptions,
 } from "@/lib/nearby-radius";
+import type { GeoPoint } from "@/types/nearby-jobs";
 import type { AvailableWorker } from "@/types/worker-availability";
 import "@/lib/i18n";
 
@@ -798,7 +799,7 @@ function NearbyWorkersListBody({
         <WorkerNearbyList
           workers={workers}
           selectedWorkerId={selectedWorkerId}
-          onSelect={handleWorkerSelect}
+          onSelect={setSelectedWorkerId}
           onHover={setHoveredWorkerId}
         />
       )}

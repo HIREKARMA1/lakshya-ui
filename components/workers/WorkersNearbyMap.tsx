@@ -22,8 +22,8 @@ import {
   workerMarkerTier,
 } from "@/lib/worker-marker-icons";
 import { zoomForRadiusKm } from "@/lib/nearby-radius";
+import type { GeoPoint } from "@/types/nearby-jobs";
 import type { AvailableWorker } from "@/types/worker-availability";
-import type { GeoPoint } from "@/lib/google-maps-utils";
 
 type WorkersNearbyMapProps = {
   workers: AvailableWorker[];
