@@ -66,6 +66,35 @@ export async function reverseGeocode(
   lat: number,
   lng: number,
 ): Promise<{ ok: true; label: string } | { ok: false }> {
+  const parsed = await reverseGeocodeToAddress(lat, lng);
+  if (!parsed.ok) return { ok: false };
+  return { ok: true, label: parsed.address.label };
+}
+
+export type ParsedAddress = {
+  label: string;
+  pincode: string;
+  city: string;
+  district: string;
+  state: string;
+};
+
+type GeocodeComponent = { long_name?: string; short_name?: string; types?: string[] };
+
+function componentValue(components: GeocodeComponent[], ...types: string[]): string {
+  for (const type of types) {
+    const hit = components.find((c) => c.types?.includes(type));
+    const value = hit?.long_name?.trim();
+    if (value) return value;
+  }
+  return "";
+}
+
+/** Reverse geocode GPS coordinates into Indian address fields for profile forms. */
+export async function reverseGeocodeToAddress(
+  lat: number,
+  lng: number,
+): Promise<{ ok: true; address: ParsedAddress } | { ok: false }> {
   const apiKey = config.google.mapsApiKey;
   if (!apiKey) return { ok: false };
 
@@ -74,19 +103,55 @@ export async function reverseGeocode(
       latlng: `${lat},${lng}`,
       key: apiKey,
       language: "en",
+      result_type: "street_address|route|sublocality|locality|postal_code",
     });
     const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?${params}`);
     if (!res.ok) return { ok: false };
     const data = (await res.json()) as {
       status?: string;
-      results?: { formatted_address?: string }[];
+      results?: {
+        formatted_address?: string;
+        address_components?: GeocodeComponent[];
+      }[];
     };
-    const label = data.results?.[0]?.formatted_address?.trim();
-    if (data.status === "OK" && label) return { ok: true, label };
+    const result = data.results?.[0];
+    if (data.status !== "OK" || !result) return { ok: false };
+
+    const components = result.address_components ?? [];
+    const pincode = componentValue(components, "postal_code").replace(/\D/g, "").slice(0, 6);
+    const state = componentValue(components, "administrative_area_level_1");
+    let district = componentValue(
+      components,
+      "administrative_area_level_2",
+      "administrative_area_level_3",
+    );
+    let city = componentValue(
+      components,
+      "locality",
+      "sublocality_level_1",
+      "sublocality",
+      "neighborhood",
+      "postal_town",
+    );
+    if (!city) city = district;
+    if (!district) district = city;
+
+    const label = result.formatted_address?.trim() || [city, district, state, pincode].filter(Boolean).join(", ");
+    if (!label && !pincode && !city && !state) return { ok: false };
+
+    return {
+      ok: true,
+      address: {
+        label,
+        pincode,
+        city,
+        district,
+        state,
+      },
+    };
   } catch {
-    /* ignore */
+    return { ok: false };
   }
-  return { ok: false };
 }
 
 export function requestUserLocation(timeoutMs = 12_000): Promise<GeolocationResult> {
