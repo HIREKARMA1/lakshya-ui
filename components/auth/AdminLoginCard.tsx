@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Lock, Mail } from "lucide-react";
@@ -15,7 +14,6 @@ import "@/lib/i18n";
 
 export function AdminLoginCard() {
   const { t } = useTranslation();
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,7 +24,7 @@ export function AdminLoginCard() {
     try {
       await api.adminLogin({ email, password });
       toast.success(t("toast.signedIn"));
-      router.push("/admin-dashboard");
+      window.location.assign("/admin-dashboard");
     } catch (err: unknown) {
       const msg =
         err && typeof err === "object" && "response" in err
